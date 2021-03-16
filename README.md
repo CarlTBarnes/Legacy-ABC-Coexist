@@ -14,6 +14,6 @@ The School Example from CW 2.0 was used to create the Legacy Frame EXE and split
   So all procedures exist in both Legacy and ABC forms. The Frame has an ABC menu.
    ABC browse windows use a larger Segoe font, and the caption says "ABC", so are obvious.
 
-![diagram](images\readme1.png)
+![diagram](images/readme1.png)
 
-![cap](images\readme2.png)
+![cap](images/readme2.png)
