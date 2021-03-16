@@ -1,0 +1,55 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{45403891-ECC4-49DD-B44B-157CD01C8483}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>BothSchool</RootNamespace>
+    <AssemblyName>BothSchool</AssemblyName>
+    <OutputName>BothSchool</OutputName>
+    <CWOutputType>Exe</CWOutputType>
+    <DefineConstants>
+    </DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BothSchool.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="BothSchool001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="BothSchool002.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="BothS_RD.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="BothS_RU.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="BothS_SF.CLW">
+      <Generated>true</Generated>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="AbcInitDLL.lib" />
+    <Library Include="DataLegacy.lib" />
+    <Library Include="ProcABC.lib" />
+    <Library Include="ProcLegacy.lib" />
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+</Project>

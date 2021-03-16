@@ -15,6 +15,15 @@
 *.sln text
 *.trn text
 
+*.CLW text
+*.EQU text
+*.INC text
+*.INT text
+*.CWPROJ text
+*.RED text
+*.SLN text
+*.TRN text
+
 # Declare files that will always have CRLF line endings on checkout.
 *.sln text eol=crlf
 
