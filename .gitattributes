@@ -47,6 +47,7 @@
 *.docx binary
 *.pdf binary
 *.tps binary
+*.TPS binary
 
 # Declare languuage association
 *.clw linguist-language=Clarion
