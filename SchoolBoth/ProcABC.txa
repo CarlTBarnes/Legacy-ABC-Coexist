@@ -726,7 +726,6 @@ WHEN  ('ProcABC004.clw') ('1')
 #set RELEASE = on
 #pragma define(_ABCDllMode_=>1) -- GENERATED
 #pragma define(_ABCLinkMode_=>0) -- GENERATED
-#pragma debug(vid=>full)
 #compile "ProcABC.clw" -- GENERATED
 #compile "ProcABC001.clw" -- GENERATED
 #compile "ProcABC002.clw" -- GENERATED
@@ -735,7 +734,7 @@ WHEN  ('ProcABC004.clw') ('1')
 [PROGRAM]
 [COMMON]
 FROM ABC ABC
-MODIFIED '2021/03/15' '21:20:21'
+MODIFIED '2021/03/17' ' 7:48:30'
 [DATA]
 [SCREENCONTROLS]
 ! PROMPT('Image File Name:'),USE(?GLO:FileName:Prompt)
@@ -787,6 +786,13 @@ PROPERTY:BEGIN
 PRIORITY 4000
 PROPERTY:END
   INCLUDE('prnprop.clw'),ONCE
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+    Include('CbWndPreview.inc'),ONCE
+
+Glo:WndPrvCls  CbWndPreviewClass
 [END]
 EMBED %AfterGlobalDataUser
 [DEFINITION]
@@ -1742,7 +1748,7 @@ NAME AbcBrowseClasses
 DESCRIPTION 'Browse the Classes File<01FH,01FH>'
 FROM ABC Window
 CATEGORY 'Browse<01FH>'
-MODIFIED '2021/03/15' '22:47:32'
+MODIFIED '2021/03/17' ' 7:55:28'
 [DATA]
 [SCREENCONTROLS]
 ! PROMPT('CurrentTab:'),USE(?CurrentTab:Prompt)
@@ -1821,8 +1827,7 @@ Courses Classes
 Courses
 Teachers
 [PROMPTS]
-%ButtonAction DEPEND %Control DEFAULT TIMES 7
-WHEN  ('') ('No Special Action')
+%ButtonAction DEPEND %Control DEFAULT TIMES 6
 WHEN  ('?Browse:1') ('No Special Action')
 WHEN  ('?Change:2') ('No Special Action')
 WHEN  ('?Close') ('No Special Action')
@@ -1862,8 +1867,7 @@ WHEN  ('?Delete:2') (0)
 WHEN  ('?Help') (0)
 WHEN  ('?Insert:2') (0)
 
-%ButtonThreadStack DEPEND %Control DEFAULT TIMES 7
-WHEN  ('') ('25000')
+%ButtonThreadStack DEPEND %Control DEFAULT TIMES 6
 WHEN  ('?Browse:1') ('25000')
 WHEN  ('?Change:2') ('25000')
 WHEN  ('?Close') ('25000')
@@ -1879,8 +1883,7 @@ WHEN  ('?Delete:2') ('')
 WHEN  ('?Help') ('')
 WHEN  ('?Insert:2') ('')
 
-%ButtonRequest DEPEND %Control DEFAULT TIMES 7
-WHEN  ('') ('None')
+%ButtonRequest DEPEND %Control DEFAULT TIMES 6
 WHEN  ('?Browse:1') ('None')
 WHEN  ('?Change:2') ('None')
 WHEN  ('?Close') ('None')
@@ -1933,8 +1936,7 @@ WHEN  ('?Insert:2') (0)
 %ReturnValue FIELD  ()
 %WindowOperationMode DEFAULT  ('Use WINDOW setting')
 %INISaveWindow LONG  (0)
-%PostLookupDuringValidate DEPEND %Control LONG TIMES 6
-WHEN  ('') (1)
+%PostLookupDuringValidate DEPEND %Control LONG TIMES 5
 WHEN  ('?Browse:1') (1)
 WHEN  ('?Change:2') (1)
 WHEN  ('?Delete:2') (1)
@@ -1963,8 +1965,7 @@ WHEN  ('?Change:2')TIMES 0
 WHEN  ('?Delete:2')TIMES 0
 WHEN  ('?Insert:2')TIMES 0
 
-%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 6
-WHEN  ('')TIMES 0
+%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 5
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Change:2')TIMES 0
 WHEN  ('?Delete:2')TIMES 0
@@ -1993,8 +1994,7 @@ WHEN  ('?Change:2')TIMES 0
 WHEN  ('?Delete:2')TIMES 0
 WHEN  ('?Insert:2')TIMES 0
 
-%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 6
-WHEN  ('')TIMES 0
+%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 5
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Change:2')TIMES 0
 WHEN  ('?Delete:2')TIMES 0
@@ -2098,16 +2098,14 @@ WHEN  ('WindowToolbar')TIMES 0
 
 %CheckedControl1 DEPEND %CheckedEnables DEFAULT TIMES 0
 
-%CheckedControl1Action DEPEND %CheckedEnables DEFAULT TIMES 2
-WHEN  ('')TIMES 0
+%CheckedControl1Action DEPEND %CheckedEnables DEFAULT TIMES 1
 WHEN  ('?Help')TIMES 0
 
 %UnCheckedEnables DEPEND %Control MULTI LONG TIMES 0
 
 %UnCheckedControl1 DEPEND %UnCheckedEnables DEFAULT TIMES 0
 
-%UnCheckedControl1Action DEPEND %UnCheckedEnables DEFAULT TIMES 2
-WHEN  ('')TIMES 0
+%UnCheckedControl1Action DEPEND %UnCheckedEnables DEFAULT TIMES 1
 WHEN  ('?Help')TIMES 0
 
 %ProcedureDisableEnhanceFocus LONG  (0)
@@ -2229,63 +2227,50 @@ WHEN  ('WindowToolbar') ('NO')
 
 %ExtUITabStyleOverrideGlobal DEPEND %Control LONG TIMES 0
 
-%ExtUITabStyle DEPEND %Control DEFAULT TIMES 2
-WHEN  ('') ('Default')
+%ExtUITabStyle DEPEND %Control DEFAULT TIMES 1
 WHEN  ('?CurrentTab') ('Default')
 
 %CheckedDisables DEPEND %Control MULTI LONG TIMES 0
 
 %CheckedDisableControl DEPEND %CheckedDisables DEFAULT TIMES 0
 
-%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 1
-WHEN  ('')TIMES 0
+%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 0
 
 %UnCheckedDisables DEPEND %Control MULTI LONG TIMES 0
 
 %UnCheckedDisableControl DEPEND %UnCheckedDisables DEFAULT TIMES 0
 
-%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 1
-WHEN  ('')TIMES 0
+%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 0
 
 %ProcedureOneInstance LONG  (0)
 %PreserveVarsLoc MULTI LONG  ()
 %PreserveVarLoc DEPEND %PreserveVarsLoc DEFAULT TIMES 0
 
-%FieldGradientColorType DEPEND %Control DEFAULT TIMES 1
-WHEN  ('') ('Off')
+%FieldGradientColorType DEPEND %Control DEFAULT TIMES 0
 
-%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 1
-WHEN  ('') ('')
+%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 0
 
-%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 0
 
-%FieldGradientColorFrom DEPEND %Control LONG TIMES 1
-WHEN  ('') (-1)
+%FieldGradientColorFrom DEPEND %Control LONG TIMES 0
 
 %FieldGradientColorFromVariable DEPEND %Control DEFAULT TIMES 0
 
-%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 0
 
-%FieldGradientColorTo DEPEND %Control LONG TIMES 1
-WHEN  ('') (-1)
+%FieldGradientColorTo DEPEND %Control LONG TIMES 0
 
 %FieldGradientColorToVariable DEPEND %Control DEFAULT TIMES 0
 
-%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 0
 
 %ActiveImageEnable DEPEND %Control LONG TIMES 0
 
-%AIObjectName DEPEND %Control DEFAULT TIMES 1
-WHEN  ('') ('AIBtn0')
+%AIObjectName DEPEND %Control DEFAULT TIMES 0
 
-%AIEnableMimicControl DEPEND %Control LONG TIMES 1
-WHEN  ('') (1)
+%AIEnableMimicControl DEPEND %Control LONG TIMES 0
 
-%AIMimicControl DEPEND %Control DEFAULT TIMES 1
-WHEN  ('') ('?Browse:1')
+%AIMimicControl DEPEND %Control DEFAULT TIMES 0
 
 %AIImgRound DEPEND %Control LONG TIMES 0
 
@@ -2293,30 +2278,42 @@ WHEN  ('') ('?Browse:1')
 
 %AIOverrideImgVariable DEPEND %Control DEFAULT TIMES 0
 
-%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 0
 
 %AIDisableImg DEPEND %Control DEFAULT TIMES 0
 
 %AIDisableImgVariable DEPEND %Control DEFAULT TIMES 0
 
-%AIDisableImgIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%AIDisableImgIsVariable DEPEND %Control LONG TIMES 0
 
 %AIHotImg DEPEND %Control DEFAULT TIMES 0
 
 %AIHotImgVariable DEPEND %Control DEFAULT TIMES 0
 
-%AIHotImgIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%AIHotImgIsVariable DEPEND %Control LONG TIMES 0
 
 %AIPressedImg DEPEND %Control DEFAULT TIMES 0
 
 %AIPressedImgVariable DEPEND %Control DEFAULT TIMES 0
 
-%AIPressedImgIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%AIPressedImgIsVariable DEPEND %Control LONG TIMES 0
 
+[EMBED]
+EMBED %WindowManagerMethodCodeSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8005
+PROPERTY:END
+ListPropFromQ(?Browse:1,Queue:Browse:1,'Queue:Browse:1')
+[END]
+[END]
+[END]
+[END]
 [ADDITION]
 NAME ABC BrowseBox
 [INSTANCE]
@@ -2434,9 +2431,7 @@ WHEN  (1)TIMES 0
 
 %HotFieldBound DEPEND %HotFields LONG TIMES 0
 
-%ControlFieldForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%ControlFieldForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 6
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2446,9 +2441,7 @@ WHEN  ('TEA:LastName') (-1)
 WHEN  ('Tea:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%ControlFieldBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%ControlFieldBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 6
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2458,9 +2451,7 @@ WHEN  ('TEA:LastName') (-1)
 WHEN  ('Tea:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%ControlFieldForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%ControlFieldForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 6
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2470,9 +2461,7 @@ WHEN  ('TEA:LastName') (-1)
 WHEN  ('Tea:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%ControlFieldBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%ControlFieldBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 6
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2493,27 +2482,19 @@ WHEN  ('Tea:LastName') ()
 %ColorCondition DEPEND %ConditionalColors DEFAULT TIMES 1
 WHEN  ('?Browse:1')TIMES 0
 
-%ConditionalControlFieldForegroundNormal DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldForegroundNormal DEPEND %ConditionalColors LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
-%ConditionalControlFieldBackgroundNormal DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldBackgroundNormal DEPEND %ConditionalColors LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
-%ConditionalControlFieldForegroundSelected DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldForegroundSelected DEPEND %ConditionalColors LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
-%ConditionalControlFieldBackgroundSelected DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldBackgroundSelected DEPEND %ConditionalColors LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
@@ -2761,9 +2742,7 @@ WHEN  (2) ('Manual')
 WHEN  (2)TIMES 0
 
 %UseSameColorForAll LONG  (0)
-%ControlGreenBarColor DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%ControlGreenBarColor DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -2772,9 +2751,7 @@ WHEN  ('COU:Description') (0)
 WHEN  ('TEA:LastName') (0)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOnForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2783,9 +2760,7 @@ WHEN  ('COU:Description') (-1)
 WHEN  ('TEA:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOnBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2794,9 +2769,7 @@ WHEN  ('COU:Description') (-1)
 WHEN  ('TEA:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOnForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2805,9 +2778,7 @@ WHEN  ('COU:Description') (-1)
 WHEN  ('TEA:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOnBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2816,9 +2787,7 @@ WHEN  ('COU:Description') (-1)
 WHEN  ('TEA:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOffForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOffForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2827,9 +2796,7 @@ WHEN  ('COU:Description') (-1)
 WHEN  ('TEA:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOffBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOffBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2838,9 +2805,7 @@ WHEN  ('COU:Description') (-1)
 WHEN  ('TEA:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOffForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOffForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2849,9 +2814,7 @@ WHEN  ('COU:Description') (-1)
 WHEN  ('TEA:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOffBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOffBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -2890,9 +2853,7 @@ WHEN  ('?Help')TIMES 0
 %ConditionalControlFieldIconIsNumber DEPEND %ConditionalIcons LONG TIMES 0
 
 %UseSameStyleForAll LONG  (0)
-%ControlGreenBarStyle DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%ControlGreenBarStyle DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -2901,9 +2862,7 @@ WHEN  ('COU:Description') (0)
 WHEN  ('TEA:LastName') (0)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+%GreenBarOnStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Local List')
 WHEN  ('CLA:RoomNumber') ('Local List')
@@ -2912,9 +2871,7 @@ WHEN  ('COU:Description') ('Local List')
 WHEN  ('TEA:LastName') ('Local List')
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+%GreenBarOnStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('')
 WHEN  ('CLA:RoomNumber') ('')
@@ -2925,9 +2882,7 @@ WHEN  ('?Help')TIMES 0
 
 %GreenBarOnStyle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%GreenBarOffStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+%GreenBarOffStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Local List')
 WHEN  ('CLA:RoomNumber') ('Local List')
@@ -2936,9 +2891,7 @@ WHEN  ('COU:Description') ('Local List')
 WHEN  ('TEA:LastName') ('Local List')
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOffStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+%GreenBarOffStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('')
 WHEN  ('CLA:RoomNumber') ('')
@@ -2949,9 +2902,7 @@ WHEN  ('?Help')TIMES 0
 
 %GreenBarOffStyle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%ControlFieldStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+%ControlFieldStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Local List')
 WHEN  ('CLA:RoomNumber') ('Local List')
@@ -2960,9 +2911,7 @@ WHEN  ('COU:Description') ('Local List')
 WHEN  ('TEA:LastName') ('Local List')
 WHEN  ('?Help')TIMES 0
 
-%ControlFieldStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+%ControlFieldStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('')
 WHEN  ('CLA:RoomNumber') ('')
@@ -2977,14 +2926,10 @@ WHEN  ('?Help')TIMES 0
 
 %StyleCondition DEPEND %ConditionalStyles DEFAULT TIMES 0
 
-%ConditionalControlFieldStyleType DEPEND %ConditionalStyles DEFAULT TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldStyleType DEPEND %ConditionalStyles DEFAULT TIMES 1
 WHEN  ('?Help')TIMES 0
 
-%ConditionalControlFieldStyleLocalList DEPEND %ConditionalStyles DEFAULT TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldStyleLocalList DEPEND %ConditionalStyles DEFAULT TIMES 1
 WHEN  ('?Help')TIMES 0
 
 %ConditionalControlFieldStyle DEPEND %ConditionalStyles DEFAULT TIMES 0
@@ -3061,9 +3006,7 @@ WHEN  ('?Help')TIMES 0
 %BrowseBoxDoNotIncludePrimaryKey LONG  (0)
 %DisableUsePopup LONG  (0)
 %ControlFieldSortHeaderSave LONG  (0)
-%ControlFieldSortHeaderOverride DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%ControlFieldSortHeaderOverride DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3071,9 +3014,7 @@ WHEN  ('CLA:ScheduledTime') (0)
 WHEN  ('COU:Description') (0)
 WHEN  ('TEA:LastName') (0)
 
-%ControlFieldSortHeaderDisableColumn DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%ControlFieldSortHeaderDisableColumn DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3085,19 +3026,13 @@ WHEN  ('TEA:LastName') (0)
 
 %ControlFieldSortHeaderField DEPEND %ControlFieldSortHeaderFields FIELD TIMES 0
 
-%ControlFieldSortHeaderFieldOrder DEPEND %ControlFieldSortHeaderFields DEFAULT TIMES 1
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ControlFieldSortHeaderFieldOrder DEPEND %ControlFieldSortHeaderFields DEFAULT TIMES 0
 
-%ControlFieldSortHeaderFieldCase DEPEND %ControlFieldSortHeaderFields LONG TIMES 1
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ControlFieldSortHeaderFieldCase DEPEND %ControlFieldSortHeaderFields LONG TIMES 0
 
 %ListFormatManagerMenuAppendSortOrder LONG  (1)
 %ControlFieldSortHeaderMulti LONG  (1)
-%ControlFieldSortHeaderOnlyAsc DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%ControlFieldSortHeaderOnlyAsc DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3237,9 +3172,7 @@ WHEN  ('EIP_COU:Description') ('NO')
 
 %PrimedValue DEPEND %PrimingFields DEFAULT TIMES 0
 
-%AllowEIPExt DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (1)
+%AllowEIPExt DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (1)
 WHEN  ('CLA:RoomNumber') (1)
@@ -3248,9 +3181,7 @@ WHEN  ('COU:Description') (1)
 WHEN  ('TEA:LastName') (1)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceTypeExt DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Entry')
+%EditInPlaceTypeExt DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Entry')
 WHEN  ('CLA:RoomNumber') ('Entry')
@@ -3261,9 +3192,7 @@ WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQTitle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+%EditInPlaceFEQJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Default')
 WHEN  ('CLA:RoomNumber') ('Default')
@@ -3272,9 +3201,7 @@ WHEN  ('COU:Description') ('Default')
 WHEN  ('TEA:LastName') ('Default')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQOffset DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQOffset DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('0')
 WHEN  ('CLA:RoomNumber') ('0')
@@ -3283,9 +3210,7 @@ WHEN  ('COU:Description') ('0')
 WHEN  ('TEA:LastName') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQTransparent DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQTransparent DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3294,9 +3219,7 @@ WHEN  ('COU:Description') (0)
 WHEN  ('TEA:LastName') (0)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQReadOnly DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQReadOnly DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3305,9 +3228,7 @@ WHEN  ('COU:Description') (0)
 WHEN  ('TEA:LastName') (0)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQRequired DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQRequired DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3316,9 +3237,7 @@ WHEN  ('COU:Description') (0)
 WHEN  ('TEA:LastName') (0)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQDataSource DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Fixed')
+%EditInPlaceFEQDataSource DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Fixed')
 WHEN  ('CLA:RoomNumber') ('Fixed')
@@ -3331,9 +3250,7 @@ WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQFixedDataSourceValue DEPEND %EditInPlaceFEQFixedDataSource DEFAULT TIMES 0
 
-%EditInPlaceFEQFixedDataSourceSelected DEPEND %EditInPlaceFEQFixedDataSource LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%EditInPlaceFEQFixedDataSourceSelected DEPEND %EditInPlaceFEQFixedDataSource LONG TIMES 1
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQQueueDataSourceQN DEPEND %Control DEPEND %ControlField FIELD TIMES 0
@@ -3344,9 +3261,7 @@ WHEN  ('?Help')TIMES 0
 
 %ReturnToOriginalDir DEPEND %Control DEPEND %ControlField LONG TIMES 0
 
-%AllowLongFilenames DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (1)
+%AllowLongFilenames DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (1)
 WHEN  ('CLA:RoomNumber') (1)
@@ -3355,9 +3270,7 @@ WHEN  ('COU:Description') (1)
 WHEN  ('TEA:LastName') (1)
 WHEN  ('?Help')TIMES 0
 
-%DOSFileDialogType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Open')
+%DOSFileDialogType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Open')
 WHEN  ('CLA:RoomNumber') ('Open')
@@ -3366,9 +3279,7 @@ WHEN  ('COU:Description') ('Open')
 WHEN  ('TEA:LastName') ('Open')
 WHEN  ('?Help')TIMES 0
 
-%AllowNoError DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%AllowNoError DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3379,9 +3290,7 @@ WHEN  ('?Help')TIMES 0
 
 %AllowMultiSelect DEPEND %Control DEPEND %ControlField LONG TIMES 0
 
-%DOSMaskDesc DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('All Files')
+%DOSMaskDesc DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('All Files')
 WHEN  ('CLA:RoomNumber') ('All Files')
@@ -3390,9 +3299,7 @@ WHEN  ('COU:Description') ('All Files')
 WHEN  ('TEA:LastName') ('All Files')
 WHEN  ('?Help')TIMES 0
 
-%DOSMask DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('*.*')
+%DOSMask DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('*.*')
 WHEN  ('CLA:RoomNumber') ('*.*')
@@ -3407,9 +3314,7 @@ WHEN  ('?Help')TIMES 0
 
 %DOSMoreMask DEPEND %DOSMoreMasks DEFAULT TIMES 0
 
-%EditInPlaceFEQForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%EditInPlaceFEQForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -3418,9 +3323,7 @@ WHEN  ('COU:Description') (-1)
 WHEN  ('TEA:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%EditInPlaceFEQBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -3429,9 +3332,7 @@ WHEN  ('COU:Description') (-1)
 WHEN  ('TEA:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%EditInPlaceFEQForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -3440,9 +3341,7 @@ WHEN  ('COU:Description') (-1)
 WHEN  ('TEA:LastName') (-1)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%EditInPlaceFEQBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (-1)
 WHEN  ('CLA:RoomNumber') (-1)
@@ -3457,9 +3356,7 @@ WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQPicture DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQDrop DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQDrop DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('0')
 WHEN  ('CLA:RoomNumber') ('0')
@@ -3468,9 +3365,7 @@ WHEN  ('COU:Description') ('0')
 WHEN  ('TEA:LastName') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQWidth DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQWidth DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('0')
 WHEN  ('CLA:RoomNumber') ('0')
@@ -3479,9 +3374,7 @@ WHEN  ('COU:Description') ('0')
 WHEN  ('TEA:LastName') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQFlat DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQFlat DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3490,9 +3383,7 @@ WHEN  ('COU:Description') (0)
 WHEN  ('TEA:LastName') (0)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQHorizontal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQHorizontal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3501,9 +3392,7 @@ WHEN  ('COU:Description') (0)
 WHEN  ('TEA:LastName') (0)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQVertical DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQVertical DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3514,9 +3403,7 @@ WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQFixedDataSourceText DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQCheckJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+%EditInPlaceFEQCheckJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Default')
 WHEN  ('CLA:RoomNumber') ('Default')
@@ -3529,9 +3416,7 @@ WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQFalse DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQCase DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+%EditInPlaceFEQCase DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Default')
 WHEN  ('CLA:RoomNumber') ('Default')
@@ -3540,9 +3425,7 @@ WHEN  ('COU:Description') ('Default')
 WHEN  ('TEA:LastName') ('Default')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQEntryMode DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+%EditInPlaceFEQEntryMode DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Default')
 WHEN  ('CLA:RoomNumber') ('Default')
@@ -3551,9 +3434,7 @@ WHEN  ('COU:Description') ('Default')
 WHEN  ('TEA:LastName') ('Default')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQLower DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQLower DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('0')
 WHEN  ('CLA:RoomNumber') ('0')
@@ -3562,9 +3443,7 @@ WHEN  ('COU:Description') ('0')
 WHEN  ('TEA:LastName') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQUpper DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQUpper DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('0')
 WHEN  ('CLA:RoomNumber') ('0')
@@ -3573,9 +3452,7 @@ WHEN  ('COU:Description') ('0')
 WHEN  ('TEA:LastName') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQStep DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQStep DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('0')
 WHEN  ('CLA:RoomNumber') ('0')
@@ -3584,9 +3461,7 @@ WHEN  ('COU:Description') ('0')
 WHEN  ('TEA:LastName') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQPassword DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQPassword DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3595,9 +3470,7 @@ WHEN  ('COU:Description') (0)
 WHEN  ('TEA:LastName') (0)
 WHEN  ('?Help')TIMES 0
 
-%LookupType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Related Field')
+%LookupType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') ('Related Field')
 WHEN  ('CLA:RoomNumber') ('Related Field')
@@ -3627,9 +3500,7 @@ WHEN  ('?Help')TIMES 0
 %EIPThisObjectName DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %UpdateProcedureParameters DEFAULT  ('')
-%EditInPlaceFEQAutoSerializeField DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQAutoSerializeField DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3639,9 +3510,7 @@ WHEN  ('TEA:LastName') (0)
 
 %EditInPlaceFEQAutoSerializeFieldDelimiter DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQImmediate DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQImmediate DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -3651,9 +3520,7 @@ WHEN  ('TEA:LastName') (0)
 
 %EditInPlaceFEQColumnFrom DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQEntryCompletion DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQEntryCompletion DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 5
 WHEN  ('CLA:ClassNumber') (0)
 WHEN  ('CLA:RoomNumber') (0)
@@ -7803,7 +7670,7 @@ NAME AbcBrowseMajors
 DESCRIPTION 'Browse the Majors File'
 FROM ABC Window
 CATEGORY 'Browse'
-MODIFIED '2021/03/15' '23:01:14'
+MODIFIED '2021/03/17' ' 7:55:48'
 [DATA]
 [SCREENCONTROLS]
 ! PROMPT('CurrentTab:'),USE(?CurrentTab:Prompt)
@@ -8374,6 +8241,22 @@ WHEN  ('') (0)
 %AIPressedImgIsVariable DEPEND %Control LONG TIMES 1
 WHEN  ('') (0)
 
+[EMBED]
+EMBED %WindowManagerMethodCodeSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8005
+PROPERTY:END
+ListPropFromQ(?Browse:1,Queue:Browse:1,'Queue:Browse:1')
+[END]
+[END]
+[END]
+[END]
 [ADDITION]
 NAME ABC BrowseBox
 [INSTANCE]
@@ -8471,29 +8354,25 @@ WHEN  (1)TIMES 0
 %HotFieldBound DEPEND %HotFields LONG TIMES 0
 
 %ControlFieldForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %ControlFieldBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %ControlFieldForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %ControlFieldBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
@@ -8506,25 +8385,21 @@ WHEN  ('MAJ:Description') ()
 WHEN  ('?Browse:1')TIMES 0
 
 %ConditionalControlFieldForegroundNormal DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
 %ConditionalControlFieldBackgroundNormal DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
 %ConditionalControlFieldForegroundSelected DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
 %ConditionalControlFieldBackgroundSelected DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
@@ -8749,64 +8624,55 @@ WHEN  (1)TIMES 0
 
 %UseSameColorForAll LONG  (0)
 %ControlGreenBarColor DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOffForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOffBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOffForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOffBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
@@ -8842,22 +8708,19 @@ WHEN  ('?Help')TIMES 0
 
 %UseSameStyleForAll LONG  (0)
 %ControlGreenBarStyle DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Local List')
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('')
 WHEN  ('?Help')TIMES 0
@@ -8865,15 +8728,13 @@ WHEN  ('?Help')TIMES 0
 %GreenBarOnStyle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %GreenBarOffStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Local List')
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOffStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('')
 WHEN  ('?Help')TIMES 0
@@ -8881,15 +8742,13 @@ WHEN  ('?Help')TIMES 0
 %GreenBarOffStyle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %ControlFieldStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Local List')
 WHEN  ('?Help')TIMES 0
 
 %ControlFieldStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('')
 WHEN  ('?Help')TIMES 0
@@ -8901,12 +8760,10 @@ WHEN  ('?Help')TIMES 0
 %StyleCondition DEPEND %ConditionalStyles DEFAULT TIMES 0
 
 %ConditionalControlFieldStyleType DEPEND %ConditionalStyles DEFAULT TIMES 2
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Help')TIMES 0
 
 %ConditionalControlFieldStyleLocalList DEPEND %ConditionalStyles DEFAULT TIMES 2
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Help')TIMES 0
 
@@ -8985,14 +8842,12 @@ WHEN  ('?Help')TIMES 0
 %DisableUsePopup LONG  (0)
 %ControlFieldSortHeaderSave LONG  (0)
 %ControlFieldSortHeaderOverride DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 
 %ControlFieldSortHeaderDisableColumn DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 
@@ -9001,18 +8856,15 @@ WHEN  ('MAJ:Description') (0)
 %ControlFieldSortHeaderField DEPEND %ControlFieldSortHeaderFields FIELD TIMES 0
 
 %ControlFieldSortHeaderFieldOrder DEPEND %ControlFieldSortHeaderFields DEFAULT TIMES 1
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 
 %ControlFieldSortHeaderFieldCase DEPEND %ControlFieldSortHeaderFields LONG TIMES 1
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 
 %ListFormatManagerMenuAppendSortOrder LONG  (1)
 %ControlFieldSortHeaderMulti LONG  (1)
 %ControlFieldSortHeaderOnlyAsc DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 
@@ -9139,15 +8991,13 @@ WHEN  ('BrowseEIPManager') ('NO')
 %PrimedValue DEPEND %PrimingFields DEFAULT TIMES 0
 
 %AllowEIPExt DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (1)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceTypeExt DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Entry')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Entry')
 WHEN  ('?Help')TIMES 0
@@ -9155,43 +9005,37 @@ WHEN  ('?Help')TIMES 0
 %EditInPlaceFEQTitle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Default')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQOffset DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQTransparent DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQReadOnly DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQRequired DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQDataSource DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Fixed')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Fixed')
 WHEN  ('?Help')TIMES 0
@@ -9201,7 +9045,6 @@ WHEN  ('?Help')TIMES 0
 %EditInPlaceFEQFixedDataSourceValue DEPEND %EditInPlaceFEQFixedDataSource DEFAULT TIMES 0
 
 %EditInPlaceFEQFixedDataSourceSelected DEPEND %EditInPlaceFEQFixedDataSource LONG TIMES 2
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Help')TIMES 0
 
@@ -9214,22 +9057,19 @@ WHEN  ('?Help')TIMES 0
 %ReturnToOriginalDir DEPEND %Control DEPEND %ControlField LONG TIMES 0
 
 %AllowLongFilenames DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (1)
 WHEN  ('?Help')TIMES 0
 
 %DOSFileDialogType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Open')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Open')
 WHEN  ('?Help')TIMES 0
 
 %AllowNoError DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 WHEN  ('?Help')TIMES 0
@@ -9237,15 +9077,13 @@ WHEN  ('?Help')TIMES 0
 %AllowMultiSelect DEPEND %Control DEPEND %ControlField LONG TIMES 0
 
 %DOSMaskDesc DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('All Files')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('All Files')
 WHEN  ('?Help')TIMES 0
 
 %DOSMask DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('*.*')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('*.*')
 WHEN  ('?Help')TIMES 0
@@ -9257,29 +9095,25 @@ WHEN  ('?Help')TIMES 0
 %DOSMoreMask DEPEND %DOSMoreMasks DEFAULT TIMES 0
 
 %EditInPlaceFEQForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('?Help')TIMES 0
@@ -9291,36 +9125,31 @@ WHEN  ('?Help')TIMES 0
 %EditInPlaceFEQPicture DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQDrop DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQWidth DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQFlat DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQHorizontal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQVertical DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 WHEN  ('?Help')TIMES 0
@@ -9328,8 +9157,7 @@ WHEN  ('?Help')TIMES 0
 %EditInPlaceFEQFixedDataSourceText DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQCheckJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Default')
 WHEN  ('?Help')TIMES 0
@@ -9339,50 +9167,43 @@ WHEN  ('?Help')TIMES 0
 %EditInPlaceFEQFalse DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQCase DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Default')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQEntryMode DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Default')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQLower DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQUpper DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQStep DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQPassword DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 WHEN  ('?Help')TIMES 0
 
 %LookupType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Related Field')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') ('Related Field')
 WHEN  ('?Help')TIMES 0
@@ -9409,24 +9230,21 @@ WHEN  ('?Help')TIMES 0
 
 %UpdateProcedureParameters DEFAULT  ('')
 %EditInPlaceFEQAutoSerializeField DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 
 %EditInPlaceFEQAutoSerializeFieldDelimiter DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQImmediate DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 
 %EditInPlaceFEQColumnFrom DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQEntryCompletion DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 1
 WHEN  ('MAJ:Description') (0)
 
@@ -9597,7 +9415,7 @@ NAME AbcBrowseStudents
 DESCRIPTION 'Browse the Students File'
 FROM ABC Window
 CATEGORY 'Browse'
-MODIFIED '2021/03/15' '22:47:52'
+MODIFIED '2021/03/17' '10:11:14'
 [DATA]
 [SCREENCONTROLS]
 ! PROMPT('CurrentTab:'),USE(?CurrentTab:Prompt)
@@ -9694,13 +9512,13 @@ STU:MajorKey
 Majors Students
 [PROMPTS]
 %ButtonAction DEPEND %Control DEFAULT TIMES 7
-WHEN  ('') ('No Special Action')
 WHEN  ('?Browse:1') ('No Special Action')
 WHEN  ('?Change:2') ('No Special Action')
 WHEN  ('?Close') ('No Special Action')
 WHEN  ('?Delete:2') ('No Special Action')
 WHEN  ('?Help') ('No Special Action')
 WHEN  ('?Insert:2') ('No Special Action')
+WHEN  ('?ReflectionBtn') ('No Special Action')
 
 %ButtonRunName DEPEND %Control DEFAULT TIMES 6
 WHEN  ('?Browse:1') ('')
@@ -9735,13 +9553,13 @@ WHEN  ('?Help') (0)
 WHEN  ('?Insert:2') (0)
 
 %ButtonThreadStack DEPEND %Control DEFAULT TIMES 7
-WHEN  ('') ('25000')
 WHEN  ('?Browse:1') ('25000')
 WHEN  ('?Change:2') ('25000')
 WHEN  ('?Close') ('25000')
 WHEN  ('?Delete:2') ('25000')
 WHEN  ('?Help') ('25000')
 WHEN  ('?Insert:2') ('25000')
+WHEN  ('?ReflectionBtn') ('25000')
 
 %ButtonParameters DEPEND %Control DEFAULT TIMES 6
 WHEN  ('?Browse:1') ('')
@@ -9752,13 +9570,13 @@ WHEN  ('?Help') ('')
 WHEN  ('?Insert:2') ('')
 
 %ButtonRequest DEPEND %Control DEFAULT TIMES 7
-WHEN  ('') ('None')
 WHEN  ('?Browse:1') ('None')
 WHEN  ('?Change:2') ('None')
 WHEN  ('?Close') ('None')
 WHEN  ('?Delete:2') ('None')
 WHEN  ('?Help') ('None')
 WHEN  ('?Insert:2') ('None')
+WHEN  ('?ReflectionBtn') ('None')
 
 %PreLookupKey DEPEND %Control KEY TIMES 4
 WHEN  ('?Browse:1') ()
@@ -9805,8 +9623,7 @@ WHEN  ('?Insert:2') (0)
 %ReturnValue FIELD  ()
 %WindowOperationMode DEFAULT  ('Use WINDOW setting')
 %INISaveWindow LONG  (0)
-%PostLookupDuringValidate DEPEND %Control LONG TIMES 6
-WHEN  ('') (1)
+%PostLookupDuringValidate DEPEND %Control LONG TIMES 5
 WHEN  ('?Browse:1') (1)
 WHEN  ('?Change:2') (1)
 WHEN  ('?Delete:2') (1)
@@ -9835,8 +9652,7 @@ WHEN  ('?Change:2')TIMES 0
 WHEN  ('?Delete:2')TIMES 0
 WHEN  ('?Insert:2')TIMES 0
 
-%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 6
-WHEN  ('')TIMES 0
+%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 5
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Change:2')TIMES 0
 WHEN  ('?Delete:2')TIMES 0
@@ -9865,8 +9681,7 @@ WHEN  ('?Change:2')TIMES 0
 WHEN  ('?Delete:2')TIMES 0
 WHEN  ('?Insert:2')TIMES 0
 
-%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 6
-WHEN  ('')TIMES 0
+%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 5
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Change:2')TIMES 0
 WHEN  ('?Delete:2')TIMES 0
@@ -9884,7 +9699,7 @@ WHEN  ('WindowToolbar') ('')
 
 %ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 1
 WHEN  ('Default') ('Init {19}PROCEDURE(),BYTE,PROC,DERIVED', 'Kill {19}PROCEDURE(),BYTE,PROC,DERIVED', |
-  'Run {20}PROCEDURE(USHORT Number,BYTE Request),BYTE,PROC,DERIVED')
+  'Run {20}PROCEDURE(USHORT Number,BYTE Request),BYTE,PROC,DERIVED', 'TakeAccepted {11}PROCEDURE(),BYTE,PROC,DERIVED')
 
 %ThisObjectName DEPEND %ClassItem DEFAULT TIMES 2
 WHEN  ('Default') ('ThisWindow')
@@ -9970,8 +9785,7 @@ WHEN  ('WindowToolbar')TIMES 0
 
 %CheckedControl1 DEPEND %CheckedEnables DEFAULT TIMES 0
 
-%CheckedControl1Action DEPEND %CheckedEnables DEFAULT TIMES 3
-WHEN  ('')TIMES 0
+%CheckedControl1Action DEPEND %CheckedEnables DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
@@ -9979,8 +9793,7 @@ WHEN  ('?Help')TIMES 0
 
 %UnCheckedControl1 DEPEND %UnCheckedEnables DEFAULT TIMES 0
 
-%UnCheckedControl1Action DEPEND %UnCheckedEnables DEFAULT TIMES 3
-WHEN  ('')TIMES 0
+%UnCheckedControl1Action DEPEND %UnCheckedEnables DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
@@ -10105,63 +9918,50 @@ WHEN  (1) ('BrowseBox(ABC)')
 
 %ExtUITabStyleOverrideGlobal DEPEND %Control LONG TIMES 0
 
-%ExtUITabStyle DEPEND %Control DEFAULT TIMES 2
-WHEN  ('') ('Default')
+%ExtUITabStyle DEPEND %Control DEFAULT TIMES 1
 WHEN  ('?CurrentTab') ('Default')
 
 %CheckedDisables DEPEND %Control MULTI LONG TIMES 0
 
 %CheckedDisableControl DEPEND %CheckedDisables DEFAULT TIMES 0
 
-%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 1
-WHEN  ('')TIMES 0
+%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 0
 
 %UnCheckedDisables DEPEND %Control MULTI LONG TIMES 0
 
 %UnCheckedDisableControl DEPEND %UnCheckedDisables DEFAULT TIMES 0
 
-%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 1
-WHEN  ('')TIMES 0
+%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 0
 
 %ProcedureOneInstance LONG  (0)
 %PreserveVarsLoc MULTI LONG  ()
 %PreserveVarLoc DEPEND %PreserveVarsLoc DEFAULT TIMES 0
 
-%FieldGradientColorType DEPEND %Control DEFAULT TIMES 1
-WHEN  ('') ('Off')
+%FieldGradientColorType DEPEND %Control DEFAULT TIMES 0
 
-%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 1
-WHEN  ('') ('')
+%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 0
 
-%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 0
 
-%FieldGradientColorFrom DEPEND %Control LONG TIMES 1
-WHEN  ('') (-1)
+%FieldGradientColorFrom DEPEND %Control LONG TIMES 0
 
 %FieldGradientColorFromVariable DEPEND %Control DEFAULT TIMES 0
 
-%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 0
 
-%FieldGradientColorTo DEPEND %Control LONG TIMES 1
-WHEN  ('') (-1)
+%FieldGradientColorTo DEPEND %Control LONG TIMES 0
 
 %FieldGradientColorToVariable DEPEND %Control DEFAULT TIMES 0
 
-%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 0
 
 %ActiveImageEnable DEPEND %Control LONG TIMES 0
 
-%AIObjectName DEPEND %Control DEFAULT TIMES 1
-WHEN  ('') ('AIBtn0')
+%AIObjectName DEPEND %Control DEFAULT TIMES 0
 
-%AIEnableMimicControl DEPEND %Control LONG TIMES 1
-WHEN  ('') (1)
+%AIEnableMimicControl DEPEND %Control LONG TIMES 0
 
-%AIMimicControl DEPEND %Control DEFAULT TIMES 1
-WHEN  ('') ('?Browse:1')
+%AIMimicControl DEPEND %Control DEFAULT TIMES 0
 
 %AIImgRound DEPEND %Control LONG TIMES 0
 
@@ -10169,30 +9969,97 @@ WHEN  ('') ('?Browse:1')
 
 %AIOverrideImgVariable DEPEND %Control DEFAULT TIMES 0
 
-%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 0
 
 %AIDisableImg DEPEND %Control DEFAULT TIMES 0
 
 %AIDisableImgVariable DEPEND %Control DEFAULT TIMES 0
 
-%AIDisableImgIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%AIDisableImgIsVariable DEPEND %Control LONG TIMES 0
 
 %AIHotImg DEPEND %Control DEFAULT TIMES 0
 
 %AIHotImgVariable DEPEND %Control DEFAULT TIMES 0
 
-%AIHotImgIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%AIHotImgIsVariable DEPEND %Control LONG TIMES 0
 
 %AIPressedImg DEPEND %Control DEFAULT TIMES 0
 
 %AIPressedImgVariable DEPEND %Control DEFAULT TIMES 0
 
-%AIPressedImgIsVariable DEPEND %Control LONG TIMES 1
-WHEN  ('') (0)
+%AIPressedImgIsVariable DEPEND %Control LONG TIMES 0
 
+[EMBED]
+EMBED %WindowManagerMethodCodeSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8005
+PROPERTY:END
+ListPropFromQ(?Browse:1,Queue:Browse:1,'Queue:Browse:1')
+[END]
+[END]
+[END]
+EMBED %ControlEventHandling
+[INSTANCES]
+WHEN '?ReflectionBtn'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+DO ReflecttRtn
+[END]
+[END]
+[END]
+EMBED %ProcedureRoutines
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+ReflecttRtn ROUTINE
+    DATA
+WndPrvCls  CbWndPreviewClass 
+ThisWindowRef &ThisWindow    !No matching prototype available 
+BRW1Ref &BRW1    !No matching prototype available 
+BRW1::Sort1:LocatorRef &BRW1::Sort1:Locator    !No matching prototype available 
+ResizerRef &Resizer    !No matching prototype available 
+!ThisWindowRef &Group   !No matching prototype available 
+    
+    CODE
+    ThisWindowRef &= ThisWindow
+    BRW1Ref &= BRW1
+    BRW1::Sort1:LocatorRef &= BRW1::Sort1:Locator
+    ResizerRef &= Resizer
+    EXECUTE POPUP('ThisWindow' & |
+            '|BRW1 BrowseClass' & |
+            '|BRW1::Sort1:Locator StepLocatorClass' & |
+            '|Resizer WindowResizeClass' & |
+            '|Queue:Browse:1 QueueReflection' & |
+            '')
+         WndPrvCls.ClassReflection(ThisWindowRef,'ThisWindowRef')
+         WndPrvCls.ClassReflection(BRW1Ref,'BRW1 BrowseClass')
+         WndPrvCls.ClassReflection(BRW1::Sort1:LocatorRef,'BRW1::Sort1:Locator')
+         WndPrvCls.ClassReflection(ResizerRef,'Resizer WindowResizeClass')
+         WndPrvCls.QueueReflection(Queue:Browse:1,'Queue:Browse:1')
+    END
+
+!BRW1::Sort1:Locator  StepLocatorClass                      ! Conditional Locator - CHOICE(?CurrentTab) = 2
+!BRW1::Sort2:Locator  StepLocatorClass                      ! Conditional Locator - CHOICE(?CurrentTab) = 3
+!BRW1::Sort0:StepClass StepLongClass                        ! Default Step Manager
+!BRW1::Sort1:StepClass StepStringClass                      ! Conditional Step Manager - CHOICE(?CurrentTab) = 2
+!BRW1::Sort2:StepClass StepLongClass                        ! Conditional Step Manager - CHOICE(?CurrentTab) = 3
+!Resizer              CLASS(WindowResizeClass)
+    
+[END]
+[END]
 [ADDITION]
 NAME ABC BrowseBox
 [INSTANCE]
@@ -10310,9 +10177,7 @@ WHEN  (1)TIMES 0
 
 %HotFieldBound DEPEND %HotFields LONG TIMES 0
 
-%ControlFieldForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%ControlFieldForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10327,9 +10192,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%ControlFieldBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%ControlFieldBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10344,9 +10207,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%ControlFieldForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%ControlFieldForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10361,9 +10222,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%ControlFieldBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%ControlFieldBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10395,27 +10254,19 @@ WHEN  ('STU:Zip') ()
 %ColorCondition DEPEND %ConditionalColors DEFAULT TIMES 1
 WHEN  ('?Browse:1')TIMES 0
 
-%ConditionalControlFieldForegroundNormal DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldForegroundNormal DEPEND %ConditionalColors LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
-%ConditionalControlFieldBackgroundNormal DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldBackgroundNormal DEPEND %ConditionalColors LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
-%ConditionalControlFieldForegroundSelected DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldForegroundSelected DEPEND %ConditionalColors LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
-%ConditionalControlFieldBackgroundSelected DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldBackgroundSelected DEPEND %ConditionalColors LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
@@ -10675,9 +10526,7 @@ WHEN  (2) ('Manual')
 WHEN  (2)TIMES 0
 
 %UseSameColorForAll LONG  (0)
-%ControlGreenBarColor DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%ControlGreenBarColor DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -10692,9 +10541,7 @@ WHEN  ('STU:Telephone') (0)
 WHEN  ('STU:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOnForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10709,9 +10556,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOnBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10726,9 +10571,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOnForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10743,9 +10586,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOnBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10760,9 +10601,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOffForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOffForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10777,9 +10616,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOffBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOffBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10794,9 +10631,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOffForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOffForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10811,9 +10646,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOffBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%GreenBarOffBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -10858,9 +10691,7 @@ WHEN  ('?Help')TIMES 0
 %ConditionalControlFieldIconIsNumber DEPEND %ConditionalIcons LONG TIMES 0
 
 %UseSameStyleForAll LONG  (0)
-%ControlGreenBarStyle DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%ControlGreenBarStyle DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -10875,9 +10706,7 @@ WHEN  ('STU:Telephone') (0)
 WHEN  ('STU:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+%GreenBarOnStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Local List')
 WHEN  ('MAJ:Description') ('Local List')
@@ -10892,9 +10721,7 @@ WHEN  ('STU:Telephone') ('Local List')
 WHEN  ('STU:Zip') ('Local List')
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOnStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+%GreenBarOnStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('')
 WHEN  ('MAJ:Description') ('')
@@ -10911,9 +10738,7 @@ WHEN  ('?Help')TIMES 0
 
 %GreenBarOnStyle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%GreenBarOffStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+%GreenBarOffStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Local List')
 WHEN  ('MAJ:Description') ('Local List')
@@ -10928,9 +10753,7 @@ WHEN  ('STU:Telephone') ('Local List')
 WHEN  ('STU:Zip') ('Local List')
 WHEN  ('?Help')TIMES 0
 
-%GreenBarOffStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+%GreenBarOffStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('')
 WHEN  ('MAJ:Description') ('')
@@ -10947,9 +10770,7 @@ WHEN  ('?Help')TIMES 0
 
 %GreenBarOffStyle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%ControlFieldStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+%ControlFieldStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Local List')
 WHEN  ('MAJ:Description') ('Local List')
@@ -10964,9 +10785,7 @@ WHEN  ('STU:Telephone') ('Local List')
 WHEN  ('STU:Zip') ('Local List')
 WHEN  ('?Help')TIMES 0
 
-%ControlFieldStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+%ControlFieldStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('')
 WHEN  ('MAJ:Description') ('')
@@ -10987,14 +10806,10 @@ WHEN  ('?Help')TIMES 0
 
 %StyleCondition DEPEND %ConditionalStyles DEFAULT TIMES 0
 
-%ConditionalControlFieldStyleType DEPEND %ConditionalStyles DEFAULT TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldStyleType DEPEND %ConditionalStyles DEFAULT TIMES 1
 WHEN  ('?Help')TIMES 0
 
-%ConditionalControlFieldStyleLocalList DEPEND %ConditionalStyles DEFAULT TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ConditionalControlFieldStyleLocalList DEPEND %ConditionalStyles DEFAULT TIMES 1
 WHEN  ('?Help')TIMES 0
 
 %ConditionalControlFieldStyle DEPEND %ConditionalStyles DEFAULT TIMES 0
@@ -11071,9 +10886,7 @@ WHEN  ('?Help')TIMES 0
 %BrowseBoxDoNotIncludePrimaryKey LONG  (0)
 %DisableUsePopup LONG  (0)
 %ControlFieldSortHeaderSave LONG  (0)
-%ControlFieldSortHeaderOverride DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%ControlFieldSortHeaderOverride DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11087,9 +10900,7 @@ WHEN  ('STU:State') (0)
 WHEN  ('STU:Telephone') (0)
 WHEN  ('STU:Zip') (0)
 
-%ControlFieldSortHeaderDisableColumn DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%ControlFieldSortHeaderDisableColumn DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11107,19 +10918,13 @@ WHEN  ('STU:Zip') (0)
 
 %ControlFieldSortHeaderField DEPEND %ControlFieldSortHeaderFields FIELD TIMES 0
 
-%ControlFieldSortHeaderFieldOrder DEPEND %ControlFieldSortHeaderFields DEFAULT TIMES 1
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ControlFieldSortHeaderFieldOrder DEPEND %ControlFieldSortHeaderFields DEFAULT TIMES 0
 
-%ControlFieldSortHeaderFieldCase DEPEND %ControlFieldSortHeaderFields LONG TIMES 1
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%ControlFieldSortHeaderFieldCase DEPEND %ControlFieldSortHeaderFields LONG TIMES 0
 
 %ListFormatManagerMenuAppendSortOrder LONG  (1)
 %ControlFieldSortHeaderMulti LONG  (1)
-%ControlFieldSortHeaderOnlyAsc DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%ControlFieldSortHeaderOnlyAsc DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11283,9 +11088,7 @@ WHEN  ('EIP_STU:Telephone') ('NO')
 
 %PrimedValue DEPEND %PrimingFields DEFAULT TIMES 0
 
-%AllowEIPExt DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (1)
+%AllowEIPExt DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (1)
 WHEN  ('MAJ:Description') (1)
@@ -11300,9 +11103,7 @@ WHEN  ('STU:Telephone') (1)
 WHEN  ('STU:Zip') (1)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceTypeExt DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Entry')
+%EditInPlaceTypeExt DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Entry')
 WHEN  ('MAJ:Description') ('Entry')
@@ -11319,9 +11120,7 @@ WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQTitle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+%EditInPlaceFEQJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Default')
 WHEN  ('MAJ:Description') ('Default')
@@ -11336,9 +11135,7 @@ WHEN  ('STU:Telephone') ('Default')
 WHEN  ('STU:Zip') ('Default')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQOffset DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQOffset DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('0')
 WHEN  ('MAJ:Description') ('0')
@@ -11353,9 +11150,7 @@ WHEN  ('STU:Telephone') ('0')
 WHEN  ('STU:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQTransparent DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQTransparent DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11370,9 +11165,7 @@ WHEN  ('STU:Telephone') (0)
 WHEN  ('STU:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQReadOnly DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQReadOnly DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11387,9 +11180,7 @@ WHEN  ('STU:Telephone') (0)
 WHEN  ('STU:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQRequired DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQRequired DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11404,9 +11195,7 @@ WHEN  ('STU:Telephone') (0)
 WHEN  ('STU:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQDataSource DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Fixed')
+%EditInPlaceFEQDataSource DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Fixed')
 WHEN  ('MAJ:Description') ('Fixed')
@@ -11425,9 +11214,7 @@ WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQFixedDataSourceValue DEPEND %EditInPlaceFEQFixedDataSource DEFAULT TIMES 0
 
-%EditInPlaceFEQFixedDataSourceSelected DEPEND %EditInPlaceFEQFixedDataSource LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('')TIMES 0
+%EditInPlaceFEQFixedDataSourceSelected DEPEND %EditInPlaceFEQFixedDataSource LONG TIMES 1
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQQueueDataSourceQN DEPEND %Control DEPEND %ControlField FIELD TIMES 0
@@ -11438,9 +11225,7 @@ WHEN  ('?Help')TIMES 0
 
 %ReturnToOriginalDir DEPEND %Control DEPEND %ControlField LONG TIMES 0
 
-%AllowLongFilenames DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (1)
+%AllowLongFilenames DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (1)
 WHEN  ('MAJ:Description') (1)
@@ -11455,9 +11240,7 @@ WHEN  ('STU:Telephone') (1)
 WHEN  ('STU:Zip') (1)
 WHEN  ('?Help')TIMES 0
 
-%DOSFileDialogType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Open')
+%DOSFileDialogType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Open')
 WHEN  ('MAJ:Description') ('Open')
@@ -11472,9 +11255,7 @@ WHEN  ('STU:Telephone') ('Open')
 WHEN  ('STU:Zip') ('Open')
 WHEN  ('?Help')TIMES 0
 
-%AllowNoError DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%AllowNoError DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11491,9 +11272,7 @@ WHEN  ('?Help')TIMES 0
 
 %AllowMultiSelect DEPEND %Control DEPEND %ControlField LONG TIMES 0
 
-%DOSMaskDesc DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('All Files')
+%DOSMaskDesc DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('All Files')
 WHEN  ('MAJ:Description') ('All Files')
@@ -11508,9 +11287,7 @@ WHEN  ('STU:Telephone') ('All Files')
 WHEN  ('STU:Zip') ('All Files')
 WHEN  ('?Help')TIMES 0
 
-%DOSMask DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('*.*')
+%DOSMask DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('*.*')
 WHEN  ('MAJ:Description') ('*.*')
@@ -11531,9 +11308,7 @@ WHEN  ('?Help')TIMES 0
 
 %DOSMoreMask DEPEND %DOSMoreMasks DEFAULT TIMES 0
 
-%EditInPlaceFEQForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%EditInPlaceFEQForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -11548,9 +11323,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%EditInPlaceFEQBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -11565,9 +11338,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%EditInPlaceFEQForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -11582,9 +11353,7 @@ WHEN  ('STU:Telephone') (-1)
 WHEN  ('STU:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+%EditInPlaceFEQBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (-1)
 WHEN  ('MAJ:Description') (-1)
@@ -11605,9 +11374,7 @@ WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQPicture DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQDrop DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQDrop DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('0')
 WHEN  ('MAJ:Description') ('0')
@@ -11622,9 +11389,7 @@ WHEN  ('STU:Telephone') ('0')
 WHEN  ('STU:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQWidth DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQWidth DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('0')
 WHEN  ('MAJ:Description') ('0')
@@ -11639,9 +11404,7 @@ WHEN  ('STU:Telephone') ('0')
 WHEN  ('STU:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQFlat DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQFlat DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11656,9 +11419,7 @@ WHEN  ('STU:Telephone') (0)
 WHEN  ('STU:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQHorizontal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQHorizontal DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11673,9 +11434,7 @@ WHEN  ('STU:Telephone') (0)
 WHEN  ('STU:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQVertical DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQVertical DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11692,9 +11451,7 @@ WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQFixedDataSourceText DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQCheckJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+%EditInPlaceFEQCheckJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Default')
 WHEN  ('MAJ:Description') ('Default')
@@ -11713,9 +11470,7 @@ WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQFalse DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQCase DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+%EditInPlaceFEQCase DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Default')
 WHEN  ('MAJ:Description') ('Default')
@@ -11730,9 +11485,7 @@ WHEN  ('STU:Telephone') ('Default')
 WHEN  ('STU:Zip') ('Default')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQEntryMode DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+%EditInPlaceFEQEntryMode DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Default')
 WHEN  ('MAJ:Description') ('Default')
@@ -11747,9 +11500,7 @@ WHEN  ('STU:Telephone') ('Default')
 WHEN  ('STU:Zip') ('Default')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQLower DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQLower DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('0')
 WHEN  ('MAJ:Description') ('0')
@@ -11764,9 +11515,7 @@ WHEN  ('STU:Telephone') ('0')
 WHEN  ('STU:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQUpper DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQUpper DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('0')
 WHEN  ('MAJ:Description') ('0')
@@ -11781,9 +11530,7 @@ WHEN  ('STU:Telephone') ('0')
 WHEN  ('STU:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQStep DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+%EditInPlaceFEQStep DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('0')
 WHEN  ('MAJ:Description') ('0')
@@ -11798,9 +11545,7 @@ WHEN  ('STU:Telephone') ('0')
 WHEN  ('STU:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
-%EditInPlaceFEQPassword DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQPassword DEPEND %Control DEPEND %ControlField LONG TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11815,9 +11560,7 @@ WHEN  ('STU:Telephone') (0)
 WHEN  ('STU:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
-%LookupType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Related Field')
+%LookupType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 2
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') ('Related Field')
 WHEN  ('MAJ:Description') ('Related Field')
@@ -11853,9 +11596,7 @@ WHEN  ('?Help')TIMES 0
 %EIPThisObjectName DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %UpdateProcedureParameters DEFAULT  ('')
-%EditInPlaceFEQAutoSerializeField DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQAutoSerializeField DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11871,9 +11612,7 @@ WHEN  ('STU:Zip') (0)
 
 %EditInPlaceFEQAutoSerializeFieldDelimiter DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQImmediate DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQImmediate DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -11889,9 +11628,7 @@ WHEN  ('STU:Zip') (0)
 
 %EditInPlaceFEQColumnFrom DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
-%EditInPlaceFEQEntryCompletion DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+%EditInPlaceFEQEntryCompletion DEPEND %Control DEPEND %ControlField LONG TIMES 1
 WHEN  ('?Browse:1')TIMES 11
 WHEN  ('Junk') (0)
 WHEN  ('MAJ:Description') (0)
@@ -12072,6 +11809,8 @@ QuickWindow WINDOW('ABC Browse the Students File'),AT(,,358,188),FONT('Segoe UI'
           END
           BUTTON('Close'),AT(260,170,45,14),USE(?Close),#ORIG(?Close),#SEQ(3),#ORDINAL(9)
           BUTTON('Help'),AT(309,170,45,14),USE(?Help),STD(STD:Help),#ORDINAL(10)
+          BUTTON('Class Reflection'),AT(3,170,,14),USE(?ReflectionBtn),TIP('CBWndPrevie' & |
+            'w.ClassReflection'),#ORDINAL(11)
         END
 
 [PROCEDURE]
@@ -12080,7 +11819,7 @@ NAME AbcBrowseTeachers
 DESCRIPTION 'Browse the Teachers File'
 FROM ABC Window
 CATEGORY 'Browse'
-MODIFIED '2021/03/15' '22:48:05'
+MODIFIED '2021/03/17' ' 7:56:44'
 [DATA]
 [SCREENCONTROLS]
 ! PROMPT('CurrentTab:'),USE(?CurrentTab:Prompt)
@@ -12673,6 +12412,22 @@ WHEN  ('') (0)
 %AIPressedImgIsVariable DEPEND %Control LONG TIMES 1
 WHEN  ('') (0)
 
+[EMBED]
+EMBED %WindowManagerMethodCodeSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8005
+PROPERTY:END
+ListPropFromQ(?Browse:1,Queue:Browse:1,'Queue:Browse:1')
+[END]
+[END]
+[END]
+[END]
 [ADDITION]
 NAME ABC BrowseBox
 [INSTANCE]
@@ -12771,8 +12526,7 @@ WHEN  (1)TIMES 0
 %HotFieldBound DEPEND %HotFields LONG TIMES 0
 
 %ControlFieldForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 15
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -12792,8 +12546,7 @@ WHEN  ('Tea:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %ControlFieldBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 15
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -12813,8 +12566,7 @@ WHEN  ('Tea:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %ControlFieldForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 15
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -12834,8 +12586,7 @@ WHEN  ('Tea:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %ControlFieldBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 15
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -12869,25 +12620,21 @@ WHEN  ('Tea:Zip') ()
 WHEN  ('?Browse:1')TIMES 0
 
 %ConditionalControlFieldForegroundNormal DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
 %ConditionalControlFieldBackgroundNormal DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
 %ConditionalControlFieldForegroundSelected DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
 
 %ConditionalControlFieldBackgroundSelected DEPEND %ConditionalColors LONG TIMES 3
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 0
 WHEN  ('?Help')TIMES 0
@@ -13126,8 +12873,7 @@ WHEN  (1)TIMES 0
 
 %UseSameColorForAll LONG  (0)
 %ControlGreenBarColor DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13140,8 +12886,7 @@ WHEN  ('TEA:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13154,8 +12899,7 @@ WHEN  ('TEA:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13168,8 +12912,7 @@ WHEN  ('TEA:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13182,8 +12925,7 @@ WHEN  ('TEA:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13196,8 +12938,7 @@ WHEN  ('TEA:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOffForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13210,8 +12951,7 @@ WHEN  ('TEA:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOffBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13224,8 +12964,7 @@ WHEN  ('TEA:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOffForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13238,8 +12977,7 @@ WHEN  ('TEA:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOffBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13282,8 +13020,7 @@ WHEN  ('?Help')TIMES 0
 
 %UseSameStyleForAll LONG  (0)
 %ControlGreenBarStyle DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13296,8 +13033,7 @@ WHEN  ('TEA:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Local List')
 WHEN  ('TEA:Address') ('Local List')
@@ -13310,8 +13046,7 @@ WHEN  ('TEA:Zip') ('Local List')
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOnStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('')
 WHEN  ('TEA:Address') ('')
@@ -13326,8 +13061,7 @@ WHEN  ('?Help')TIMES 0
 %GreenBarOnStyle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %GreenBarOffStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Local List')
 WHEN  ('TEA:Address') ('Local List')
@@ -13340,8 +13074,7 @@ WHEN  ('TEA:Zip') ('Local List')
 WHEN  ('?Help')TIMES 0
 
 %GreenBarOffStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('')
 WHEN  ('TEA:Address') ('')
@@ -13356,8 +13089,7 @@ WHEN  ('?Help')TIMES 0
 %GreenBarOffStyle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %ControlFieldStyleType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Local List')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Local List')
 WHEN  ('TEA:Address') ('Local List')
@@ -13370,8 +13102,7 @@ WHEN  ('TEA:Zip') ('Local List')
 WHEN  ('?Help')TIMES 0
 
 %ControlFieldStyleLocalList DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('')
 WHEN  ('TEA:Address') ('')
@@ -13390,12 +13121,10 @@ WHEN  ('?Help')TIMES 0
 %StyleCondition DEPEND %ConditionalStyles DEFAULT TIMES 0
 
 %ConditionalControlFieldStyleType DEPEND %ConditionalStyles DEFAULT TIMES 2
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Help')TIMES 0
 
 %ConditionalControlFieldStyleLocalList DEPEND %ConditionalStyles DEFAULT TIMES 2
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Help')TIMES 0
 
@@ -13474,8 +13203,7 @@ WHEN  ('?Help')TIMES 0
 %DisableUsePopup LONG  (0)
 %ControlFieldSortHeaderSave LONG  (0)
 %ControlFieldSortHeaderOverride DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13487,8 +13215,7 @@ WHEN  ('TEA:Telephone') (0)
 WHEN  ('TEA:Zip') (0)
 
 %ControlFieldSortHeaderDisableColumn DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13504,18 +13231,15 @@ WHEN  ('TEA:Zip') (0)
 %ControlFieldSortHeaderField DEPEND %ControlFieldSortHeaderFields FIELD TIMES 0
 
 %ControlFieldSortHeaderFieldOrder DEPEND %ControlFieldSortHeaderFields DEFAULT TIMES 1
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 
 %ControlFieldSortHeaderFieldCase DEPEND %ControlFieldSortHeaderFields LONG TIMES 1
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 
 %ListFormatManagerMenuAppendSortOrder LONG  (1)
 %ControlFieldSortHeaderMulti LONG  (1)
 %ControlFieldSortHeaderOnlyAsc DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13670,8 +13394,7 @@ WHEN  ('EIP_TEA:Zip') ('NO')
 %PrimedValue DEPEND %PrimingFields DEFAULT TIMES 0
 
 %AllowEIPExt DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (1)
 WHEN  ('TEA:Address') (1)
@@ -13684,8 +13407,7 @@ WHEN  ('TEA:Zip') (1)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceTypeExt DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Entry')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Entry')
 WHEN  ('TEA:Address') ('Entry')
@@ -13700,8 +13422,7 @@ WHEN  ('?Help')TIMES 0
 %EditInPlaceFEQTitle DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Default')
 WHEN  ('TEA:Address') ('Default')
@@ -13714,8 +13435,7 @@ WHEN  ('TEA:Zip') ('Default')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQOffset DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('TEA:Address') ('0')
@@ -13728,8 +13448,7 @@ WHEN  ('TEA:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQTransparent DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13742,8 +13461,7 @@ WHEN  ('TEA:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQReadOnly DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13756,8 +13474,7 @@ WHEN  ('TEA:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQRequired DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13770,8 +13487,7 @@ WHEN  ('TEA:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQDataSource DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Fixed')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Fixed')
 WHEN  ('TEA:Address') ('Fixed')
@@ -13788,7 +13504,6 @@ WHEN  ('?Help')TIMES 0
 %EditInPlaceFEQFixedDataSourceValue DEPEND %EditInPlaceFEQFixedDataSource DEFAULT TIMES 0
 
 %EditInPlaceFEQFixedDataSourceSelected DEPEND %EditInPlaceFEQFixedDataSource LONG TIMES 2
-WHEN  ('')TIMES 1
 WHEN  ('')TIMES 0
 WHEN  ('?Help')TIMES 0
 
@@ -13801,8 +13516,7 @@ WHEN  ('?Help')TIMES 0
 %ReturnToOriginalDir DEPEND %Control DEPEND %ControlField LONG TIMES 0
 
 %AllowLongFilenames DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (1)
 WHEN  ('TEA:Address') (1)
@@ -13815,8 +13529,7 @@ WHEN  ('TEA:Zip') (1)
 WHEN  ('?Help')TIMES 0
 
 %DOSFileDialogType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Open')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Open')
 WHEN  ('TEA:Address') ('Open')
@@ -13829,8 +13542,7 @@ WHEN  ('TEA:Zip') ('Open')
 WHEN  ('?Help')TIMES 0
 
 %AllowNoError DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13845,8 +13557,7 @@ WHEN  ('?Help')TIMES 0
 %AllowMultiSelect DEPEND %Control DEPEND %ControlField LONG TIMES 0
 
 %DOSMaskDesc DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('All Files')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('All Files')
 WHEN  ('TEA:Address') ('All Files')
@@ -13859,8 +13570,7 @@ WHEN  ('TEA:Zip') ('All Files')
 WHEN  ('?Help')TIMES 0
 
 %DOSMask DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('*.*')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('*.*')
 WHEN  ('TEA:Address') ('*.*')
@@ -13879,8 +13589,7 @@ WHEN  ('?Help')TIMES 0
 %DOSMoreMask DEPEND %DOSMoreMasks DEFAULT TIMES 0
 
 %EditInPlaceFEQForegroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13893,8 +13602,7 @@ WHEN  ('TEA:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQBackgroundNormal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13907,8 +13615,7 @@ WHEN  ('TEA:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQForegroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13921,8 +13628,7 @@ WHEN  ('TEA:Zip') (-1)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQBackgroundSelected DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (-1)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (-1)
 WHEN  ('TEA:Address') (-1)
@@ -13941,8 +13647,7 @@ WHEN  ('?Help')TIMES 0
 %EditInPlaceFEQPicture DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQDrop DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('TEA:Address') ('0')
@@ -13955,8 +13660,7 @@ WHEN  ('TEA:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQWidth DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('TEA:Address') ('0')
@@ -13969,8 +13673,7 @@ WHEN  ('TEA:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQFlat DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13983,8 +13686,7 @@ WHEN  ('TEA:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQHorizontal DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -13997,8 +13699,7 @@ WHEN  ('TEA:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQVertical DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -14013,8 +13714,7 @@ WHEN  ('?Help')TIMES 0
 %EditInPlaceFEQFixedDataSourceText DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQCheckJust DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Default')
 WHEN  ('TEA:Address') ('Default')
@@ -14031,8 +13731,7 @@ WHEN  ('?Help')TIMES 0
 %EditInPlaceFEQFalse DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQCase DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Default')
 WHEN  ('TEA:Address') ('Default')
@@ -14045,8 +13744,7 @@ WHEN  ('TEA:Zip') ('Default')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQEntryMode DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Default')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Default')
 WHEN  ('TEA:Address') ('Default')
@@ -14059,8 +13757,7 @@ WHEN  ('TEA:Zip') ('Default')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQLower DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('TEA:Address') ('0')
@@ -14073,8 +13770,7 @@ WHEN  ('TEA:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQUpper DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('TEA:Address') ('0')
@@ -14087,8 +13783,7 @@ WHEN  ('TEA:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQStep DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('0')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('0')
 WHEN  ('TEA:Address') ('0')
@@ -14101,8 +13796,7 @@ WHEN  ('TEA:Zip') ('0')
 WHEN  ('?Help')TIMES 0
 
 %EditInPlaceFEQPassword DEPEND %Control DEPEND %ControlField LONG TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -14115,8 +13809,7 @@ WHEN  ('TEA:Zip') (0)
 WHEN  ('?Help')TIMES 0
 
 %LookupType DEPEND %Control DEPEND %ControlField DEFAULT TIMES 3
-WHEN  ('')TIMES 1
-WHEN  ('') ('Related Field')
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') ('Related Field')
 WHEN  ('TEA:Address') ('Related Field')
@@ -14150,8 +13843,7 @@ WHEN  ('?Help')TIMES 0
 
 %UpdateProcedureParameters DEFAULT  ('')
 %EditInPlaceFEQAutoSerializeField DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -14165,8 +13857,7 @@ WHEN  ('TEA:Zip') (0)
 %EditInPlaceFEQAutoSerializeFieldDelimiter DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQImmediate DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -14180,8 +13871,7 @@ WHEN  ('TEA:Zip') (0)
 %EditInPlaceFEQColumnFrom DEPEND %Control DEPEND %ControlField DEFAULT TIMES 0
 
 %EditInPlaceFEQEntryCompletion DEPEND %Control DEPEND %ControlField LONG TIMES 2
-WHEN  ('')TIMES 1
-WHEN  ('') (0)
+WHEN  ('')TIMES 0
 WHEN  ('?Browse:1')TIMES 8
 WHEN  ('MAJ:Description') (0)
 WHEN  ('TEA:Address') (0)
@@ -14362,7 +14052,7 @@ QuickWindow WINDOW('ABC Browse the Teachers File'),AT(,,358,188),FONT('Segoe UI'
 NAME AbcStudentTree
 [COMMON]
 FROM ABC Window
-MODIFIED '2021/03/16' ' 6:40:54'
+MODIFIED '2021/03/17' ' 7:56:56'
 [DATA]
 [SCREENCONTROLS]
 ! PROMPT('LocalRequest:'),USE(?LocalRequest:Prompt)
@@ -14965,6 +14655,20 @@ PRIORITY 8500
 PROPERTY:END
 SETCURSOR
 
+[END]
+[END]
+[END]
+EMBED %WindowManagerMethodCodeSection
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '(),BYTE'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 8005
+PROPERTY:END
+ListPropFromQ(?RelTree,Queue:RelTree,'Queue:RelTree')
 [END]
 [END]
 [END]
@@ -43282,6 +42986,55 @@ AppFrame APPLICATION('SoftVelocity University'),AT(,,635,351),FONT('MS Sans Seri
           END
         END
 
+[PROCEDURE]
+NAME ListPropFromQ
+PROTOTYPE '(LONG FEQ,*QUEUE FrmQ,<<STRING NameQ>)'
+PARAMETERS '(LONG FEQ,*QUEUE FrmQ,<<STRING NameQ>)'
+[COMMON]
+DESCRIPTION 'Strore LIST From(Q) Reference in User Property {{FromQ}. Not needed 11.13505'
+FROM ABC Source
+MODIFIED '2021/03/17' ' 7:57:56'
+[PROMPTS]
+%GenerateOpenClose LONG  (0)
+%GenerateSaveRestore LONG  (0)
+[EMBED]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 1300
+PROPERTY:END
+Ref GROUP,AUTO
+Q    &QUEUE
+L    LONG,OVER(Q)
+  END
+
+[END]
+EMBED %AdditionalDebugHooks
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+  Ref.Q &=FrmQ 
+  FEQ{'FromQ'}=Ref.L 
+  FEQ{'FromWho'}=CHOOSE(~OMITTED(NameQ),NameQ,'Queue' & Ref.L)
+  RETURN
+[END]
+EMBED %ProcessedCode
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+  Ref.Q &=FrmQ 
+  FEQ{'FromQ'}=Ref.L 
+  FEQ{'FromWho'}=CHOOSE(~OMITTED(NameQ),NameQ,'Queue' & Ref.L)
+  RETURN
+  
+!This is Not needed in 11.13505
+[END]
+[END]
 [END]
 [MODULE]
 NAME 'DataABC.lib'

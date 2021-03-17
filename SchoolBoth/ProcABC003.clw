@@ -3779,3 +3779,21 @@ Looped BYTE
   ReturnValue = Level:Fatal
   RETURN ReturnValue
 
+!!! <summary>
+!!! Generated from procedure template - Source
+!!! Strore LIST From(Q) Reference in User Property {FromQ}. Not needed 11.13505
+!!! </summary>
+ListPropFromQ        PROCEDURE  (LONG FEQ,*QUEUE FrmQ,<STRING NameQ>) ! Declare Procedure
+Ref GROUP,AUTO
+Q    &QUEUE
+L    LONG,OVER(Q)
+  END
+
+
+  CODE
+  Ref.Q &=FrmQ 
+  FEQ{'FromQ'}=Ref.L 
+  FEQ{'FromWho'}=CHOOSE(~OMITTED(NameQ),NameQ,'Queue' & Ref.L)
+  RETURN
+  
+!This is Not needed in 11.13505

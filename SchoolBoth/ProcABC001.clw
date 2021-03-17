@@ -1223,6 +1223,7 @@ ReturnValue          BYTE,AUTO
   SELF.FilesOpened = True
   BRW1.Init(?Browse:1,Queue:Browse:1.ViewPosition,BRW1::View:Browse,Queue:Browse:1,Relate:Classes,SELF) ! Initialize the browse manager
   SELF.Open(QuickWindow)                                   ! Open window
+  ListPropFromQ(?Browse:1,Queue:Browse:1,'Queue:Browse:1')
   Do DefineListboxStyle
   BRW1.Q &= Queue:Browse:1
   BRW1::Sort1:StepClass.Init(+ScrollSort:AllowAlpha)       ! Moveable thumb based upon CLA:CourseNumber for sort order 1
@@ -1778,6 +1779,7 @@ ReturnValue          BYTE,AUTO
   SELF.FilesOpened = True
   BRW1.Init(?Browse:1,Queue:Browse:1.ViewPosition,BRW1::View:Browse,Queue:Browse:1,Relate:Majors,SELF) ! Initialize the browse manager
   SELF.Open(QuickWindow)                                   ! Open window
+  ListPropFromQ(?Browse:1,Queue:Browse:1,'Queue:Browse:1')
   Do DefineListboxStyle
   BRW1.Q &= Queue:Browse:1
   BRW1::Sort1:StepClass.Init(+ScrollSort:AllowAlpha,ScrollBy:Runtime) ! Moveable thumb based upon MAJ:Description for sort order 1
@@ -1934,12 +1936,14 @@ QuickWindow          WINDOW('ABC Browse the Students File'),AT(,,358,188),FONT('
                        END
                        BUTTON('Close'),AT(260,170,45,14),USE(?Close)
                        BUTTON('Help'),AT(309,170,45,14),USE(?Help),STD(STD:Help)
+                       BUTTON('Class Reflection'),AT(3,170,,14),USE(?ReflectionBtn),TIP('CBWndPreview.ClassReflection')
                      END
 
 ThisWindow           CLASS(WindowManager)
 Init                   PROCEDURE(),BYTE,PROC,DERIVED
 Kill                   PROCEDURE(),BYTE,PROC,DERIVED
 Run                    PROCEDURE(USHORT Number,BYTE Request),BYTE,PROC,DERIVED
+TakeAccepted           PROCEDURE(),BYTE,PROC,DERIVED
                      END
 
 Toolbar              ToolbarClass
@@ -1970,6 +1974,40 @@ DefineListboxStyle ROUTINE
 !| It`s called after the window open
 !|
 !---------------------------------------------------------------------------
+ReflecttRtn ROUTINE
+    DATA
+WndPrvCls  CbWndPreviewClass 
+ThisWindowRef &ThisWindow    !No matching prototype available 
+BRW1Ref &BRW1    !No matching prototype available 
+BRW1::Sort1:LocatorRef &BRW1::Sort1:Locator    !No matching prototype available 
+ResizerRef &Resizer    !No matching prototype available 
+!ThisWindowRef &Group   !No matching prototype available 
+    
+    CODE
+    ThisWindowRef &= ThisWindow
+    BRW1Ref &= BRW1
+    BRW1::Sort1:LocatorRef &= BRW1::Sort1:Locator
+    ResizerRef &= Resizer
+    EXECUTE POPUP('ThisWindow' & |
+            '|BRW1 BrowseClass' & |
+            '|BRW1::Sort1:Locator StepLocatorClass' & |
+            '|Resizer WindowResizeClass' & |
+            '|Queue:Browse:1 QueueReflection' & |
+            '')
+         WndPrvCls.ClassReflection(ThisWindowRef,'ThisWindowRef')
+         WndPrvCls.ClassReflection(BRW1Ref,'BRW1 BrowseClass')
+         WndPrvCls.ClassReflection(BRW1::Sort1:LocatorRef,'BRW1::Sort1:Locator')
+         WndPrvCls.ClassReflection(ResizerRef,'Resizer WindowResizeClass')
+         WndPrvCls.QueueReflection(Queue:Browse:1,'Queue:Browse:1')
+    END
+
+!BRW1::Sort1:Locator  StepLocatorClass                      ! Conditional Locator - CHOICE(?CurrentTab) = 2
+!BRW1::Sort2:Locator  StepLocatorClass                      ! Conditional Locator - CHOICE(?CurrentTab) = 3
+!BRW1::Sort0:StepClass StepLongClass                        ! Default Step Manager
+!BRW1::Sort1:StepClass StepStringClass                      ! Conditional Step Manager - CHOICE(?CurrentTab) = 2
+!BRW1::Sort2:StepClass StepLongClass                        ! Conditional Step Manager - CHOICE(?CurrentTab) = 3
+!Resizer              CLASS(WindowResizeClass)
+    
 
 ThisWindow.Init PROCEDURE
 
@@ -1997,6 +2035,7 @@ ReturnValue          BYTE,AUTO
   SELF.FilesOpened = True
   BRW1.Init(?Browse:1,Queue:Browse:1.ViewPosition,BRW1::View:Browse,Queue:Browse:1,Relate:Students,SELF) ! Initialize the browse manager
   SELF.Open(QuickWindow)                                   ! Open window
+  ListPropFromQ(?Browse:1,Queue:Browse:1,'Queue:Browse:1')
   Do DefineListboxStyle
   BRW1.Q &= Queue:Browse:1
   BRW1::Sort1:StepClass.Init(+ScrollSort:AllowAlpha,ScrollBy:Name) ! Moveable thumb based upon STU:LastName for sort order 1
@@ -2061,6 +2100,30 @@ ReturnValue          BYTE,AUTO
     UpdateStudents
     ReturnValue = GlobalResponse
   END
+  RETURN ReturnValue
+
+
+ThisWindow.TakeAccepted PROCEDURE
+
+ReturnValue          BYTE,AUTO
+
+Looped BYTE
+  CODE
+  LOOP                                                     ! This method receive all EVENT:Accepted's
+    IF Looped
+      RETURN Level:Notify
+    ELSE
+      Looped = 1
+    END
+  ReturnValue = PARENT.TakeAccepted()
+    CASE ACCEPTED()
+    OF ?ReflectionBtn
+      ThisWindow.Update()
+      DO ReflecttRtn
+    END
+    RETURN ReturnValue
+  END
+  ReturnValue = Level:Fatal
   RETURN ReturnValue
 
 
@@ -2220,6 +2283,7 @@ ReturnValue          BYTE,AUTO
   SELF.FilesOpened = True
   BRW1.Init(?Browse:1,Queue:Browse:1.ViewPosition,BRW1::View:Browse,Queue:Browse:1,Relate:Teachers,SELF) ! Initialize the browse manager
   SELF.Open(QuickWindow)                                   ! Open window
+  ListPropFromQ(?Browse:1,Queue:Browse:1,'Queue:Browse:1')
   Do DefineListboxStyle
   BRW1.Q &= Queue:Browse:1
   BRW1::Sort1:StepClass.Init(+ScrollSort:AllowAlpha)       ! Moveable thumb based upon TEA:Department for sort order 1
@@ -3046,6 +3110,7 @@ ReturnValue          BYTE,AUTO
   SELF.FilesOpened = True
   DO REL1::ContractAll
   SELF.Open(window)                                        ! Open window
+  ListPropFromQ(?RelTree,Queue:RelTree,'Queue:RelTree')
   Do DefineListboxStyle
   window{PROP:MinWidth} = 162                              ! Restrict the minimum window width
   window{PROP:MinHeight} = 183                             ! Restrict the minimum window height

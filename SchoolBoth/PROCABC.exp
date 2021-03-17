@@ -16,6 +16,7 @@ EXPORTS
   ABCSTUDENTIDS@F                                         @?
   ABCCOURSEENROLLMENT@F                                   @?
   ABCBROWSESTUDENTS@F                                     @?
+  LISTPROPFROMQ@FlBqOsb                                   @?
   ABCUPDATEGRADES@F                                       @?
   ABCBROWSETEACHERS@F                                     @?
   ABCATTENDANCESHEETS@F                                   @?

@@ -9,6 +9,9 @@
    INCLUDE('KEYCODES.CLW'),ONCE
    INCLUDE('ABFUZZY.INC'),ONCE
   INCLUDE('prnprop.clw'),ONCE
+    Include('CbWndPreview.inc'),ONCE
+
+Glo:WndPrvCls  CbWndPreviewClass
 
    MAP
      MODULE('PROCABC001.CLW')
@@ -45,6 +48,7 @@ UpdateStudents         PROCEDURE   !Update the Students File
 UpdateMajors           PROCEDURE   !Update the Majors File
 UpdateEnrollment       PROCEDURE   !Update the Enrollment File
 MainABC                PROCEDURE   !Clarion for Windows Wizard Application
+ListPropFromQ          PROCEDURE(LONG FEQ,*QUEUE FrmQ,<STRING NameQ>)   !Strore LIST From(Q) Reference in User Property {FromQ}. Not needed 11.13505
      END
     ! Declare functions defined in this DLL
 ProcABC:Init           PROCEDURE(<ErrorClass curGlobalErrors>, <INIClass curINIMgr>)
