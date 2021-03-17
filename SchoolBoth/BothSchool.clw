@@ -46,6 +46,7 @@ include('prnprop.clw')
        ABCClassTree,DLL(dll_mode)
        AbcCourseEnrollment,DLL(dll_mode)
        ABCStudentTree,DLL(dll_mode)
+       ABCUpdateGrades,DLL(dll_mode)
      END
      MODULE('BothS_SF.CLW')
        CheckOpen(FILE File,<BYTE OverrideCreate>,<BYTE OverrideOpenMode>)

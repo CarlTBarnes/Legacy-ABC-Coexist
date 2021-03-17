@@ -188,6 +188,8 @@ AppFrame             APPLICATION('TopSpeed University'),AT(,,400,243),FONT('MS S
       START(BrowseCourses, 050000)
     OF ?BrowseMajors
       START(BrowseMajors, 050000)
+    OF ?BrowseUpdateGrades
+      START(UpdateGrades, 25000)
     OF ?AbcInitItem
       Abc_Init_Kill()
       Disable(?AbcInitItem)
@@ -209,7 +211,7 @@ AppFrame             APPLICATION('TopSpeed University'),AT(,,400,243),FONT('MS S
     OF ?ABCBrowseStudentsTree
       START(ABCStudentTree, 25000)
     OF ?ABCBrowseUpdateGrades
-      START(UpdateGrades, 25000)
+      START(ABCUpdateGrades, 25000)
     OF ?ABCPrintCOU:KeyDescription
       START(AbcCourseEnrollment, 25000)
     OF ?PrintENR:StuSeq

@@ -11,6 +11,8 @@
     <Model>Dll</Model>
     <stack_size>16384</stack_size>
     <CopyCore>True</CopyCore>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>True</DebugSymbols>

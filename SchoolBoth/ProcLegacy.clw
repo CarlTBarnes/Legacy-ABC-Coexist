@@ -113,40 +113,40 @@ VCRRequest           LONG(0),EXTERNAL,DLL(dll_mode),THREAD
 Students             FILE,DRIVER('TOPSPEED'),PRE(STU),CREATE,BINDABLE,THREAD,EXTERNAL(''),DLL(dll_mode) !                     
 KeyStudentNumber         KEY(STU:Number),NOCASE,OPT,PRIMARY !                     
 MajorKey                 KEY(STU:Major,STU:LastName,STU:FirstName),DUP,NOCASE,OPT !                     
-KeyLastName              KEY(STU:LastName),DUP,NOCASE !                     
+KeyLastName              KEY(STU:LastName),DUP,NOCASE      !                     
 KeyGradYear              KEY(-STU:GradYear,STU:LastName,STU:FirstName),DUP,NOCASE,OPT !                     
-DynoKey                  INDEX,NOCASE             !                     
-Photograph                  BLOB                  !                     
+DynoKey                  INDEX,NOCASE                      !                     
+Photograph                  BLOB                           !                     
 Record                   RECORD,PRE()
-Number                      LONG                  !                     
-FirstName                   STRING(20)            !                     
-LastName                    STRING(20)            !                     
-Address                     STRING(20)            !                     
-Address2                    STRING(20)            !                     
-City                        STRING(20)            !                     
-State                       STRING(2)             !                     
-Zip                         LONG                  !                     
-Telephone                   STRING(12)            !                     
-Major                       LONG                  !                     
-GradYear                    LONG                  !                     
+Number                      LONG                           !                     
+FirstName                   STRING(20)                     !                     
+LastName                    STRING(20)                     !                     
+Address                     STRING(20)                     !                     
+Address2                    STRING(20)                     !                     
+City                        STRING(20)                     !                     
+State                       STRING(2)                      !                     
+Zip                         LONG                           !                     
+Telephone                   STRING(12)                     !                     
+Major                       LONG                           !                     
+GradYear                    LONG                           !                     
                          END
                      END                       
 Students::Used       LONG,EXTERNAL,DLL(dll_mode),THREAD
 
 Teachers             FILE,DRIVER('TOPSPEED'),PRE(TEA),CREATE,BINDABLE,THREAD,EXTERNAL(''),DLL(dll_mode) !                     
 KeyTeacherNumber         KEY(TEA:Number),NOCASE,OPT,PRIMARY !                     
-KeyLastName              KEY(TEA:LastName),DUP,NOCASE !                     
+KeyLastName              KEY(TEA:LastName),DUP,NOCASE      !                     
 KeyDepartment            KEY(TEA:Department),DUP,NOCASE,OPT !                     
 Record                   RECORD,PRE()
-Number                      LONG                  !                     
-FirstName                   STRING(20)            !                     
-LastName                    STRING(20)            !                     
-Address                     STRING(20)            !                     
-City                        STRING(20)            !                     
-State                       STRING(2)             !                     
-Zip                         LONG                  !                     
-Telephone                   STRING(12)            !                     
-Department                  LONG                  !                     
+Number                      LONG                           !                     
+FirstName                   STRING(20)                     !                     
+LastName                    STRING(20)                     !                     
+Address                     STRING(20)                     !                     
+City                        STRING(20)                     !                     
+State                       STRING(2)                      !                     
+Zip                         LONG                           !                     
+Telephone                   STRING(12)                     !                     
+Department                  LONG                           !                     
                          END
                      END                       
 Teachers::Used       LONG,EXTERNAL,DLL(dll_mode),THREAD
@@ -156,11 +156,11 @@ KeyClassNumber           KEY(CLA:ClassNumber),NOCASE,OPT,PRIMARY !
 KeyCourseNumber          KEY(CLA:CourseNumber,CLA:ClassNumber),DUP,NOCASE !                     
 KeyTeacherNumber         KEY(CLA:TeacherNumber),DUP,NOCASE !                     
 Record                   RECORD,PRE()
-ClassNumber                 LONG                  !                     
-CourseNumber                LONG                  !                     
-TeacherNumber               LONG                  !                     
-RoomNumber                  LONG                  !                     
-ScheduledTime               STRING(20)            !                     
+ClassNumber                 LONG                           !                     
+CourseNumber                LONG                           !                     
+TeacherNumber               LONG                           !                     
+RoomNumber                  LONG                           !                     
+ScheduledTime               STRING(20)                     !                     
                          END
                      END                       
 Classes::Used        LONG,EXTERNAL,DLL(dll_mode),THREAD
@@ -169,32 +169,32 @@ Enrollment           FILE,DRIVER('TOPSPEED'),PRE(ENR),CREATE,BINDABLE,THREAD,EXT
 StuSeq                   KEY(ENR:StudentNumber,ENR:ClassNumber),NOCASE,OPT !                     
 SeqStu                   KEY(ENR:ClassNumber,ENR:StudentNumber),NOCASE,OPT !                     
 Record                   RECORD,PRE()
-StudentNumber               LONG                  !                     
-ClassNumber                 LONG                  !                     
-MidtermExam                 SHORT                 !                     
-FinalExam                   SHORT                 !                     
-TermPaper                   SHORT                 !                     
+StudentNumber               LONG                           !                     
+ClassNumber                 LONG                           !                     
+MidtermExam                 SHORT                          !                     
+FinalExam                   SHORT                          !                     
+TermPaper                   SHORT                          !                     
                          END
                      END                       
 Enrollment::Used     LONG,EXTERNAL,DLL(dll_mode),THREAD
 
 Courses              FILE,DRIVER('TOPSPEED'),PRE(COU),CREATE,BINDABLE,THREAD,EXTERNAL(''),DLL(dll_mode) !                     
 KeyNumber                KEY(COU:Number),NOCASE,OPT,PRIMARY !                     
-KeyDescription           KEY(COU:Description),DUP,NOCASE !                     
-CompleteDescription         MEMO(1000)            !                     
+KeyDescription           KEY(COU:Description),DUP,NOCASE   !                     
+CompleteDescription         MEMO(1000)                     !                     
 Record                   RECORD,PRE()
-Number                      LONG                  !                     
-Description                 STRING(40)            !                     
+Number                      LONG                           !                     
+Description                 STRING(40)                     !                     
                          END
                      END                       
 Courses::Used        LONG,EXTERNAL,DLL(dll_mode),THREAD
 
 Majors               FILE,DRIVER('TOPSPEED'),PRE(MAJ),CREATE,BINDABLE,THREAD,EXTERNAL(''),DLL(dll_mode) !                     
 KeyNumber                KEY(MAJ:Number),NOCASE,OPT,PRIMARY !                     
-KeyDescription           KEY(MAJ:Description),NOCASE,OPT !                     
+KeyDescription           KEY(MAJ:Description),NOCASE,OPT   !                     
 Record                   RECORD,PRE()
-Number                      LONG                  !                     
-Description                 STRING(20)            !                     
+Number                      LONG                           !                     
+Description                 STRING(20)                     !                     
                          END
                      END                       
 Majors::Used         LONG,EXTERNAL,DLL(dll_mode),THREAD
