@@ -10,7 +10,7 @@
    INCLUDE('ABFUZZY.INC'),ONCE
 
   MAP 
-Abc_Init_Kill PROCEDURE(BYTE KillMe=0),EXPORT !<----- Export  
+Abc_Init_Kill PROCEDURE(BYTE KillMe=0)  !,EXPORT !<-- Does not work with #ImpLib
 
      MODULE('DATAABC.DLL')
 DataAbc:Init           PROCEDURE(<ErrorClass curGlobalErrors>, <INIClass curINIMgr>)
