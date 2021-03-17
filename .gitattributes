@@ -7,6 +7,7 @@
 # to native line endings on checkout.
 *.clw text
 *.equ text
+*.exp text
 *.inc text
 *.int text
 *.cwproj text
@@ -14,6 +15,8 @@
 *.red text
 *.sln text
 *.trn text
+*.txa text
+*.dctx text
 
 *.CLW text
 *.EQU text
@@ -43,6 +46,7 @@
 *.zip binary
 *.docx binary
 *.pdf binary
+*.tps binary
 
 # Declare languuage association
 *.clw linguist-language=Clarion
