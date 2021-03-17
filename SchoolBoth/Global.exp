@@ -1,0 +1,6 @@
+LIBRARY 'Global' GUI
+EXPORTS
+  ; Below was done by EXPORT in declarations but did not work when all were EXPORT
+   $GlobalRequest @?
+   $GlobalResponse @?
+   $VCRRequest @?   
