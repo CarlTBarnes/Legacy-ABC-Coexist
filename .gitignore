@@ -19,6 +19,7 @@ _bak_/
 *.ini
 ; *.exe
 *.lnk
+*.lib
 StringTheory.inc
 StringTheory.clw
 
