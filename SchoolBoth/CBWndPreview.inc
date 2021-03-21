@@ -1,5 +1,7 @@
-!#######################################################################################!
-! CBWndPreviewClass by Carl Barnes 12/2018 - Presented at CIDC 2019 - Free for use by all
+!------------------------------------------------------------
+! CBWndPreviewClass (c) Carl Barnes 2018-2021 - MIT License
+! Download: https://github.com/CarlTBarnes/WindowPreview
+!------------------------------------------------------------
 ! Disclaimer: This has no intended purpose, if it appears to ... that was coincidental.
 ! In a Preview generated from the Window Designer an invisbile button at the top allows
 ! changing Hide,Disable,ReadOnly,Skip. Properties cana be viewed. Controls Resized. More.
@@ -167,6 +169,8 @@ EvtLogField   PROCEDURE(<LONG F>),STRING
 
 !??????????????????????????????????????????????????????????????????????????????????????????????
 ! Window Previewer will NOT run, displays nothing: Install the .Net 2.0 and 3.5 redistributable
+!
+!   Read: https://clarionhub.com/t/how-to-solve-the-window-previewer-could-not-display-the-window/3545?u=carlbarnes
 !
 !   sv.clarion.clarion10 (sv.clarion.clarion10) - Subject: Re: Cannot Preview any windows on C10 
 !   On 12.05.2016 00:49, robert.zaunere wrote:
