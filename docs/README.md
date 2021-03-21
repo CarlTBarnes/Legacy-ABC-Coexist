@@ -23,8 +23,8 @@ Conversion should not be viewed as an All or Nothing process.
 
 Simon converts the CW 2.0 Club Manager in Legacy. I'll upload that in this Repo.
 
-###ClubMgrLegacy.zip
+### ClubMgrLegacy.zip
 
-Included in this folder is ClubMgrLegacy.zip. That was from the CW 2.0 Legacy Example APP.
- I opened it in Clarion 10 and fixed all the problems so it builds clean. 
- You could use this to try conversion as Simnon did.
+Included in this folder is ClubMgrLegacy.zip containing the CW 2.0  Legacy example APP.
+ I opened it in Clarion 10 and fixed all the problems so it builds clean. The .6App and DCT are still there if you want the original.
+ You could use this APP to try the conversion as Simnon did in his articles.
