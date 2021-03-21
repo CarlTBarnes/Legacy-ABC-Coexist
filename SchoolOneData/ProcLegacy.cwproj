@@ -1,0 +1,67 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{F0C3BF30-2C7A-4346-96E6-6BCE43E4F55A}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Win32</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ProcLegacy</RootNamespace>
+    <AssemblyName>ProcLegacy</AssemblyName>
+    <OutputName>ProcLegacy</OutputName>
+    <CWOutputType>Exe</CWOutputType>
+    <Model>Dll</Model>
+    <stack_size>16384</stack_size>
+    <CopyCore>True</CopyCore>
+    <DefineConstants>
+    </DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <vid>full</vid>
+    <check_stack>True</check_stack>
+    <check_index>True</check_index>
+    <warnings>on</warnings>
+    <GenerateMap>True</GenerateMap>
+    <line_numbers>False</line_numbers>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <vid>off</vid>
+    <check_stack>False</check_stack>
+    <check_index>False</check_index>
+    <StartAction>Program</StartAction>
+    <StartProgram>BothSchool.exe</StartProgram>
+  </PropertyGroup>
+  <ItemGroup>
+    <FileDriver Include="TOPSPEED" />
+    <Compile Include="ProcLegacy.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ProcLegacy001.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ProcLegacy002.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ProcLegacy003.clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ProcL_RD.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ProcL_RU.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ProcL_SF.CLW">
+      <Generated>true</Generated>
+    </Compile>
+    <Compile Include="ResCode.Clw">
+      <Generated>true</Generated>
+    </Compile>
+    <Library Include="Closed.ico" />
+    <Library Include="DataAbc.lib" />
+    <Library Include="Open.ico" />
+  </ItemGroup>
+  <Import Project="$(ClarionBinPath)\SoftVelocity.Build.Clarion.targets" />
+</Project>

@@ -1,0 +1,3 @@
+LIBRARY 'AbcInitDLL' GUI
+EXPORTS
+    ABC_INIT_KILL@FUc  @?

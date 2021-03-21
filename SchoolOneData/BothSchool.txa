@@ -1,0 +1,3231 @@
+[APPLICATION]
+VERSION 34
+TODO Clarion ToDo
+HLP 'SCHOOL.HLP'
+DICTIONARY 'SCHOOL.DCT'
+PROCEDURE Main
+[COMMON]
+FROM Clarion
+MODIFIED '2021/03/15' '20:27:45'
+[PROMPTS]
+%GlobalUseABCClasess LONG  (0)
+%ClassItem UNIQUE DEFAULT  ('ClientSideTriggers:Classes', 'ClientSideTriggers:Courses', |
+  'ClientSideTriggers:Enrollment', 'ClientSideTriggers:Majors', 'ClientSideTriggers:Students', |
+  'ClientSideTriggers:Teachers')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 0
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 0
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 0
+
+%ExternalSource DEFAULT  ('Statically Linked Library (LIB)')
+%ProgramAuthor DEFAULT  ('')
+%ProgramIcon DEFAULT  ('')
+%MessageDescription LONG  (0)
+%GlobalExternal LONG  (1)
+%GenerateEmbedComments LONG  (1)
+%INIActive LONG  (0)
+%INIFile DEFAULT  ('Program Name.INI')
+%ININame DEFAULT  ('')
+%INIProgramIniLocation DEFAULT  ('APPDIR')
+%INICSIDLDirectory DEFAULT  ('SV:CSIDL_PERSONAL')
+%CSIDLCompanyDir DEFAULT  ('')
+%CSIDLProductDir DEFAULT  ('')
+%CSIDLCreate LONG  (0)
+%INIInAppDirectory LONG  (0)
+%ButtonMarginsCompatibility LONG  (0)
+%UseDefaultXPManifest LONG  (0)
+%GenerateXPManifest LONG  (0)
+%LinkGenerateXPManifest LONG  (0)
+%AddVistaXPManifest LONG  (0)
+%VistaManifestExecutionLevel DEFAULT  ('asInvoker')
+%VistaManifestUIAccess LONG  (0)
+%NoThemedControlsDependency LONG  (0)
+%VistaManifestdpiAware LONG  (1)
+%VistaManifestDependentAssembly MULTI LONG  ()
+%VistaManifestDependentAssemblyName DEPEND %VistaManifestDependentAssembly DEFAULT TIMES 0
+
+%VistaManifestDependentAssemblyVersion DEPEND %VistaManifestDependentAssembly DEFAULT TIMES 0
+
+%VistaManifestDependentAssemblyType DEPEND %VistaManifestDependentAssembly DEFAULT TIMES 0
+
+%VistaManifestDependentAssemblyPublicKeyToken DEPEND %VistaManifestDependentAssembly DEFAULT TIMES 0
+
+%VistaManifestDependentAssemblyLanguage DEPEND %VistaManifestDependentAssembly DEFAULT TIMES 0
+
+%VistaManifestDependentAssemblyProcessorArchitecture DEPEND %VistaManifestDependentAssembly LONG TIMES 0
+
+%W7ManifestVista LONG  (1)
+%W7ManifestW7 LONG  (1)
+%W7ManifestW8 LONG  (1)
+%W7ManifestW81 LONG  (1)
+%W7ManifestW10 LONG  (1)
+%ForceMakeTransparentXPManifest LONG  (0)
+%ForceMakeColorXPManifest LONG  (0)
+%ForceSHEETNoTheme LONG  (0)
+%ExtUIXPMenuEnableGlobal LONG  (0)
+%ExtUIXPMenuColorTypeGlobal DEFAULT  ('OFF')
+%ExtUIXPMenuDisableImageBar LONG  (1)
+%ExtUIXPMenuEnableRuntime LONG  (0)
+%ExtUIXPMenuRuntimeVar DEFAULT  ('GLO:FileName')
+%ExtUIXPMenuColorLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorRightGlobal LONG  (12560039)
+%ExtUIXPMenuColorSelectionBarLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorSelectionBarRightGlobal LONG  (15920364)
+%ExtUIXPMenuSelVertical LONG  (1)
+%ExtUIXPMenuColorSelectionBorderGlobal LONG  (15920364)
+%ExtUIXPMenuColorHotLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorHotRightGlobal LONG  (15920364)
+%ExtUIXPMenuColorSelectedLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorSelectedRightGlobal LONG  (15920364)
+%ExtUIXPMenuColorNormalBarLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorNormalBarRightGlobal LONG  (15920364)
+%ExtUIXPMenuColorItemBackgroundGlobal LONG  (-2147483644)
+%ExtUIXPMenuColorNormalText LONG  (0)
+%ExtUIXPMenuColorSelectedText LONG  (0)
+%ExtUIXPMenuColorHotText LONG  (0)
+%ExtUIXPMenuFlat LONG  (1)
+%ExtUIXPMenuShowImageBar LONG  (0)
+%ExtUIXPMenuSeparator3D LONG  (1)
+%ExtUIXPMenuSeparatorFull LONG  (0)
+%ExtUIXPMenuVerticalLine LONG  (1)
+%ExtUIMDITabGlobal DEFAULT  ('DISABLE')
+%ExtUIMDITabStyleGlobal DEFAULT  ('Default')
+%ExtUITabStyleGlobal DEFAULT  ('Default')
+%WindowEnableEnhanceFocus LONG  (0)
+%SelectedText LONG  (1)
+%SelectedRadio LONG  (1)
+%SelectedSpin LONG  (1)
+%SelectedCheck LONG  (1)
+%SelectedDropList LONG  (1)
+%SelectedList LONG  (1)
+%SelectedDisplayChangeColor LONG  (1)
+%SelectedColor LONG  (65535)
+%SelectedStyle LONG  (1)
+%SelectedRequired LONG  (0)
+%SelectedRequiredColor LONG  (65535)
+%SelectedDisplayBox LONG  (1)
+%SelectedDisplayBoxFillColor LONG  (65535)
+%SelectedDisplayBoxBorderColor LONG  (0)
+%SelectedDisplayBoxBorderSize DEFAULT  ('2')
+%SelectedRequiredBox LONG  (0)
+%SelectedRequiredDisplayBoxFillColor LONG  (255)
+%SelectedRequiredDisplayBoxBorderColor LONG  (0)
+%SelectedCaret LONG  (1)
+%SelectedCaretColor LONG  (8421504)
+%SelectedCaretCharacter DEFAULT  ('»')
+%SelectedCaretCharacterSeparation DEFAULT  ('8')
+%ExcludeSelectedDropList LONG  (0)
+%EnableOSK DEFAULT  ('OFF')
+%GlobalUseEnterInsteadTab LONG  (0)
+%GlobalUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%GlobalUseEnterInsteadTabEnable DEFAULT  ('Enable')
+%GlobalUseEnterInsteadTabEnableValue DEFAULT  ('True')
+%GlobalReportPreviewMode DEFAULT  ('Procedure')
+%GlobalReportPreview DEFAULT  ('ReportPreview')
+%GlobalInterLine DEFAULT  ('0')
+%GlobalEnableAutoSizeColumn LONG  (0)
+%GlobalEnableListFormatManager LONG  (0)
+%GlobalUserFieldListFormatManager DEFAULT  ('1')
+%TableOrigin DEFAULT  ('Application')
+%FileEquate DEFAULT  ('LFM_CFile')
+%ConfigFilePRE DEFAULT  ('CFG')
+%ConfigFileOEM LONG  (0)
+%ConfigFileTHREAD LONG  (1)
+%ConfigFileENCRYPT LONG  (0)
+%ConfigFilePASSWORD DEFAULT  ('')
+%FormatNameSize DEFAULT  ('30')
+%FormatBufferSize DEFAULT  ('5120')
+%VariableBufferSize DEFAULT  ('2048')
+%ConfigFilePath DEFAULT  ('')
+%UseConfigFileName DEFAULT  ('Default')
+%ConfigFileNAME DEFAULT  ('Formats.FDB')
+%ColonCounter DEFAULT  ('')
+%WrongSymbol DEFAULT  ('')
+%DictionaryTableOrigin FILE  ()
+%GlobalLFMSortOrderMenuText DEFAULT  ('SortOrder')
+%GlobalBrowseActiveInvisible LONG  (1)
+%GlobalEnableRebase LONG  (0)
+%RBDMethod DEFAULT  ('Specify manually')
+%RBDImageBase DEFAULT  ('10000000')
+%DefaultGenerate LONG  (0)
+%DefaultCloseFile DEFAULT  ('Close the File')
+%DefaultRILogout LONG  (1)
+%WarnOnLogoutError LONG  (1)
+%LockRecoverTime DEFAULT  ('10')
+%DefaultThreaded DEFAULT  ('Use File Setting')
+%DefaultCreate DEFAULT  ('Use File Setting')
+%DefaultExternal DEFAULT  ('All External')
+%DefaultLocalExternal LONG  (0)
+%DefaultExternalSource DEFAULT  ('')
+%DefaultExternalAPP LONG  (1)
+%DefaultExport LONG  (0)
+%TriggersSupportEnableGlobal LONG  (0)
+%TriggersManagerType DEFAULT  ('TriggerManager')
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 6
+WHEN  ('ClientSideTriggers:Classes') ('YES')
+WHEN  ('ClientSideTriggers:Courses') ('YES')
+WHEN  ('ClientSideTriggers:Enrollment') ('YES')
+WHEN  ('ClientSideTriggers:Majors') ('YES')
+WHEN  ('ClientSideTriggers:Students') ('YES')
+WHEN  ('ClientSideTriggers:Teachers') ('YES')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 0
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 6
+WHEN  ('ClientSideTriggers:Classes') (1)
+WHEN  ('ClientSideTriggers:Courses') (1)
+WHEN  ('ClientSideTriggers:Enrollment') (1)
+WHEN  ('ClientSideTriggers:Majors') (1)
+WHEN  ('ClientSideTriggers:Students') (1)
+WHEN  ('ClientSideTriggers:Teachers') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 6
+WHEN  ('ClientSideTriggers:Classes') (1)
+WHEN  ('ClientSideTriggers:Courses') (1)
+WHEN  ('ClientSideTriggers:Enrollment') (1)
+WHEN  ('ClientSideTriggers:Majors') (1)
+WHEN  ('ClientSideTriggers:Students') (1)
+WHEN  ('ClientSideTriggers:Teachers') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 6
+WHEN  ('ClientSideTriggers:Classes') ('')
+WHEN  ('ClientSideTriggers:Courses') ('')
+WHEN  ('ClientSideTriggers:Enrollment') ('')
+WHEN  ('ClientSideTriggers:Majors') ('')
+WHEN  ('ClientSideTriggers:Students') ('')
+WHEN  ('ClientSideTriggers:Teachers') ('')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 6
+WHEN  ('ClientSideTriggers:Classes') (0)
+WHEN  ('ClientSideTriggers:Courses') (0)
+WHEN  ('ClientSideTriggers:Enrollment') (0)
+WHEN  ('ClientSideTriggers:Majors') (0)
+WHEN  ('ClientSideTriggers:Students') (0)
+WHEN  ('ClientSideTriggers:Teachers') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 1
+WHEN  ('ClientSideTriggers:Majors')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 1
+WHEN  ('ClientSideTriggers:Majors')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%DefaultOpenMode DEFAULT  ('Share')
+%DefaultUserAccess DEFAULT  ('Read/Write')
+%DefaultOtherAccess DEFAULT  ('Deny None')
+%GeneratePropDataPath LONG  (0)
+%PropDataPathLocation DEFAULT  ('CSIDLLIKEINI')
+%DataPathCSIDLDirectory DEFAULT  ('SV:CSIDL_PERSONAL')
+%DataPathCSIDLCompanyDir DEFAULT  ('')
+%DataPathCSIDLProductDir DEFAULT  ('')
+%DataPathCSIDLCreate LONG  (0)
+%DataPathOtherDirectory DEFAULT  ('')
+%DataPathOtherDirectoryCreate LONG  (0)
+%OverrideGenerate DEPEND %File LONG TIMES 6
+WHEN  ('Classes') (0)
+WHEN  ('Courses') (0)
+WHEN  ('Enrollment') (0)
+WHEN  ('Majors') (0)
+WHEN  ('Students') (0)
+WHEN  ('Teachers') (0)
+
+%OverrideCloseFile DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('')
+WHEN  ('Courses') ('')
+WHEN  ('Enrollment') ('')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('')
+WHEN  ('Teachers') ('')
+
+%OverrideRILogout DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('')
+WHEN  ('Courses') ('')
+WHEN  ('Enrollment') ('')
+WHEN  ('Majors') ('')
+WHEN  ('Students') ('')
+WHEN  ('Teachers') ('')
+
+%OverrideThreaded DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('')
+WHEN  ('Courses') ('')
+WHEN  ('Enrollment') ('')
+WHEN  ('Majors') ('')
+WHEN  ('Students') ('')
+WHEN  ('Teachers') ('')
+
+%OverrideCreate DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('')
+WHEN  ('Courses') ('')
+WHEN  ('Enrollment') ('')
+WHEN  ('Majors') ('')
+WHEN  ('Students') ('')
+WHEN  ('Teachers') ('')
+
+%OverrideExternal DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('')
+WHEN  ('Courses') ('')
+WHEN  ('Enrollment') ('')
+WHEN  ('Majors') ('')
+WHEN  ('Students') ('')
+WHEN  ('Teachers') ('')
+
+%OverrideLocalExternal DEPEND %File LONG TIMES 0
+
+%OverrideExternalSource DEPEND %File DEFAULT TIMES 6
+WHEN  ('Classes') ('')
+WHEN  ('Courses') ('')
+WHEN  ('Enrollment') ('')
+WHEN  ('Majors') ('')
+WHEN  ('Students') ('')
+WHEN  ('Teachers') ('')
+
+%OverrideExternalAPP DEPEND %File LONG TIMES 6
+WHEN  ('Classes') (0)
+WHEN  ('Courses') (0)
+WHEN  ('Enrollment') (0)
+WHEN  ('Majors') (0)
+WHEN  ('Students') (0)
+WHEN  ('Teachers') (0)
+
+%OverrideExport DEPEND %File LONG TIMES 6
+WHEN  ('Classes') (0)
+WHEN  ('Courses') (0)
+WHEN  ('Enrollment') (0)
+WHEN  ('Majors') (0)
+WHEN  ('Students') (0)
+WHEN  ('Teachers') (0)
+
+%OverrideOpenMode DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('')
+WHEN  ('Courses') ('')
+WHEN  ('Enrollment') ('')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('')
+WHEN  ('Teachers') ('')
+
+%OverrideUserAccess DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('Use Default')
+WHEN  ('Courses') ('Use Default')
+WHEN  ('Enrollment') ('Use Default')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('Use Default')
+WHEN  ('Teachers') ('Use Default')
+
+%OverrideOtherAccess DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('Use Default')
+WHEN  ('Courses') ('Use Default')
+WHEN  ('Enrollment') ('Use Default')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('Use Default')
+WHEN  ('Teachers') ('Use Default')
+
+%OverrideAbcSettings LONG  (0)
+%AbcSourceLocation DEFAULT  ('LINK')
+%AbcLibraryName DEFAULT  ('')
+%CWBrowseEIPManagerType DEFAULT  ('CWEIPManager')
+%EditInPlaceEntryType DEFAULT  ('EditEntryClass')
+%EditInPlaceTextType DEFAULT  ('EditTextClass')
+%EditInPlaceCheckType DEFAULT  ('EditCheckClass')
+%EditInPlaceSpinType DEFAULT  ('EditSpinClass')
+%EditInPlaceDropListType DEFAULT  ('EditDropListClass')
+%EditInPlaceDropComboType DEFAULT  ('EditDropComboClass')
+%EditInPlaceColorType DEFAULT  ('EditColorClass')
+%EditInPlaceFileType DEFAULT  ('EditFileClass')
+%EditInPlaceFontType DEFAULT  ('EditFontClass')
+%EditInPlaceMultiSelectType DEFAULT  ('EditMultiSelectClass')
+%EditInPlaceCalendarType DEFAULT  ('EditCalendarClass')
+%EditInPlaceLookupType DEFAULT  ('EditLookupClass')
+%EditInPlaceOtherType DEFAULT  ('EditEntryClass')
+%PrintPreviewType DEFAULT  ('PrintPreviewClass')
+%ReportTargetSelectorManagerType DEFAULT  ('ReportTargetSelectorClass')
+%CalendarManagerType DEFAULT  ('CalendarClass')
+%GlobalChangeColor LONG  (0)
+%GlobalColorSunday LONG  (255)
+%GlobalColorSaturday LONG  (255)
+%GlobalColorHoliday LONG  (32768)
+%GlobalColorOther LONG  (0)
+%GlobalSelectOnClose DEFAULT  ('Select and Close')
+%AppTemplateFamily DEFAULT  ('CLARION')
+%CWTemplateVersion DEFAULT  ('v10.0')
+[PERSIST]
+%GenerationCompleted DEPEND %Module DEFAULT TIMES 8
+WHEN  ('AbcInitDLL.lib') ('')
+WHEN  ('BothSchool.clw') ('1')
+WHEN  ('BothSchool001.clw') ('1')
+WHEN  ('BothSchool002.clw') ('1')
+WHEN  ('DataABC.lib') ('')
+WHEN  ('DataLegacy.lib') ('')
+WHEN  ('ProcABC.lib') ('')
+WHEN  ('ProcLegacy.lib') ('')
+
+%LastTarget32 DEFAULT  ('1')
+%LastProgramExtension DEFAULT  ('EXE')
+%LastApplicationDebug DEFAULT  ('1')
+%LastApplicationLocalLibrary DEFAULT  ('')
+[PROJECT]
+#system win32 exe
+#model clarion dll
+#pragma debug(vid=>full)
+#compile "BothSchool001.clw"
+#compile "BothSchool.clw" -- GENERATED
+#compile "BothSchool002.clw" -- GENERATED
+#compile "BothS_RD.CLW" -- GENERATED
+#compile "BothS_RU.CLW" -- GENERATED
+#compile "BothS_SF.CLW" -- GENERATED
+#pragma link("ProcLegacy.lib") -- GENERATED
+#pragma link("AbcInitDLL.lib") -- GENERATED
+#pragma link("ProcABC.lib") -- GENERATED
+#link "BothSchool.EXE"
+[PROGRAM]
+[COMMON]
+FROM Clarion Clarion
+MODIFIED '2021/03/16' ' 6:56:29'
+[DATA]
+[SCREENCONTROLS]
+! PROMPT('Image File Name:'),USE(?GLO:FileName:Prompt)
+! ENTRY(@s64),USE(GLO:FileName)
+[REPORTCONTROLS]
+! STRING(@s64),USE(GLO:FileName)
+GLO:FileName             STRING(64)
+!!> GUID('c0ae0dbc-53d5-4a3a-92ce-3ae088b3b5e6'),PROMPT('Image File Name:'),HEADER('GLO : File Name'),PICTURE(@s64)
+[SCREENCONTROLS]
+! PROMPT('App Frame Ref:'),USE(?AppFrameRef:Prompt)
+! ENTRY(@s20),USE(AppFrameRef)
+[REPORTCONTROLS]
+! STRING(@s20),USE(AppFrameRef)
+AppFrameRef              &WINDOW
+!!> GUID('273bda0e-aa9a-4e43-98ed-09f8cabd5fae'),PROMPT('App Frame Ref:'),HEADER('App Frame Ref'),PICTURE(@s20)
+[SCREENCONTROLS]
+! PROMPT('GLO : Drop Thread:'),USE(?GLO:DropThread:Prompt)
+! ENTRY(@n-13),USE(GLO:DropThread)
+[REPORTCONTROLS]
+! STRING(@n-13),USE(GLO:DropThread)
+GLO:DropThread           LONG
+!!> GUID('15ced23c-2a48-4154-aec4-7b7fff5214c0'),PROMPT('GLO : Drop Thread:'),HEADER('GLO : Drop Thread'),PICTURE(@n-13)
+[SCREENCONTROLS]
+! PROMPT('GLO : Drop Control:'),USE(?GLO:DropControl:Prompt)
+! ENTRY(@n-13),USE(GLO:DropControl)
+[REPORTCONTROLS]
+! STRING(@n-13),USE(GLO:DropControl)
+GLO:DropControl          LONG
+!!> GUID('64379758-e40d-4cb8-a52a-1d449b0b416e'),PROMPT('GLO : Drop Control:'),HEADER('GLO : Drop Control'),PICTURE(@n-13)
+[SCREENCONTROLS]
+! PROMPT('GLO : Thread Ref:'),USE(?GLO:ThreadRef:Prompt)
+! ENTRY(@n-13),USE(GLO:ThreadRef)
+[REPORTCONTROLS]
+! STRING(@n-13),USE(GLO:ThreadRef)
+GLO:ThreadRef            &LONG
+!!> GUID('fb52a5e9-28f0-4f91-bac7-7898f459ea5f'),PROMPT('GLO : Thread Ref:'),HEADER('GLO : Thread Ref'),PICTURE(@n-13)
+[SCREENCONTROLS]
+! PROMPT('GLO : Came From:'),USE(?GLO:CameFrom:Prompt)
+! ENTRY(@s20),USE(GLO:CameFrom)
+[REPORTCONTROLS]
+! STRING(@s20),USE(GLO:CameFrom)
+GLO:CameFrom             STRING(20)
+!!> GUID('9ecddef9-ecd1-4d9a-b477-c5888ff883e5'),PROMPT('GLO : Came From:'),HEADER('GLO : Came From'),PICTURE(@s20)
+[EMBED]
+EMBED %AfterGlobalIncludes
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+include('prnprop.clw')
+[END]
+EMBED %BeforeGlobalIncludes
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+   INCLUDE('CbWndPrvHelpHook.INC'),ONCE   !From GitHub CarlTBarnes
+   INCLUDE('CbWndPreview.INC'),ONCE       !<><><><><><><> CB Wnd Preview <><><><><><><>
+
+Help2WndPreviewCls  &CbWndPrvHelpHookClass  !Declare as Ref so no chance affects live APP
+[END]
+[END]
+[END]
+[MODULE]
+NOPOPULATE 
+[COMMON]
+FROM Clarion GENERATED
+MODIFIED '2021/03/15' '20:34:16'
+[PROCEDURE]
+NAME Main
+NOEXPORT
+[COMMON]
+DESCRIPTION 'Clarion for Windows Wizard Application'
+FROM Clarion Frame
+MODIFIED '2021/03/19' '15:58:31'
+[DATA]
+LocalRequest             LONG
+!!> GUID('cbcc648a-d052-4cc9-b5ee-ad63e1abb2d0')
+OriginalRequest          LONG
+!!> GUID('4655319d-480c-42d8-9d81-612ecf51e1cf')
+LocalResponse            LONG
+!!> GUID('3e54cb8a-b79a-4f5a-bb9a-256e6ac327ff')
+FilesOpened              LONG
+!!> GUID('9e134cdd-1314-439c-bb56-ad06a9db8f42')
+WindowOpened             LONG
+!!> GUID('b479b3f4-9f90-4658-9fb6-33dd26983519')
+WindowInitialized        LONG
+!!> GUID('d0f8505b-a4eb-440d-80eb-5e73df5bdbca')
+ForceRefresh             LONG
+!!> GUID('7a25e1b1-e3b3-4e72-a2de-d69ed3a8318a')
+CurrentTab               STRING(80)
+!!> GUID('c5043326-0365-4cd4-af2c-4b35ae15e466')
+[PROMPTS]
+%ButtonAction DEPEND %Control DEFAULT TIMES 56
+WHEN  ('') ('No Special Action')
+WHEN  ('?ABCBrowseClassTree') ('Call a Procedure')
+WHEN  ('?ABCBrowseClasses') ('Call a Procedure')
+WHEN  ('?ABCBrowseCourses') ('Call a Procedure')
+WHEN  ('?ABCBrowseEnrollment') ('Call a Procedure')
+WHEN  ('?ABCBrowseMajors') ('Call a Procedure')
+WHEN  ('?ABCBrowseStudents') ('Call a Procedure')
+WHEN  ('?ABCBrowseStudentsTree') ('Call a Procedure')
+WHEN  ('?ABCBrowseTeachers') ('Call a Procedure')
+WHEN  ('?ABCBrowseUpdateGrades') ('Call a Procedure')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('Call a Procedure')
+WHEN  ('?AbcInitItem') ('Call a Procedure')
+WHEN  ('?Arrange') ('No Special Action')
+WHEN  ('?BrowseClassTree') ('Call a Procedure')
+WHEN  ('?BrowseClasses') ('Call a Procedure')
+WHEN  ('?BrowseCourses') ('Call a Procedure')
+WHEN  ('?BrowseEnrollment') ('Call a Procedure')
+WHEN  ('?BrowseMajors') ('Call a Procedure')
+WHEN  ('?BrowseStudents') ('Call a Procedure')
+WHEN  ('?BrowseStudentsTree') ('Call a Procedure')
+WHEN  ('?BrowseTeachers') ('Call a Procedure')
+WHEN  ('?BrowseUpdateGrades') ('Call a Procedure')
+WHEN  ('?Cascade') ('No Special Action')
+WHEN  ('?CbHlpHookEnableItem') ('No Special Action')
+WHEN  ('?CbHlpHookEnableItem2') ('No Special Action')
+WHEN  ('?Copy') ('No Special Action')
+WHEN  ('?Cut') ('No Special Action')
+WHEN  ('?Exit') ('No Special Action')
+WHEN  ('?HelpAbout') ('Call a Procedure')
+WHEN  ('?HelpOnHelp') ('No Special Action')
+WHEN  ('?HelpSearch') ('No Special Action')
+WHEN  ('?Helpindex') ('No Special Action')
+WHEN  ('?Paste') ('No Special Action')
+WHEN  ('?PrintCOU:KeyDescription') ('Call a Procedure')
+WHEN  ('?PrintENR:SeqStu') ('Call a Procedure')
+WHEN  ('?PrintENR:StuSeq') ('Call a Procedure')
+WHEN  ('?PrintSetup') ('No Special Action')
+WHEN  ('?ReportsCourseEnrollmentSummary') ('Call a Procedure')
+WHEN  ('?ReportsFinalGrades') ('Call a Procedure')
+WHEN  ('?ReportsStudentIDs') ('Call a Procedure')
+WHEN  ('?ReportsTeacherClassSchedules') ('Call a Procedure')
+WHEN  ('?TBarBrwBottom') ('No Special Action')
+WHEN  ('?TBarBrwChange') ('No Special Action')
+WHEN  ('?TBarBrwDelete') ('No Special Action')
+WHEN  ('?TBarBrwDown') ('No Special Action')
+WHEN  ('?TBarBrwInsert') ('No Special Action')
+WHEN  ('?TBarBrwLocate') ('No Special Action')
+WHEN  ('?TBarBrwPageDown') ('No Special Action')
+WHEN  ('?TBarBrwPageUp') ('No Special Action')
+WHEN  ('?TBarBrwSelect') ('No Special Action')
+WHEN  ('?TBarBrwTop') ('No Special Action')
+WHEN  ('?TBarBrwUp') ('No Special Action')
+WHEN  ('?TbarBrwHelp') ('No Special Action')
+WHEN  ('?TbarBrwHistory') ('No Special Action')
+WHEN  ('?Tile') ('No Special Action')
+WHEN  ('?Trees') ('No Special Action')
+
+%ButtonRunName DEPEND %Control DEFAULT TIMES 53
+WHEN  ('?ABCBrowseClassTree') ('')
+WHEN  ('?ABCBrowseClasses') ('')
+WHEN  ('?ABCBrowseCourses') ('')
+WHEN  ('?ABCBrowseEnrollment') ('')
+WHEN  ('?ABCBrowseMajors') ('')
+WHEN  ('?ABCBrowseStudents') ('')
+WHEN  ('?ABCBrowseStudentsTree') ('')
+WHEN  ('?ABCBrowseTeachers') ('')
+WHEN  ('?ABCBrowseUpdateGrades') ('')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('')
+WHEN  ('?AbcInitItem') ('')
+WHEN  ('?Arrange') ('')
+WHEN  ('?BrowseClassTree') ('')
+WHEN  ('?BrowseClasses') ('')
+WHEN  ('?BrowseCourses') ('')
+WHEN  ('?BrowseEnrollment') ('')
+WHEN  ('?BrowseMajors') ('')
+WHEN  ('?BrowseStudents') ('')
+WHEN  ('?BrowseStudentsTree') ('')
+WHEN  ('?BrowseTeachers') ('')
+WHEN  ('?BrowseUpdateGrades') ('')
+WHEN  ('?Cascade') ('')
+WHEN  ('?Copy') ('')
+WHEN  ('?Cut') ('')
+WHEN  ('?Exit') ('')
+WHEN  ('?HelpAbout') ('')
+WHEN  ('?HelpOnHelp') ('')
+WHEN  ('?HelpSearch') ('')
+WHEN  ('?Helpindex') ('')
+WHEN  ('?Paste') ('')
+WHEN  ('?PrintCOU:KeyDescription') ('')
+WHEN  ('?PrintENR:SeqStu') ('')
+WHEN  ('?PrintENR:StuSeq') ('')
+WHEN  ('?PrintSetup') ('')
+WHEN  ('?ReportsCourseEnrollmentSummary') ('')
+WHEN  ('?ReportsFinalGrades') ('')
+WHEN  ('?ReportsStudentIDs') ('')
+WHEN  ('?ReportsTeacherClassSchedules') ('')
+WHEN  ('?TBarBrwBottom') ('')
+WHEN  ('?TBarBrwChange') ('')
+WHEN  ('?TBarBrwDelete') ('')
+WHEN  ('?TBarBrwDown') ('')
+WHEN  ('?TBarBrwInsert') ('')
+WHEN  ('?TBarBrwLocate') ('')
+WHEN  ('?TBarBrwPageDown') ('')
+WHEN  ('?TBarBrwPageUp') ('')
+WHEN  ('?TBarBrwSelect') ('')
+WHEN  ('?TBarBrwTop') ('')
+WHEN  ('?TBarBrwUp') ('')
+WHEN  ('?TbarBrwHelp') ('')
+WHEN  ('?TbarBrwHistory') ('')
+WHEN  ('?Tile') ('')
+WHEN  ('?Trees') ('')
+
+%ButtonRunParameters DEPEND %Control DEFAULT TIMES 53
+WHEN  ('?ABCBrowseClassTree') ('')
+WHEN  ('?ABCBrowseClasses') ('')
+WHEN  ('?ABCBrowseCourses') ('')
+WHEN  ('?ABCBrowseEnrollment') ('')
+WHEN  ('?ABCBrowseMajors') ('')
+WHEN  ('?ABCBrowseStudents') ('')
+WHEN  ('?ABCBrowseStudentsTree') ('')
+WHEN  ('?ABCBrowseTeachers') ('')
+WHEN  ('?ABCBrowseUpdateGrades') ('')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('')
+WHEN  ('?AbcInitItem') ('')
+WHEN  ('?Arrange') ('')
+WHEN  ('?BrowseClassTree') ('')
+WHEN  ('?BrowseClasses') ('')
+WHEN  ('?BrowseCourses') ('')
+WHEN  ('?BrowseEnrollment') ('')
+WHEN  ('?BrowseMajors') ('')
+WHEN  ('?BrowseStudents') ('')
+WHEN  ('?BrowseStudentsTree') ('')
+WHEN  ('?BrowseTeachers') ('')
+WHEN  ('?BrowseUpdateGrades') ('')
+WHEN  ('?Cascade') ('')
+WHEN  ('?Copy') ('')
+WHEN  ('?Cut') ('')
+WHEN  ('?Exit') ('')
+WHEN  ('?HelpAbout') ('')
+WHEN  ('?HelpOnHelp') ('')
+WHEN  ('?HelpSearch') ('')
+WHEN  ('?Helpindex') ('')
+WHEN  ('?Paste') ('')
+WHEN  ('?PrintCOU:KeyDescription') ('')
+WHEN  ('?PrintENR:SeqStu') ('')
+WHEN  ('?PrintENR:StuSeq') ('')
+WHEN  ('?PrintSetup') ('')
+WHEN  ('?ReportsCourseEnrollmentSummary') ('')
+WHEN  ('?ReportsFinalGrades') ('')
+WHEN  ('?ReportsStudentIDs') ('')
+WHEN  ('?ReportsTeacherClassSchedules') ('')
+WHEN  ('?TBarBrwBottom') ('')
+WHEN  ('?TBarBrwChange') ('')
+WHEN  ('?TBarBrwDelete') ('')
+WHEN  ('?TBarBrwDown') ('')
+WHEN  ('?TBarBrwInsert') ('')
+WHEN  ('?TBarBrwLocate') ('')
+WHEN  ('?TBarBrwPageDown') ('')
+WHEN  ('?TBarBrwPageUp') ('')
+WHEN  ('?TBarBrwSelect') ('')
+WHEN  ('?TBarBrwTop') ('')
+WHEN  ('?TBarBrwUp') ('')
+WHEN  ('?TbarBrwHelp') ('')
+WHEN  ('?TbarBrwHistory') ('')
+WHEN  ('?Tile') ('')
+WHEN  ('?Trees') ('')
+
+%ButtonProcedure DEPEND %Control PROCEDURE TIMES 53
+WHEN  ('?ABCBrowseClassTree') (ABCClassTree)
+WHEN  ('?ABCBrowseClasses') (ABCBrowseClasses)
+WHEN  ('?ABCBrowseCourses') (ABCBrowseCourses)
+WHEN  ('?ABCBrowseEnrollment') (ABCBrowseEnrollment)
+WHEN  ('?ABCBrowseMajors') (ABCBrowseMajors)
+WHEN  ('?ABCBrowseStudents') (AbcBrowseStudents)
+WHEN  ('?ABCBrowseStudentsTree') (ABCStudentTree)
+WHEN  ('?ABCBrowseTeachers') (ABCBrowseTeachers)
+WHEN  ('?ABCBrowseUpdateGrades') (ABCUpdateGrades)
+WHEN  ('?ABCPrintCOU:KeyDescription') (AbcCourseEnrollment)
+WHEN  ('?AbcInitItem') (Abc_Init_Kill)
+WHEN  ('?Arrange') ()
+WHEN  ('?BrowseClassTree') (ClassTree)
+WHEN  ('?BrowseClasses') (BrowseClasses)
+WHEN  ('?BrowseCourses') (BrowseCourses)
+WHEN  ('?BrowseEnrollment') (BrowseEnrollment)
+WHEN  ('?BrowseMajors') (BrowseMajors)
+WHEN  ('?BrowseStudents') (BrowseStudents)
+WHEN  ('?BrowseStudentsTree') (StudentTree)
+WHEN  ('?BrowseTeachers') (BrowseTeachers)
+WHEN  ('?BrowseUpdateGrades') (UpdateGrades)
+WHEN  ('?Cascade') ()
+WHEN  ('?Copy') ()
+WHEN  ('?Cut') ()
+WHEN  ('?Exit') ()
+WHEN  ('?HelpAbout') (SplashIt2)
+WHEN  ('?HelpOnHelp') ()
+WHEN  ('?HelpSearch') ()
+WHEN  ('?Helpindex') ()
+WHEN  ('?Paste') ()
+WHEN  ('?PrintCOU:KeyDescription') (CourseEnrollment)
+WHEN  ('?PrintENR:SeqStu') (AttendanceSheets)
+WHEN  ('?PrintENR:StuSeq') (ClassSchedules1)
+WHEN  ('?PrintSetup') ()
+WHEN  ('?ReportsCourseEnrollmentSummary') (EnrollSummary)
+WHEN  ('?ReportsFinalGrades') (FinalGrades)
+WHEN  ('?ReportsStudentIDs') (StudentIDs)
+WHEN  ('?ReportsTeacherClassSchedules') (ClassSchedules2)
+WHEN  ('?TBarBrwBottom') ()
+WHEN  ('?TBarBrwChange') ()
+WHEN  ('?TBarBrwDelete') ()
+WHEN  ('?TBarBrwDown') ()
+WHEN  ('?TBarBrwInsert') ()
+WHEN  ('?TBarBrwLocate') ()
+WHEN  ('?TBarBrwPageDown') ()
+WHEN  ('?TBarBrwPageUp') ()
+WHEN  ('?TBarBrwSelect') ()
+WHEN  ('?TBarBrwTop') ()
+WHEN  ('?TBarBrwUp') ()
+WHEN  ('?TbarBrwHelp') ()
+WHEN  ('?TbarBrwHistory') ()
+WHEN  ('?Tile') ()
+WHEN  ('?Trees') ()
+
+%ButtonThread DEPEND %Control LONG TIMES 53
+WHEN  ('?ABCBrowseClassTree') (1)
+WHEN  ('?ABCBrowseClasses') (1)
+WHEN  ('?ABCBrowseCourses') (1)
+WHEN  ('?ABCBrowseEnrollment') (1)
+WHEN  ('?ABCBrowseMajors') (1)
+WHEN  ('?ABCBrowseStudents') (1)
+WHEN  ('?ABCBrowseStudentsTree') (1)
+WHEN  ('?ABCBrowseTeachers') (1)
+WHEN  ('?ABCBrowseUpdateGrades') (1)
+WHEN  ('?ABCPrintCOU:KeyDescription') (1)
+WHEN  ('?AbcInitItem') (0)
+WHEN  ('?Arrange') (0)
+WHEN  ('?BrowseClassTree') (1)
+WHEN  ('?BrowseClasses') (1)
+WHEN  ('?BrowseCourses') (1)
+WHEN  ('?BrowseEnrollment') (1)
+WHEN  ('?BrowseMajors') (1)
+WHEN  ('?BrowseStudents') (1)
+WHEN  ('?BrowseStudentsTree') (1)
+WHEN  ('?BrowseTeachers') (1)
+WHEN  ('?BrowseUpdateGrades') (1)
+WHEN  ('?Cascade') (0)
+WHEN  ('?Copy') (0)
+WHEN  ('?Cut') (0)
+WHEN  ('?Exit') (0)
+WHEN  ('?HelpAbout') (1)
+WHEN  ('?HelpOnHelp') (0)
+WHEN  ('?HelpSearch') (0)
+WHEN  ('?Helpindex') (0)
+WHEN  ('?Paste') (0)
+WHEN  ('?PrintCOU:KeyDescription') (1)
+WHEN  ('?PrintENR:SeqStu') (1)
+WHEN  ('?PrintENR:StuSeq') (1)
+WHEN  ('?PrintSetup') (0)
+WHEN  ('?ReportsCourseEnrollmentSummary') (1)
+WHEN  ('?ReportsFinalGrades') (1)
+WHEN  ('?ReportsStudentIDs') (1)
+WHEN  ('?ReportsTeacherClassSchedules') (1)
+WHEN  ('?TBarBrwBottom') (0)
+WHEN  ('?TBarBrwChange') (0)
+WHEN  ('?TBarBrwDelete') (0)
+WHEN  ('?TBarBrwDown') (0)
+WHEN  ('?TBarBrwInsert') (0)
+WHEN  ('?TBarBrwLocate') (0)
+WHEN  ('?TBarBrwPageDown') (0)
+WHEN  ('?TBarBrwPageUp') (0)
+WHEN  ('?TBarBrwSelect') (0)
+WHEN  ('?TBarBrwTop') (0)
+WHEN  ('?TBarBrwUp') (0)
+WHEN  ('?TbarBrwHelp') (0)
+WHEN  ('?TbarBrwHistory') (0)
+WHEN  ('?Tile') (0)
+WHEN  ('?Trees') (0)
+
+%ButtonThreadStack DEPEND %Control DEFAULT TIMES 56
+WHEN  ('') ('25000')
+WHEN  ('?ABCBrowseClassTree') ('25000')
+WHEN  ('?ABCBrowseClasses') ('25000')
+WHEN  ('?ABCBrowseCourses') ('25000')
+WHEN  ('?ABCBrowseEnrollment') ('25000')
+WHEN  ('?ABCBrowseMajors') ('25000')
+WHEN  ('?ABCBrowseStudents') ('25000')
+WHEN  ('?ABCBrowseStudentsTree') ('25000')
+WHEN  ('?ABCBrowseTeachers') ('25000')
+WHEN  ('?ABCBrowseUpdateGrades') ('25000')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('25000')
+WHEN  ('?AbcInitItem') ('25000')
+WHEN  ('?Arrange') ('25000')
+WHEN  ('?BrowseClassTree') ('25000')
+WHEN  ('?BrowseClasses') ('050000')
+WHEN  ('?BrowseCourses') ('050000')
+WHEN  ('?BrowseEnrollment') ('050000')
+WHEN  ('?BrowseMajors') ('050000')
+WHEN  ('?BrowseStudents') ('050000')
+WHEN  ('?BrowseStudentsTree') ('25000')
+WHEN  ('?BrowseTeachers') ('050000')
+WHEN  ('?BrowseUpdateGrades') ('25000')
+WHEN  ('?Cascade') ('25000')
+WHEN  ('?CbHlpHookEnableItem') ('25000')
+WHEN  ('?CbHlpHookEnableItem2') ('25000')
+WHEN  ('?Copy') ('25000')
+WHEN  ('?Cut') ('25000')
+WHEN  ('?Exit') ('25000')
+WHEN  ('?HelpAbout') ('25000')
+WHEN  ('?HelpOnHelp') ('25000')
+WHEN  ('?HelpSearch') ('25000')
+WHEN  ('?Helpindex') ('25000')
+WHEN  ('?Paste') ('25000')
+WHEN  ('?PrintCOU:KeyDescription') ('050000')
+WHEN  ('?PrintENR:SeqStu') ('050000')
+WHEN  ('?PrintENR:StuSeq') ('050000')
+WHEN  ('?PrintSetup') ('25000')
+WHEN  ('?ReportsCourseEnrollmentSummary') ('25000')
+WHEN  ('?ReportsFinalGrades') ('25000')
+WHEN  ('?ReportsStudentIDs') ('25000')
+WHEN  ('?ReportsTeacherClassSchedules') ('25000')
+WHEN  ('?TBarBrwBottom') ('25000')
+WHEN  ('?TBarBrwChange') ('25000')
+WHEN  ('?TBarBrwDelete') ('25000')
+WHEN  ('?TBarBrwDown') ('25000')
+WHEN  ('?TBarBrwInsert') ('25000')
+WHEN  ('?TBarBrwLocate') ('25000')
+WHEN  ('?TBarBrwPageDown') ('25000')
+WHEN  ('?TBarBrwPageUp') ('25000')
+WHEN  ('?TBarBrwSelect') ('25000')
+WHEN  ('?TBarBrwTop') ('25000')
+WHEN  ('?TBarBrwUp') ('25000')
+WHEN  ('?TbarBrwHelp') ('25000')
+WHEN  ('?TbarBrwHistory') ('25000')
+WHEN  ('?Tile') ('25000')
+WHEN  ('?Trees') ('25000')
+
+%ButtonParameters DEPEND %Control DEFAULT TIMES 53
+WHEN  ('?ABCBrowseClassTree') ('')
+WHEN  ('?ABCBrowseClasses') ('')
+WHEN  ('?ABCBrowseCourses') ('')
+WHEN  ('?ABCBrowseEnrollment') ('')
+WHEN  ('?ABCBrowseMajors') ('')
+WHEN  ('?ABCBrowseStudents') ('')
+WHEN  ('?ABCBrowseStudentsTree') ('')
+WHEN  ('?ABCBrowseTeachers') ('')
+WHEN  ('?ABCBrowseUpdateGrades') ('')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('')
+WHEN  ('?AbcInitItem') ('')
+WHEN  ('?Arrange') ('')
+WHEN  ('?BrowseClassTree') ('')
+WHEN  ('?BrowseClasses') ('')
+WHEN  ('?BrowseCourses') ('')
+WHEN  ('?BrowseEnrollment') ('')
+WHEN  ('?BrowseMajors') ('')
+WHEN  ('?BrowseStudents') ('')
+WHEN  ('?BrowseStudentsTree') ('')
+WHEN  ('?BrowseTeachers') ('')
+WHEN  ('?BrowseUpdateGrades') ('')
+WHEN  ('?Cascade') ('')
+WHEN  ('?Copy') ('')
+WHEN  ('?Cut') ('')
+WHEN  ('?Exit') ('')
+WHEN  ('?HelpAbout') ('')
+WHEN  ('?HelpOnHelp') ('')
+WHEN  ('?HelpSearch') ('')
+WHEN  ('?Helpindex') ('')
+WHEN  ('?Paste') ('')
+WHEN  ('?PrintCOU:KeyDescription') ('')
+WHEN  ('?PrintENR:SeqStu') ('')
+WHEN  ('?PrintENR:StuSeq') ('')
+WHEN  ('?PrintSetup') ('')
+WHEN  ('?ReportsCourseEnrollmentSummary') ('')
+WHEN  ('?ReportsFinalGrades') ('')
+WHEN  ('?ReportsStudentIDs') ('')
+WHEN  ('?ReportsTeacherClassSchedules') ('')
+WHEN  ('?TBarBrwBottom') ('')
+WHEN  ('?TBarBrwChange') ('')
+WHEN  ('?TBarBrwDelete') ('')
+WHEN  ('?TBarBrwDown') ('')
+WHEN  ('?TBarBrwInsert') ('')
+WHEN  ('?TBarBrwLocate') ('')
+WHEN  ('?TBarBrwPageDown') ('')
+WHEN  ('?TBarBrwPageUp') ('')
+WHEN  ('?TBarBrwSelect') ('')
+WHEN  ('?TBarBrwTop') ('')
+WHEN  ('?TBarBrwUp') ('')
+WHEN  ('?TbarBrwHelp') ('')
+WHEN  ('?TbarBrwHistory') ('')
+WHEN  ('?Tile') ('')
+WHEN  ('?Trees') ('')
+
+%ButtonRequest DEPEND %Control DEFAULT TIMES 56
+WHEN  ('') ('None')
+WHEN  ('?ABCBrowseClassTree') ('None')
+WHEN  ('?ABCBrowseClasses') ('None')
+WHEN  ('?ABCBrowseCourses') ('None')
+WHEN  ('?ABCBrowseEnrollment') ('None')
+WHEN  ('?ABCBrowseMajors') ('None')
+WHEN  ('?ABCBrowseStudents') ('None')
+WHEN  ('?ABCBrowseStudentsTree') ('None')
+WHEN  ('?ABCBrowseTeachers') ('None')
+WHEN  ('?ABCBrowseUpdateGrades') ('None')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('None')
+WHEN  ('?AbcInitItem') ('None')
+WHEN  ('?Arrange') ('None')
+WHEN  ('?BrowseClassTree') ('')
+WHEN  ('?BrowseClasses') ('')
+WHEN  ('?BrowseCourses') ('')
+WHEN  ('?BrowseEnrollment') ('')
+WHEN  ('?BrowseMajors') ('')
+WHEN  ('?BrowseStudents') ('')
+WHEN  ('?BrowseStudentsTree') ('')
+WHEN  ('?BrowseTeachers') ('')
+WHEN  ('?BrowseUpdateGrades') ('None')
+WHEN  ('?Cascade') ('None')
+WHEN  ('?CbHlpHookEnableItem') ('None')
+WHEN  ('?CbHlpHookEnableItem2') ('None')
+WHEN  ('?Copy') ('None')
+WHEN  ('?Cut') ('None')
+WHEN  ('?Exit') ('None')
+WHEN  ('?HelpAbout') ('')
+WHEN  ('?HelpOnHelp') ('None')
+WHEN  ('?HelpSearch') ('None')
+WHEN  ('?Helpindex') ('None')
+WHEN  ('?Paste') ('None')
+WHEN  ('?PrintCOU:KeyDescription') ('')
+WHEN  ('?PrintENR:SeqStu') ('')
+WHEN  ('?PrintENR:StuSeq') ('')
+WHEN  ('?PrintSetup') ('None')
+WHEN  ('?ReportsCourseEnrollmentSummary') ('')
+WHEN  ('?ReportsFinalGrades') ('')
+WHEN  ('?ReportsStudentIDs') ('')
+WHEN  ('?ReportsTeacherClassSchedules') ('')
+WHEN  ('?TBarBrwBottom') ('None')
+WHEN  ('?TBarBrwChange') ('None')
+WHEN  ('?TBarBrwDelete') ('None')
+WHEN  ('?TBarBrwDown') ('None')
+WHEN  ('?TBarBrwInsert') ('None')
+WHEN  ('?TBarBrwLocate') ('None')
+WHEN  ('?TBarBrwPageDown') ('None')
+WHEN  ('?TBarBrwPageUp') ('None')
+WHEN  ('?TBarBrwSelect') ('None')
+WHEN  ('?TBarBrwTop') ('None')
+WHEN  ('?TBarBrwUp') ('None')
+WHEN  ('?TbarBrwHelp') ('None')
+WHEN  ('?TbarBrwHistory') ('None')
+WHEN  ('?Tile') ('None')
+WHEN  ('?Trees') ('None')
+
+%PreLookupKey DEPEND %Control KEY TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades') ()
+WHEN  ('?BrowseClassTree') ()
+WHEN  ('?BrowseClasses') ()
+WHEN  ('?BrowseCourses') ()
+WHEN  ('?BrowseEnrollment') ()
+WHEN  ('?BrowseMajors') ()
+WHEN  ('?BrowseStudents') ()
+WHEN  ('?BrowseStudentsTree') ()
+WHEN  ('?BrowseTeachers') ()
+WHEN  ('?Copy') ()
+WHEN  ('?Cut') ()
+WHEN  ('?HelpAbout') ()
+WHEN  ('?HelpOnHelp') ()
+WHEN  ('?Paste') ()
+WHEN  ('?PrintCOU:KeyDescription') ()
+WHEN  ('?PrintENR:SeqStu') ()
+WHEN  ('?PrintENR:StuSeq') ()
+WHEN  ('?ReportsCourseEnrollmentSummary') ()
+WHEN  ('?ReportsFinalGrades') ()
+WHEN  ('?ReportsStudentIDs') ()
+WHEN  ('?ReportsTeacherClassSchedules') ()
+WHEN  ('?TBarBrwTop') ()
+WHEN  ('?Trees') ()
+
+%PreLookupField DEPEND %Control COMPONENT TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades') ()
+WHEN  ('?BrowseClassTree') ()
+WHEN  ('?BrowseClasses') ()
+WHEN  ('?BrowseCourses') ()
+WHEN  ('?BrowseEnrollment') ()
+WHEN  ('?BrowseMajors') ()
+WHEN  ('?BrowseStudents') ()
+WHEN  ('?BrowseStudentsTree') ()
+WHEN  ('?BrowseTeachers') ()
+WHEN  ('?Copy') ()
+WHEN  ('?Cut') ()
+WHEN  ('?HelpAbout') ()
+WHEN  ('?HelpOnHelp') ()
+WHEN  ('?Paste') ()
+WHEN  ('?PrintCOU:KeyDescription') ()
+WHEN  ('?PrintENR:SeqStu') ()
+WHEN  ('?PrintENR:StuSeq') ()
+WHEN  ('?ReportsCourseEnrollmentSummary') ()
+WHEN  ('?ReportsFinalGrades') ()
+WHEN  ('?ReportsStudentIDs') ()
+WHEN  ('?ReportsTeacherClassSchedules') ()
+WHEN  ('?TBarBrwTop') ()
+WHEN  ('?Trees') ()
+
+%PreLookupProcedure DEPEND %Control PROCEDURE TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades') ()
+WHEN  ('?BrowseClassTree') ()
+WHEN  ('?BrowseClasses') ()
+WHEN  ('?BrowseCourses') ()
+WHEN  ('?BrowseEnrollment') ()
+WHEN  ('?BrowseMajors') ()
+WHEN  ('?BrowseStudents') ()
+WHEN  ('?BrowseStudentsTree') ()
+WHEN  ('?BrowseTeachers') ()
+WHEN  ('?Copy') ()
+WHEN  ('?Cut') ()
+WHEN  ('?HelpAbout') ()
+WHEN  ('?HelpOnHelp') ()
+WHEN  ('?Paste') ()
+WHEN  ('?PrintCOU:KeyDescription') ()
+WHEN  ('?PrintENR:SeqStu') ()
+WHEN  ('?PrintENR:StuSeq') ()
+WHEN  ('?ReportsCourseEnrollmentSummary') ()
+WHEN  ('?ReportsFinalGrades') ()
+WHEN  ('?ReportsStudentIDs') ()
+WHEN  ('?ReportsTeacherClassSchedules') ()
+WHEN  ('?TBarBrwTop') ()
+WHEN  ('?Trees') ()
+
+%PostLookupKey DEPEND %Control KEY TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades') ()
+WHEN  ('?BrowseClassTree') ()
+WHEN  ('?BrowseClasses') ()
+WHEN  ('?BrowseCourses') ()
+WHEN  ('?BrowseEnrollment') ()
+WHEN  ('?BrowseMajors') ()
+WHEN  ('?BrowseStudents') ()
+WHEN  ('?BrowseStudentsTree') ()
+WHEN  ('?BrowseTeachers') ()
+WHEN  ('?Copy') ()
+WHEN  ('?Cut') ()
+WHEN  ('?HelpAbout') ()
+WHEN  ('?HelpOnHelp') ()
+WHEN  ('?Paste') ()
+WHEN  ('?PrintCOU:KeyDescription') ()
+WHEN  ('?PrintENR:SeqStu') ()
+WHEN  ('?PrintENR:StuSeq') ()
+WHEN  ('?ReportsCourseEnrollmentSummary') ()
+WHEN  ('?ReportsFinalGrades') ()
+WHEN  ('?ReportsStudentIDs') ()
+WHEN  ('?ReportsTeacherClassSchedules') ()
+WHEN  ('?TBarBrwTop') ()
+WHEN  ('?Trees') ()
+
+%PostLookupField DEPEND %Control COMPONENT TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades') ()
+WHEN  ('?BrowseClassTree') ()
+WHEN  ('?BrowseClasses') ()
+WHEN  ('?BrowseCourses') ()
+WHEN  ('?BrowseEnrollment') ()
+WHEN  ('?BrowseMajors') ()
+WHEN  ('?BrowseStudents') ()
+WHEN  ('?BrowseStudentsTree') ()
+WHEN  ('?BrowseTeachers') ()
+WHEN  ('?Copy') ()
+WHEN  ('?Cut') ()
+WHEN  ('?HelpAbout') ()
+WHEN  ('?HelpOnHelp') ()
+WHEN  ('?Paste') ()
+WHEN  ('?PrintCOU:KeyDescription') ()
+WHEN  ('?PrintENR:SeqStu') ()
+WHEN  ('?PrintENR:StuSeq') ()
+WHEN  ('?ReportsCourseEnrollmentSummary') ()
+WHEN  ('?ReportsFinalGrades') ()
+WHEN  ('?ReportsStudentIDs') ()
+WHEN  ('?ReportsTeacherClassSchedules') ()
+WHEN  ('?TBarBrwTop') ()
+WHEN  ('?Trees') ()
+
+%PostLookupProcedure DEPEND %Control PROCEDURE TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades') ()
+WHEN  ('?BrowseClassTree') ()
+WHEN  ('?BrowseClasses') ()
+WHEN  ('?BrowseCourses') ()
+WHEN  ('?BrowseEnrollment') ()
+WHEN  ('?BrowseMajors') ()
+WHEN  ('?BrowseStudents') ()
+WHEN  ('?BrowseStudentsTree') ()
+WHEN  ('?BrowseTeachers') ()
+WHEN  ('?Copy') ()
+WHEN  ('?Cut') ()
+WHEN  ('?HelpAbout') ()
+WHEN  ('?HelpOnHelp') ()
+WHEN  ('?Paste') ()
+WHEN  ('?PrintCOU:KeyDescription') ()
+WHEN  ('?PrintENR:SeqStu') ()
+WHEN  ('?PrintENR:StuSeq') ()
+WHEN  ('?ReportsCourseEnrollmentSummary') ()
+WHEN  ('?ReportsFinalGrades') ()
+WHEN  ('?ReportsStudentIDs') ()
+WHEN  ('?ReportsTeacherClassSchedules') ()
+WHEN  ('?TBarBrwTop') ()
+WHEN  ('?Trees') ()
+
+%ForceWindowRefresh DEPEND %Control LONG TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades') (0)
+WHEN  ('?BrowseClassTree') (0)
+WHEN  ('?BrowseClasses') (0)
+WHEN  ('?BrowseCourses') (0)
+WHEN  ('?BrowseEnrollment') (0)
+WHEN  ('?BrowseMajors') (0)
+WHEN  ('?BrowseStudents') (0)
+WHEN  ('?BrowseStudentsTree') (0)
+WHEN  ('?BrowseTeachers') (0)
+WHEN  ('?Copy') (0)
+WHEN  ('?Cut') (0)
+WHEN  ('?HelpAbout') (0)
+WHEN  ('?HelpOnHelp') (0)
+WHEN  ('?Paste') (0)
+WHEN  ('?PrintCOU:KeyDescription') (0)
+WHEN  ('?PrintENR:SeqStu') (0)
+WHEN  ('?PrintENR:StuSeq') (0)
+WHEN  ('?ReportsCourseEnrollmentSummary') (0)
+WHEN  ('?ReportsFinalGrades') (0)
+WHEN  ('?ReportsStudentIDs') (0)
+WHEN  ('?ReportsTeacherClassSchedules') (0)
+WHEN  ('?TBarBrwTop') (0)
+WHEN  ('?Trees') (0)
+
+%ReturnValue FIELD  ()
+%SplashProcedure PROCEDURE  ()
+%INISaveWindow LONG  (1)
+%PostLookupDuringValidate DEPEND %Control LONG TIMES 36
+WHEN  ('') (1)
+WHEN  ('?ABCBrowseClassTree') (1)
+WHEN  ('?ABCBrowseClasses') (1)
+WHEN  ('?ABCBrowseCourses') (1)
+WHEN  ('?ABCBrowseEnrollment') (1)
+WHEN  ('?ABCBrowseMajors') (1)
+WHEN  ('?ABCBrowseStudents') (1)
+WHEN  ('?ABCBrowseStudentsTree') (1)
+WHEN  ('?ABCBrowseTeachers') (1)
+WHEN  ('?ABCBrowseUpdateGrades') (1)
+WHEN  ('?ABCPrintCOU:KeyDescription') (1)
+WHEN  ('?AbcInitItem') (1)
+WHEN  ('?BrowseClassTree') (1)
+WHEN  ('?BrowseClasses') (1)
+WHEN  ('?BrowseCourses') (1)
+WHEN  ('?BrowseEnrollment') (1)
+WHEN  ('?BrowseMajors') (1)
+WHEN  ('?BrowseStudents') (1)
+WHEN  ('?BrowseStudentsTree') (1)
+WHEN  ('?BrowseTeachers') (1)
+WHEN  ('?BrowseUpdateGrades') (1)
+WHEN  ('?Copy') (1)
+WHEN  ('?Cut') (1)
+WHEN  ('?HelpAbout') (1)
+WHEN  ('?HelpOnHelp') (1)
+WHEN  ('?Paste') (1)
+WHEN  ('?PrintCOU:KeyDescription') (1)
+WHEN  ('?PrintENR:SeqStu') (1)
+WHEN  ('?PrintENR:StuSeq') (1)
+WHEN  ('?ReportsCourseEnrollmentSummary') (1)
+WHEN  ('?ReportsFinalGrades') (1)
+WHEN  ('?ReportsStudentIDs') (1)
+WHEN  ('?ReportsTeacherClassSchedules') (1)
+WHEN  ('?TBarBrwTop') (1)
+WHEN  ('?TbarBrwHelp') (1)
+WHEN  ('?Trees') (1)
+
+%CheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedAssignVariable DEPEND %CheckedAssigns FIELD TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades')TIMES 0
+WHEN  ('?BrowseClassTree')TIMES 0
+WHEN  ('?BrowseClasses')TIMES 0
+WHEN  ('?BrowseCourses')TIMES 0
+WHEN  ('?BrowseEnrollment')TIMES 0
+WHEN  ('?BrowseMajors')TIMES 0
+WHEN  ('?BrowseStudents')TIMES 0
+WHEN  ('?BrowseStudentsTree')TIMES 0
+WHEN  ('?BrowseTeachers')TIMES 0
+WHEN  ('?Copy')TIMES 0
+WHEN  ('?Cut')TIMES 0
+WHEN  ('?HelpAbout')TIMES 0
+WHEN  ('?HelpOnHelp')TIMES 0
+WHEN  ('?Paste')TIMES 0
+WHEN  ('?PrintCOU:KeyDescription')TIMES 0
+WHEN  ('?PrintENR:SeqStu')TIMES 0
+WHEN  ('?PrintENR:StuSeq')TIMES 0
+WHEN  ('?ReportsCourseEnrollmentSummary')TIMES 0
+WHEN  ('?ReportsFinalGrades')TIMES 0
+WHEN  ('?ReportsStudentIDs')TIMES 0
+WHEN  ('?ReportsTeacherClassSchedules')TIMES 0
+WHEN  ('?TBarBrwTop')TIMES 0
+WHEN  ('?Trees')TIMES 0
+
+%CheckedAssignValue DEPEND %CheckedAssigns DEFAULT TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades')TIMES 0
+WHEN  ('?BrowseClassTree')TIMES 0
+WHEN  ('?BrowseClasses')TIMES 0
+WHEN  ('?BrowseCourses')TIMES 0
+WHEN  ('?BrowseEnrollment')TIMES 0
+WHEN  ('?BrowseMajors')TIMES 0
+WHEN  ('?BrowseStudents')TIMES 0
+WHEN  ('?BrowseStudentsTree')TIMES 0
+WHEN  ('?BrowseTeachers')TIMES 0
+WHEN  ('?Copy')TIMES 0
+WHEN  ('?Cut')TIMES 0
+WHEN  ('?HelpAbout')TIMES 0
+WHEN  ('?HelpOnHelp')TIMES 0
+WHEN  ('?Paste')TIMES 0
+WHEN  ('?PrintCOU:KeyDescription')TIMES 0
+WHEN  ('?PrintENR:SeqStu')TIMES 0
+WHEN  ('?PrintENR:StuSeq')TIMES 0
+WHEN  ('?ReportsCourseEnrollmentSummary')TIMES 0
+WHEN  ('?ReportsFinalGrades')TIMES 0
+WHEN  ('?ReportsStudentIDs')TIMES 0
+WHEN  ('?ReportsTeacherClassSchedules')TIMES 0
+WHEN  ('?TBarBrwTop')TIMES 0
+WHEN  ('?Trees')TIMES 0
+
+%CheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl DEPEND %CheckedHides DEFAULT TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades')TIMES 0
+WHEN  ('?BrowseClassTree')TIMES 0
+WHEN  ('?BrowseClasses')TIMES 0
+WHEN  ('?BrowseCourses')TIMES 0
+WHEN  ('?BrowseEnrollment')TIMES 0
+WHEN  ('?BrowseMajors')TIMES 0
+WHEN  ('?BrowseStudents')TIMES 0
+WHEN  ('?BrowseStudentsTree')TIMES 0
+WHEN  ('?BrowseTeachers')TIMES 0
+WHEN  ('?Copy')TIMES 0
+WHEN  ('?Cut')TIMES 0
+WHEN  ('?HelpAbout')TIMES 0
+WHEN  ('?HelpOnHelp')TIMES 0
+WHEN  ('?Paste')TIMES 0
+WHEN  ('?PrintCOU:KeyDescription')TIMES 0
+WHEN  ('?PrintENR:SeqStu')TIMES 0
+WHEN  ('?PrintENR:StuSeq')TIMES 0
+WHEN  ('?ReportsCourseEnrollmentSummary')TIMES 0
+WHEN  ('?ReportsFinalGrades')TIMES 0
+WHEN  ('?ReportsStudentIDs')TIMES 0
+WHEN  ('?ReportsTeacherClassSchedules')TIMES 0
+WHEN  ('?TBarBrwTop')TIMES 0
+WHEN  ('?Trees')TIMES 0
+
+%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 36
+WHEN  ('')TIMES 0
+WHEN  ('?ABCBrowseClassTree')TIMES 0
+WHEN  ('?ABCBrowseClasses')TIMES 0
+WHEN  ('?ABCBrowseCourses')TIMES 0
+WHEN  ('?ABCBrowseEnrollment')TIMES 0
+WHEN  ('?ABCBrowseMajors')TIMES 0
+WHEN  ('?ABCBrowseStudents')TIMES 0
+WHEN  ('?ABCBrowseStudentsTree')TIMES 0
+WHEN  ('?ABCBrowseTeachers')TIMES 0
+WHEN  ('?ABCBrowseUpdateGrades')TIMES 0
+WHEN  ('?ABCPrintCOU:KeyDescription')TIMES 0
+WHEN  ('?AbcInitItem')TIMES 0
+WHEN  ('?BrowseClassTree')TIMES 0
+WHEN  ('?BrowseClasses')TIMES 0
+WHEN  ('?BrowseCourses')TIMES 0
+WHEN  ('?BrowseEnrollment')TIMES 0
+WHEN  ('?BrowseMajors')TIMES 0
+WHEN  ('?BrowseStudents')TIMES 0
+WHEN  ('?BrowseStudentsTree')TIMES 0
+WHEN  ('?BrowseTeachers')TIMES 0
+WHEN  ('?BrowseUpdateGrades')TIMES 0
+WHEN  ('?Copy')TIMES 0
+WHEN  ('?Cut')TIMES 0
+WHEN  ('?HelpAbout')TIMES 0
+WHEN  ('?HelpOnHelp')TIMES 0
+WHEN  ('?Paste')TIMES 0
+WHEN  ('?PrintCOU:KeyDescription')TIMES 0
+WHEN  ('?PrintENR:SeqStu')TIMES 0
+WHEN  ('?PrintENR:StuSeq')TIMES 0
+WHEN  ('?ReportsCourseEnrollmentSummary')TIMES 0
+WHEN  ('?ReportsFinalGrades')TIMES 0
+WHEN  ('?ReportsStudentIDs')TIMES 0
+WHEN  ('?ReportsTeacherClassSchedules')TIMES 0
+WHEN  ('?TBarBrwTop')TIMES 0
+WHEN  ('?TbarBrwHelp')TIMES 0
+WHEN  ('?Trees')TIMES 0
+
+%UncheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%UncheckedAssignVariable DEPEND %UncheckedAssigns FIELD TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades')TIMES 0
+WHEN  ('?BrowseClassTree')TIMES 0
+WHEN  ('?BrowseClasses')TIMES 0
+WHEN  ('?BrowseCourses')TIMES 0
+WHEN  ('?BrowseEnrollment')TIMES 0
+WHEN  ('?BrowseMajors')TIMES 0
+WHEN  ('?BrowseStudents')TIMES 0
+WHEN  ('?BrowseStudentsTree')TIMES 0
+WHEN  ('?BrowseTeachers')TIMES 0
+WHEN  ('?Copy')TIMES 0
+WHEN  ('?Cut')TIMES 0
+WHEN  ('?HelpAbout')TIMES 0
+WHEN  ('?HelpOnHelp')TIMES 0
+WHEN  ('?Paste')TIMES 0
+WHEN  ('?PrintCOU:KeyDescription')TIMES 0
+WHEN  ('?PrintENR:SeqStu')TIMES 0
+WHEN  ('?PrintENR:StuSeq')TIMES 0
+WHEN  ('?ReportsCourseEnrollmentSummary')TIMES 0
+WHEN  ('?ReportsFinalGrades')TIMES 0
+WHEN  ('?ReportsStudentIDs')TIMES 0
+WHEN  ('?ReportsTeacherClassSchedules')TIMES 0
+WHEN  ('?TBarBrwTop')TIMES 0
+WHEN  ('?Trees')TIMES 0
+
+%UncheckedAssignValue DEPEND %UncheckedAssigns DEFAULT TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades')TIMES 0
+WHEN  ('?BrowseClassTree')TIMES 0
+WHEN  ('?BrowseClasses')TIMES 0
+WHEN  ('?BrowseCourses')TIMES 0
+WHEN  ('?BrowseEnrollment')TIMES 0
+WHEN  ('?BrowseMajors')TIMES 0
+WHEN  ('?BrowseStudents')TIMES 0
+WHEN  ('?BrowseStudentsTree')TIMES 0
+WHEN  ('?BrowseTeachers')TIMES 0
+WHEN  ('?Copy')TIMES 0
+WHEN  ('?Cut')TIMES 0
+WHEN  ('?HelpAbout')TIMES 0
+WHEN  ('?HelpOnHelp')TIMES 0
+WHEN  ('?Paste')TIMES 0
+WHEN  ('?PrintCOU:KeyDescription')TIMES 0
+WHEN  ('?PrintENR:SeqStu')TIMES 0
+WHEN  ('?PrintENR:StuSeq')TIMES 0
+WHEN  ('?ReportsCourseEnrollmentSummary')TIMES 0
+WHEN  ('?ReportsFinalGrades')TIMES 0
+WHEN  ('?ReportsStudentIDs')TIMES 0
+WHEN  ('?ReportsTeacherClassSchedules')TIMES 0
+WHEN  ('?TBarBrwTop')TIMES 0
+WHEN  ('?Trees')TIMES 0
+
+%UnCheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl DEPEND %UnCheckedHides DEFAULT TIMES 23
+WHEN  ('?ABCBrowseUpdateGrades')TIMES 0
+WHEN  ('?BrowseClassTree')TIMES 0
+WHEN  ('?BrowseClasses')TIMES 0
+WHEN  ('?BrowseCourses')TIMES 0
+WHEN  ('?BrowseEnrollment')TIMES 0
+WHEN  ('?BrowseMajors')TIMES 0
+WHEN  ('?BrowseStudents')TIMES 0
+WHEN  ('?BrowseStudentsTree')TIMES 0
+WHEN  ('?BrowseTeachers')TIMES 0
+WHEN  ('?Copy')TIMES 0
+WHEN  ('?Cut')TIMES 0
+WHEN  ('?HelpAbout')TIMES 0
+WHEN  ('?HelpOnHelp')TIMES 0
+WHEN  ('?Paste')TIMES 0
+WHEN  ('?PrintCOU:KeyDescription')TIMES 0
+WHEN  ('?PrintENR:SeqStu')TIMES 0
+WHEN  ('?PrintENR:StuSeq')TIMES 0
+WHEN  ('?ReportsCourseEnrollmentSummary')TIMES 0
+WHEN  ('?ReportsFinalGrades')TIMES 0
+WHEN  ('?ReportsStudentIDs')TIMES 0
+WHEN  ('?ReportsTeacherClassSchedules')TIMES 0
+WHEN  ('?TBarBrwTop')TIMES 0
+WHEN  ('?Trees')TIMES 0
+
+%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 36
+WHEN  ('')TIMES 0
+WHEN  ('?ABCBrowseClassTree')TIMES 0
+WHEN  ('?ABCBrowseClasses')TIMES 0
+WHEN  ('?ABCBrowseCourses')TIMES 0
+WHEN  ('?ABCBrowseEnrollment')TIMES 0
+WHEN  ('?ABCBrowseMajors')TIMES 0
+WHEN  ('?ABCBrowseStudents')TIMES 0
+WHEN  ('?ABCBrowseStudentsTree')TIMES 0
+WHEN  ('?ABCBrowseTeachers')TIMES 0
+WHEN  ('?ABCBrowseUpdateGrades')TIMES 0
+WHEN  ('?ABCPrintCOU:KeyDescription')TIMES 0
+WHEN  ('?AbcInitItem')TIMES 0
+WHEN  ('?BrowseClassTree')TIMES 0
+WHEN  ('?BrowseClasses')TIMES 0
+WHEN  ('?BrowseCourses')TIMES 0
+WHEN  ('?BrowseEnrollment')TIMES 0
+WHEN  ('?BrowseMajors')TIMES 0
+WHEN  ('?BrowseStudents')TIMES 0
+WHEN  ('?BrowseStudentsTree')TIMES 0
+WHEN  ('?BrowseTeachers')TIMES 0
+WHEN  ('?BrowseUpdateGrades')TIMES 0
+WHEN  ('?Copy')TIMES 0
+WHEN  ('?Cut')TIMES 0
+WHEN  ('?HelpAbout')TIMES 0
+WHEN  ('?HelpOnHelp')TIMES 0
+WHEN  ('?Paste')TIMES 0
+WHEN  ('?PrintCOU:KeyDescription')TIMES 0
+WHEN  ('?PrintENR:SeqStu')TIMES 0
+WHEN  ('?PrintENR:StuSeq')TIMES 0
+WHEN  ('?ReportsCourseEnrollmentSummary')TIMES 0
+WHEN  ('?ReportsFinalGrades')TIMES 0
+WHEN  ('?ReportsStudentIDs')TIMES 0
+WHEN  ('?ReportsTeacherClassSchedules')TIMES 0
+WHEN  ('?TBarBrwTop')TIMES 0
+WHEN  ('?TbarBrwHelp')TIMES 0
+WHEN  ('?Trees')TIMES 0
+
+%WindowOperationMode DEFAULT  ('Use WINDOW setting')
+%ProcedureDisableEnhanceFocus LONG  (0)
+%ProcedureUseEnterInsteadTabOverride LONG  (0)
+%WindowUseEnterInsteadTab LONG  (1)
+%ProcedureUseEnterInsteadTabExcludeListCombo LONG  (0)
+%ProcedureUseEnterInsteadTabEnableNextTabStop LONG  (0)
+%ProcedureUseEnterInsteadTabExcludeG LONG  (1)
+%WindowUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%WindowStyles MULTI LONG  ()
+%WindowStyleFontName DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontSize DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontStyle DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontColor DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontCharSet DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStylePicture DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleOtherListboxes MULTI DEFAULT  ()
+%ProcedureAutoBindFields MULTI LONG  ()
+%ProcedureAutoBindField DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldTPL DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedures MULTI LONG  ()
+%ProcedureAutoBindProcedure DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedureTPL DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldsIgnored MULTI LONG  ()
+%ProcedureAutoBindFieldIgnored DEPEND %ProcedureAutoBindFieldsIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindProceduresIgnored MULTI LONG  ()
+%ProcedureAutoBindProcedureIgnored DEPEND %ProcedureAutoBindProceduresIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindValidToAddField LONG  (1)
+%ProcedureUserBindFields MULTI LONG  ()
+%ProcedureUserBindField DEPEND %ProcedureUserBindFields FIELD TIMES 0
+
+%ProcedureAutoBindFieldIgnore DEPEND %ProcedureAutoBindFields LONG TIMES 0
+
+%ProcedureUserBindProcedures MULTI LONG  ()
+%ProcedureUserBindProcedure DEPEND %ProcedureUserBindProcedures PROCEDURE TIMES 0
+
+%ProcedureAutoBindProcedureIgnore DEPEND %ProcedureAutoBindProcedures LONG TIMES 0
+
+%ProcedureUserBindExpressions MULTI LONG  ()
+%ProcedureUserBindExpressionName DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ProcedureUserBindExpression DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ButtonReturnValueAssignment DEPEND %Control FIELD TIMES 12
+WHEN  ('?ABCBrowseClassTree') ()
+WHEN  ('?ABCBrowseClasses') ()
+WHEN  ('?ABCBrowseCourses') ()
+WHEN  ('?ABCBrowseEnrollment') ()
+WHEN  ('?ABCBrowseMajors') ()
+WHEN  ('?ABCBrowseStudents') ()
+WHEN  ('?ABCBrowseStudentsTree') ()
+WHEN  ('?ABCBrowseTeachers') ()
+WHEN  ('?ABCBrowseUpdateGrades') ()
+WHEN  ('?ABCPrintCOU:KeyDescription') ()
+WHEN  ('?AbcInitItem') ()
+WHEN  ('?BrowseUpdateGrades') ()
+
+%ButtonReturnValueReferenceAssign DEPEND %Control LONG TIMES 12
+WHEN  ('?ABCBrowseClassTree') (0)
+WHEN  ('?ABCBrowseClasses') (0)
+WHEN  ('?ABCBrowseCourses') (0)
+WHEN  ('?ABCBrowseEnrollment') (0)
+WHEN  ('?ABCBrowseMajors') (0)
+WHEN  ('?ABCBrowseStudents') (0)
+WHEN  ('?ABCBrowseStudentsTree') (0)
+WHEN  ('?ABCBrowseTeachers') (0)
+WHEN  ('?ABCBrowseUpdateGrades') (0)
+WHEN  ('?ABCPrintCOU:KeyDescription') (0)
+WHEN  ('?AbcInitItem') (0)
+WHEN  ('?BrowseUpdateGrades') (0)
+
+%ButtonThreadParameters DEPEND %Control DEFAULT TIMES 11
+WHEN  ('?ABCBrowseClassTree') ('')
+WHEN  ('?ABCBrowseClasses') ('')
+WHEN  ('?ABCBrowseCourses') ('')
+WHEN  ('?ABCBrowseEnrollment') ('')
+WHEN  ('?ABCBrowseMajors') ('')
+WHEN  ('?ABCBrowseStudents') ('')
+WHEN  ('?ABCBrowseStudentsTree') ('')
+WHEN  ('?ABCBrowseTeachers') ('')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('')
+WHEN  ('?AbcInitItem') ('')
+WHEN  ('?BrowseUpdateGrades') ('')
+
+%ButtonThreadReturnValueAssignment DEPEND %Control FIELD TIMES 11
+WHEN  ('?ABCBrowseClassTree') ()
+WHEN  ('?ABCBrowseClasses') ()
+WHEN  ('?ABCBrowseCourses') ()
+WHEN  ('?ABCBrowseEnrollment') ()
+WHEN  ('?ABCBrowseMajors') ()
+WHEN  ('?ABCBrowseStudents') ()
+WHEN  ('?ABCBrowseStudentsTree') ()
+WHEN  ('?ABCBrowseTeachers') ()
+WHEN  ('?ABCPrintCOU:KeyDescription') ()
+WHEN  ('?AbcInitItem') ()
+WHEN  ('?BrowseUpdateGrades') ()
+
+%PreLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%LookupAssign DEPEND %Control MULTI LONG TIMES 0
+
+%MoreTarget DEPEND %LookupAssign FIELD TIMES 0
+
+%MoreField DEPEND %LookupAssign DEFAULT TIMES 0
+
+%CheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedDisableControl DEPEND %CheckedDisables DEFAULT TIMES 0
+
+%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 16
+WHEN  ('')TIMES 0
+WHEN  ('?ABCBrowseClassTree')TIMES 0
+WHEN  ('?ABCBrowseClasses')TIMES 0
+WHEN  ('?ABCBrowseCourses')TIMES 0
+WHEN  ('?ABCBrowseEnrollment')TIMES 0
+WHEN  ('?ABCBrowseMajors')TIMES 0
+WHEN  ('?ABCBrowseStudents')TIMES 0
+WHEN  ('?ABCBrowseStudentsTree')TIMES 0
+WHEN  ('?ABCBrowseTeachers')TIMES 0
+WHEN  ('?ABCBrowseUpdateGrades')TIMES 0
+WHEN  ('?ABCPrintCOU:KeyDescription')TIMES 0
+WHEN  ('?AbcInitItem')TIMES 0
+WHEN  ('?BrowseClasses')TIMES 0
+WHEN  ('?BrowseTeachers')TIMES 0
+WHEN  ('?BrowseUpdateGrades')TIMES 0
+WHEN  ('?TbarBrwHelp')TIMES 0
+
+%UnCheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedDisableControl DEPEND %UnCheckedDisables DEFAULT TIMES 0
+
+%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 16
+WHEN  ('')TIMES 0
+WHEN  ('?ABCBrowseClassTree')TIMES 0
+WHEN  ('?ABCBrowseClasses')TIMES 0
+WHEN  ('?ABCBrowseCourses')TIMES 0
+WHEN  ('?ABCBrowseEnrollment')TIMES 0
+WHEN  ('?ABCBrowseMajors')TIMES 0
+WHEN  ('?ABCBrowseStudents')TIMES 0
+WHEN  ('?ABCBrowseStudentsTree')TIMES 0
+WHEN  ('?ABCBrowseTeachers')TIMES 0
+WHEN  ('?ABCBrowseUpdateGrades')TIMES 0
+WHEN  ('?ABCPrintCOU:KeyDescription')TIMES 0
+WHEN  ('?AbcInitItem')TIMES 0
+WHEN  ('?BrowseClasses')TIMES 0
+WHEN  ('?BrowseTeachers')TIMES 0
+WHEN  ('?BrowseUpdateGrades')TIMES 0
+WHEN  ('?TbarBrwHelp')TIMES 0
+
+%ExtUITabIcon DEPEND %Control DEFAULT TIMES 0
+
+%ExtUITabStyleOverrideGlobal DEPEND %Control LONG TIMES 0
+
+%ExtUITabStyle DEPEND %Control DEFAULT TIMES 16
+WHEN  ('') ('Default')
+WHEN  ('?ABCBrowseClassTree') ('Default')
+WHEN  ('?ABCBrowseClasses') ('Default')
+WHEN  ('?ABCBrowseCourses') ('Default')
+WHEN  ('?ABCBrowseEnrollment') ('Default')
+WHEN  ('?ABCBrowseMajors') ('Default')
+WHEN  ('?ABCBrowseStudents') ('Default')
+WHEN  ('?ABCBrowseStudentsTree') ('Default')
+WHEN  ('?ABCBrowseTeachers') ('Default')
+WHEN  ('?ABCBrowseUpdateGrades') ('Default')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('Default')
+WHEN  ('?AbcInitItem') ('Default')
+WHEN  ('?BrowseClasses') ('Default')
+WHEN  ('?BrowseTeachers') ('Default')
+WHEN  ('?BrowseUpdateGrades') ('Default')
+WHEN  ('?TbarBrwHelp') ('Default')
+
+%ActiveImageEnable DEPEND %Control LONG TIMES 0
+
+%AIObjectName DEPEND %Control DEFAULT TIMES 16
+WHEN  ('') ('AIBtn0')
+WHEN  ('?ABCBrowseClassTree') ('AIBtn31')
+WHEN  ('?ABCBrowseClasses') ('AIBtn26')
+WHEN  ('?ABCBrowseCourses') ('AIBtn28')
+WHEN  ('?ABCBrowseEnrollment') ('AIBtn27')
+WHEN  ('?ABCBrowseMajors') ('AIBtn29')
+WHEN  ('?ABCBrowseStudents') ('AIBtn23')
+WHEN  ('?ABCBrowseStudentsTree') ('AIBtn32')
+WHEN  ('?ABCBrowseTeachers') ('AIBtn25')
+WHEN  ('?ABCBrowseUpdateGrades') ('AIBtn33')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('AIBtn35')
+WHEN  ('?AbcInitItem') ('AIBtn3')
+WHEN  ('?BrowseClasses') ('AIBtn16')
+WHEN  ('?BrowseTeachers') ('AIBtn15')
+WHEN  ('?BrowseUpdateGrades') ('AIBtn20')
+WHEN  ('?TbarBrwHelp') ('AIBtn70')
+
+%AIEnableMimicControl DEPEND %Control LONG TIMES 16
+WHEN  ('') (1)
+WHEN  ('?ABCBrowseClassTree') (1)
+WHEN  ('?ABCBrowseClasses') (1)
+WHEN  ('?ABCBrowseCourses') (1)
+WHEN  ('?ABCBrowseEnrollment') (1)
+WHEN  ('?ABCBrowseMajors') (1)
+WHEN  ('?ABCBrowseStudents') (1)
+WHEN  ('?ABCBrowseStudentsTree') (1)
+WHEN  ('?ABCBrowseTeachers') (1)
+WHEN  ('?ABCBrowseUpdateGrades') (1)
+WHEN  ('?ABCPrintCOU:KeyDescription') (1)
+WHEN  ('?AbcInitItem') (1)
+WHEN  ('?BrowseClasses') (1)
+WHEN  ('?BrowseTeachers') (1)
+WHEN  ('?BrowseUpdateGrades') (1)
+WHEN  ('?TbarBrwHelp') (1)
+
+%AIMimicControl DEPEND %Control DEFAULT TIMES 16
+WHEN  ('') ('?MENUBAR1')
+WHEN  ('?ABCBrowseClassTree') ('?MENUBAR1')
+WHEN  ('?ABCBrowseClasses') ('?MENUBAR1')
+WHEN  ('?ABCBrowseCourses') ('?MENUBAR1')
+WHEN  ('?ABCBrowseEnrollment') ('?MENUBAR1')
+WHEN  ('?ABCBrowseMajors') ('?MENUBAR1')
+WHEN  ('?ABCBrowseStudents') ('?MENUBAR1')
+WHEN  ('?ABCBrowseStudentsTree') ('?MENUBAR1')
+WHEN  ('?ABCBrowseTeachers') ('?MENUBAR1')
+WHEN  ('?ABCBrowseUpdateGrades') ('?MENUBAR1')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('?MENUBAR1')
+WHEN  ('?AbcInitItem') ('?MENUBAR1')
+WHEN  ('?BrowseClasses') ('?MENUBAR1')
+WHEN  ('?BrowseTeachers') ('?MENUBAR1')
+WHEN  ('?BrowseUpdateGrades') ('?MENUBAR1')
+WHEN  ('?TbarBrwHelp') ('?MENUBAR1')
+
+%AIImgRound DEPEND %Control LONG TIMES 0
+
+%AIOverrideImg DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 16
+WHEN  ('') (0)
+WHEN  ('?ABCBrowseClassTree') (0)
+WHEN  ('?ABCBrowseClasses') (0)
+WHEN  ('?ABCBrowseCourses') (0)
+WHEN  ('?ABCBrowseEnrollment') (0)
+WHEN  ('?ABCBrowseMajors') (0)
+WHEN  ('?ABCBrowseStudents') (0)
+WHEN  ('?ABCBrowseStudentsTree') (0)
+WHEN  ('?ABCBrowseTeachers') (0)
+WHEN  ('?ABCBrowseUpdateGrades') (0)
+WHEN  ('?ABCPrintCOU:KeyDescription') (0)
+WHEN  ('?AbcInitItem') (0)
+WHEN  ('?BrowseClasses') (0)
+WHEN  ('?BrowseTeachers') (0)
+WHEN  ('?BrowseUpdateGrades') (0)
+WHEN  ('?TbarBrwHelp') (0)
+
+%AIDisableImg DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgIsVariable DEPEND %Control LONG TIMES 16
+WHEN  ('') (0)
+WHEN  ('?ABCBrowseClassTree') (0)
+WHEN  ('?ABCBrowseClasses') (0)
+WHEN  ('?ABCBrowseCourses') (0)
+WHEN  ('?ABCBrowseEnrollment') (0)
+WHEN  ('?ABCBrowseMajors') (0)
+WHEN  ('?ABCBrowseStudents') (0)
+WHEN  ('?ABCBrowseStudentsTree') (0)
+WHEN  ('?ABCBrowseTeachers') (0)
+WHEN  ('?ABCBrowseUpdateGrades') (0)
+WHEN  ('?ABCPrintCOU:KeyDescription') (0)
+WHEN  ('?AbcInitItem') (0)
+WHEN  ('?BrowseClasses') (0)
+WHEN  ('?BrowseTeachers') (0)
+WHEN  ('?BrowseUpdateGrades') (0)
+WHEN  ('?TbarBrwHelp') (0)
+
+%AIHotImg DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgIsVariable DEPEND %Control LONG TIMES 16
+WHEN  ('') (0)
+WHEN  ('?ABCBrowseClassTree') (0)
+WHEN  ('?ABCBrowseClasses') (0)
+WHEN  ('?ABCBrowseCourses') (0)
+WHEN  ('?ABCBrowseEnrollment') (0)
+WHEN  ('?ABCBrowseMajors') (0)
+WHEN  ('?ABCBrowseStudents') (0)
+WHEN  ('?ABCBrowseStudentsTree') (0)
+WHEN  ('?ABCBrowseTeachers') (0)
+WHEN  ('?ABCBrowseUpdateGrades') (0)
+WHEN  ('?ABCPrintCOU:KeyDescription') (0)
+WHEN  ('?AbcInitItem') (0)
+WHEN  ('?BrowseClasses') (0)
+WHEN  ('?BrowseTeachers') (0)
+WHEN  ('?BrowseUpdateGrades') (0)
+WHEN  ('?TbarBrwHelp') (0)
+
+%AIPressedImg DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgIsVariable DEPEND %Control LONG TIMES 16
+WHEN  ('') (0)
+WHEN  ('?ABCBrowseClassTree') (0)
+WHEN  ('?ABCBrowseClasses') (0)
+WHEN  ('?ABCBrowseCourses') (0)
+WHEN  ('?ABCBrowseEnrollment') (0)
+WHEN  ('?ABCBrowseMajors') (0)
+WHEN  ('?ABCBrowseStudents') (0)
+WHEN  ('?ABCBrowseStudentsTree') (0)
+WHEN  ('?ABCBrowseTeachers') (0)
+WHEN  ('?ABCBrowseUpdateGrades') (0)
+WHEN  ('?ABCPrintCOU:KeyDescription') (0)
+WHEN  ('?AbcInitItem') (0)
+WHEN  ('?BrowseClasses') (0)
+WHEN  ('?BrowseTeachers') (0)
+WHEN  ('?BrowseUpdateGrades') (0)
+WHEN  ('?TbarBrwHelp') (0)
+
+%FieldGradientColorType DEPEND %Control DEFAULT TIMES 17
+WHEN  ('') ('Off')
+WHEN  ('?ABCBrowseClassTree') ('Off')
+WHEN  ('?ABCBrowseClasses') ('Off')
+WHEN  ('?ABCBrowseCourses') ('Off')
+WHEN  ('?ABCBrowseEnrollment') ('Off')
+WHEN  ('?ABCBrowseMajors') ('Off')
+WHEN  ('?ABCBrowseStudents') ('Off')
+WHEN  ('?ABCBrowseStudentsTree') ('Off')
+WHEN  ('?ABCBrowseTeachers') ('Off')
+WHEN  ('?ABCBrowseUpdateGrades') ('Off')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('Off')
+WHEN  ('?AbcInitItem') ('Off')
+WHEN  ('?BrowseClasses') ('Off')
+WHEN  ('?BrowseTeachers') ('Off')
+WHEN  ('?BrowseUpdateGrades') ('Off')
+WHEN  ('?TOOLBAR1') ('Off')
+WHEN  ('?TbarBrwHelp') ('Off')
+
+%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 17
+WHEN  ('') ('')
+WHEN  ('?ABCBrowseClassTree') ('')
+WHEN  ('?ABCBrowseClasses') ('')
+WHEN  ('?ABCBrowseCourses') ('')
+WHEN  ('?ABCBrowseEnrollment') ('')
+WHEN  ('?ABCBrowseMajors') ('')
+WHEN  ('?ABCBrowseStudents') ('')
+WHEN  ('?ABCBrowseStudentsTree') ('')
+WHEN  ('?ABCBrowseTeachers') ('')
+WHEN  ('?ABCBrowseUpdateGrades') ('')
+WHEN  ('?ABCPrintCOU:KeyDescription') ('')
+WHEN  ('?AbcInitItem') ('')
+WHEN  ('?BrowseClasses') ('')
+WHEN  ('?BrowseTeachers') ('')
+WHEN  ('?BrowseUpdateGrades') ('')
+WHEN  ('?TOOLBAR1') ('')
+WHEN  ('?TbarBrwHelp') ('')
+
+%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 17
+WHEN  ('') (0)
+WHEN  ('?ABCBrowseClassTree') (0)
+WHEN  ('?ABCBrowseClasses') (0)
+WHEN  ('?ABCBrowseCourses') (0)
+WHEN  ('?ABCBrowseEnrollment') (0)
+WHEN  ('?ABCBrowseMajors') (0)
+WHEN  ('?ABCBrowseStudents') (0)
+WHEN  ('?ABCBrowseStudentsTree') (0)
+WHEN  ('?ABCBrowseTeachers') (0)
+WHEN  ('?ABCBrowseUpdateGrades') (0)
+WHEN  ('?ABCPrintCOU:KeyDescription') (0)
+WHEN  ('?AbcInitItem') (0)
+WHEN  ('?BrowseClasses') (0)
+WHEN  ('?BrowseTeachers') (0)
+WHEN  ('?BrowseUpdateGrades') (0)
+WHEN  ('?TOOLBAR1') (0)
+WHEN  ('?TbarBrwHelp') (0)
+
+%FieldGradientColorFrom DEPEND %Control LONG TIMES 17
+WHEN  ('') (-1)
+WHEN  ('?ABCBrowseClassTree') (-1)
+WHEN  ('?ABCBrowseClasses') (-1)
+WHEN  ('?ABCBrowseCourses') (-1)
+WHEN  ('?ABCBrowseEnrollment') (-1)
+WHEN  ('?ABCBrowseMajors') (-1)
+WHEN  ('?ABCBrowseStudents') (-1)
+WHEN  ('?ABCBrowseStudentsTree') (-1)
+WHEN  ('?ABCBrowseTeachers') (-1)
+WHEN  ('?ABCBrowseUpdateGrades') (-1)
+WHEN  ('?ABCPrintCOU:KeyDescription') (-1)
+WHEN  ('?AbcInitItem') (-1)
+WHEN  ('?BrowseClasses') (-1)
+WHEN  ('?BrowseTeachers') (-1)
+WHEN  ('?BrowseUpdateGrades') (-1)
+WHEN  ('?TOOLBAR1') (-1)
+WHEN  ('?TbarBrwHelp') (-1)
+
+%FieldGradientColorFromVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 17
+WHEN  ('') (0)
+WHEN  ('?ABCBrowseClassTree') (0)
+WHEN  ('?ABCBrowseClasses') (0)
+WHEN  ('?ABCBrowseCourses') (0)
+WHEN  ('?ABCBrowseEnrollment') (0)
+WHEN  ('?ABCBrowseMajors') (0)
+WHEN  ('?ABCBrowseStudents') (0)
+WHEN  ('?ABCBrowseStudentsTree') (0)
+WHEN  ('?ABCBrowseTeachers') (0)
+WHEN  ('?ABCBrowseUpdateGrades') (0)
+WHEN  ('?ABCPrintCOU:KeyDescription') (0)
+WHEN  ('?AbcInitItem') (0)
+WHEN  ('?BrowseClasses') (0)
+WHEN  ('?BrowseTeachers') (0)
+WHEN  ('?BrowseUpdateGrades') (0)
+WHEN  ('?TOOLBAR1') (0)
+WHEN  ('?TbarBrwHelp') (0)
+
+%FieldGradientColorTo DEPEND %Control LONG TIMES 17
+WHEN  ('') (-1)
+WHEN  ('?ABCBrowseClassTree') (-1)
+WHEN  ('?ABCBrowseClasses') (-1)
+WHEN  ('?ABCBrowseCourses') (-1)
+WHEN  ('?ABCBrowseEnrollment') (-1)
+WHEN  ('?ABCBrowseMajors') (-1)
+WHEN  ('?ABCBrowseStudents') (-1)
+WHEN  ('?ABCBrowseStudentsTree') (-1)
+WHEN  ('?ABCBrowseTeachers') (-1)
+WHEN  ('?ABCBrowseUpdateGrades') (-1)
+WHEN  ('?ABCPrintCOU:KeyDescription') (-1)
+WHEN  ('?AbcInitItem') (-1)
+WHEN  ('?BrowseClasses') (-1)
+WHEN  ('?BrowseTeachers') (-1)
+WHEN  ('?BrowseUpdateGrades') (-1)
+WHEN  ('?TOOLBAR1') (-1)
+WHEN  ('?TbarBrwHelp') (-1)
+
+%FieldGradientColorToVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 17
+WHEN  ('') (0)
+WHEN  ('?ABCBrowseClassTree') (0)
+WHEN  ('?ABCBrowseClasses') (0)
+WHEN  ('?ABCBrowseCourses') (0)
+WHEN  ('?ABCBrowseEnrollment') (0)
+WHEN  ('?ABCBrowseMajors') (0)
+WHEN  ('?ABCBrowseStudents') (0)
+WHEN  ('?ABCBrowseStudentsTree') (0)
+WHEN  ('?ABCBrowseTeachers') (0)
+WHEN  ('?ABCBrowseUpdateGrades') (0)
+WHEN  ('?ABCPrintCOU:KeyDescription') (0)
+WHEN  ('?AbcInitItem') (0)
+WHEN  ('?BrowseClasses') (0)
+WHEN  ('?BrowseTeachers') (0)
+WHEN  ('?BrowseUpdateGrades') (0)
+WHEN  ('?TOOLBAR1') (0)
+WHEN  ('?TbarBrwHelp') (0)
+
+[EMBED]
+EMBED %BeforeAccept
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+SYSTEM{PROP:Icon} = '~_TpSpdU.ICO'
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+ Disable(?ABCBrowseStudents,?ABCReportMenu)
+[END]
+EMBED %ControlPostEventHandling
+[INSTANCES]
+WHEN '?AbcInitItem'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+Disable(?AbcInitItem)
+Enable(?ABCBrowseStudents,?ABCReportMenu)
+[END]
+[END]
+WHEN '?CbHlpHookEnableItem'
+[INSTANCES]
+WHEN 'Accepted'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+  DO CbHlpHookEnableRtn      
+[END]
+[END]
+[END]
+EMBED %ProcedureRoutines
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5000
+PROPERTY:END
+CbHlpHookEnableRtn  ROUTINE     !<><><><><><><> CB Window Preview Hook <><><><><><>
+    IF Help2WndPreviewCls &= NULL THEN   
+       Help2WndPreviewCls &= NEW(CbWndPrvHelpHookClass) 
+       IF ~Help2WndPreviewCls.IsInited THEN
+          RV# = Help2WndPreviewCls.Init('YourHelp.CHM')  !Help file does NOT need to exist, but need a Name
+          IF RV# THEN 
+             Message('Help2WndPreviewCls failed reason ' & RV# )
+             DISABLE(?) 
+             EXIT
+          END
+       END
+    END    
+!    Message('Press Ctrl+Shift+F1 on Open Windows to see CB Window Preview Reflection List.' & |
+!            '||Note: Any windows open now must be closed to work.', | 
+!            'CbWndPrvHelpHookClass.Init()')
+
+    Message('Press Ctrl+Shift+F1 on Open Windows to see CB Window Preview Reflection List.' & |
+            '||Note: Any windows open now must be closed to work.' & | 
+            '||If you compiled in 11.13505 you can view List Queues, before that you need a Global Extension.' & |
+             '||On any window with a LIST presss Ctrl+Shift+F1 to open CB Window Preview. ' & |
+             '|On the CB wInspect Controls window press the LIST button' & |
+             '|then press the From(Q) button and you can see the QUEUE that feeds the list.' & |
+             '|Press the "View From(Q)" to see all the data.','CbWndPrvHelpHookClass.Init()')
+    
+    !Is declared as Ref so no chance affects live APP until it is NEW() on the secret menu
+    !Help2WndPreviewCls  &CbWndPrvHelpHookClass 
+[END]
+[END]
+[ADDITION]
+NAME Clarion FrameBrowseControl
+[INSTANCE]
+INSTANCE 3
+[ADDITION]
+NAME Clarion DateTimeDisplay
+[INSTANCE]
+INSTANCE 2
+[PROMPTS]
+%DisplayDate LONG  (1)
+%DatePicture DEFAULT  ('October 31, 1959')
+%OtherDatePicture DEFAULT  ('')
+%ShowDayOfWeek LONG  (1)
+%DateDisplayLocation DEFAULT  ('Status Bar')
+%DateStatusSection DEFAULT  ('3')
+%DateControl DEFAULT  ('')
+%DisplayTime LONG  (1)
+%TimePicture DEFAULT  ('5:30PM')
+%OtherTimePicture DEFAULT  ('')
+%TimeDisplayLocation DEFAULT  ('Status Bar')
+%TimeStatusSection DEFAULT  ('4')
+%TimeControl DEFAULT  ('')
+[WINDOW]
+AppFrame APPLICATION('TopSpeed University'),AT(,,671,381),FONT('Microsoft Sans Serif',8,COLOR:Black), |
+          RESIZE,ALRT(MouseLeft2),ICON('_TPSPDU.ICO'),MAX,HLP('~TopSpeedUniversity'),STATUS(-1, |
+          80,120,45),SYSTEM
+          MENUBAR,USE(?MENUBAR1),#ORDINAL(1)
+            MENU('&File'),USE(?MENU1),#ORDINAL(2)
+              ITEM('&Print Setup ...'),USE(?PrintSetup),MSG('Setup printer'),STD(STD:PrintSetup), |
+                #ORDINAL(3)
+              ITEM,USE(?SEPARATOR1),SEPARATOR,#ORDINAL(4)
+              ITEM('E&xit'),USE(?Exit),MSG('Exit this application'),STD(STD:Close),#ORDINAL(5)
+            END
+            MENU('&Edit'),USE(?MENU2),#ORDINAL(6)
+              ITEM('Cu&t'),USE(?Cut),KEY(CtrlX),MSG('Remove item to Windows Clipboard'),STD(STD:Cut), |
+                #ORDINAL(7)
+              ITEM('&Copy'),USE(?Copy),KEY(CtrlC),MSG('Copy item to Windows Clipboard'),STD(STD:Copy), |
+                #ORDINAL(8)
+              ITEM('&Paste'),USE(?Paste),KEY(CtrlV),MSG('Paste contents of Windows Clipboard'), |
+                STD(STD:Paste),#ORDINAL(9)
+            END
+            MENU('&Trees'),USE(?Trees),#ORDINAL(10)
+              ITEM('&Class Tree'),USE(?BrowseClassTree),#ORDINAL(11)
+              ITEM('&Students Tree'),USE(?BrowseStudentsTree),#ORDINAL(12)
+            END
+            MENU('&BrowseLEG'),USE(?MENU3),#ORDINAL(13)
+              ITEM('Students '),USE(?BrowseStudents),MSG('Browse Students'),#ORDINAL(14)
+              ITEM('Teachers '),USE(?BrowseTeachers),MSG('Browse Teachers'),#ORDINAL(15)
+              ITEM('Classes '),USE(?BrowseClasses),MSG('Browse Classes'),#ORDINAL(16)
+              ITEM('Enrollment '),USE(?BrowseEnrollment),MSG('Browse Enrollment'),#ORDINAL(17)
+              ITEM('Courses '),USE(?BrowseCourses),MSG('Browse Courses'),#ORDINAL(18)
+              ITEM('Majors '),USE(?BrowseMajors),MSG('Browse Majors'),#ORDINAL(19)
+              ITEM('Update Grades'),USE(?BrowseUpdateGrades),#ORDINAL(20)
+            END
+            MENU('BrowseABC'),USE(?ABCBrowseMenu),#ORDINAL(21)
+              ITEM('ABC Init'),USE(?AbcInitItem),#ORDINAL(22)
+              ITEM,USE(?SeparatorABC1),SEPARATOR,#ORDINAL(23)
+              ITEM('Students ABC'),USE(?ABCBrowseStudents),#ORDINAL(24)
+              ITEM('Teachers '),USE(?ABCBrowseTeachers),#ORDINAL(25)
+              ITEM('Classes '),USE(?ABCBrowseClasses),#ORDINAL(26)
+              ITEM('Enrollment '),USE(?ABCBrowseEnrollment),#ORDINAL(27)
+              ITEM('Courses '),USE(?ABCBrowseCourses),#ORDINAL(28)
+              ITEM('Majors '),USE(?ABCBrowseMajors),#ORDINAL(29)
+              ITEM,USE(?SeparatorABC2),SEPARATOR,#ORDINAL(30)
+              ITEM('&Class Tree'),USE(?ABCBrowseClassTree),#ORDINAL(31)
+              ITEM('&Students Tree'),USE(?ABCBrowseStudentsTree),#ORDINAL(32)
+              ITEM('Update Grades'),USE(?ABCBrowseUpdateGrades),#ORDINAL(33)
+              MENU('Reports'),USE(?ABCReportMenu),#ORDINAL(34)
+                ITEM('Course Enrollment'),USE(?ABCPrintCOU:KeyDescription),#ORDINAL(35)
+              END
+            END
+            MENU('&Reports'),USE(?ReportMenu),MSG('Report data'),#ORDINAL(36)
+              ITEM('Student Class Schedules'),USE(?PrintENR:StuSeq),MSG('Print ordered ' & |
+                'by by Student Number'),#ORDINAL(37)
+              ITEM('Teacher Class Schedules'),USE(?ReportsTeacherClassSchedules),#ORDINAL(38)
+              ITEM('Attendance Sheets'),USE(?PrintENR:SeqStu),MSG('Print ordered by by ' & |
+                'Class Number'),#ORDINAL(39)
+              ITEM('Course Enrollment'),USE(?PrintCOU:KeyDescription),MSG('Print ordere' & |
+                'd by by Course Description'),#ORDINAL(40)
+              ITEM('Course Enrollment Summary'),USE(?ReportsCourseEnrollmentSummary),#ORDINAL(41)
+              ITEM('Final Grades'),USE(?ReportsFinalGrades),#ORDINAL(42)
+              ITEM('Student IDs'),USE(?ReportsStudentIDs),#ORDINAL(43)
+            END
+            MENU('&Window'),USE(?MENU4),MSG('Create and Arrange windows'),STD(STD:WindowList), |
+              #ORDINAL(44)
+              ITEM('T&ile'),USE(?Tile),MSG('Make all open windows visible'),STD(STD:TileWindow), |
+                #ORDINAL(45)
+              ITEM('&Cascade'),USE(?Cascade),MSG('Stack all open windows'),STD(STD:CascadeWindow), |
+                #ORDINAL(46)
+              ITEM('&Arrange Icons'),USE(?Arrange),MSG('Align all window icons'),STD(STD:ArrangeIcons), |
+                #ORDINAL(47)
+            END
+            MENU('&Help'),USE(?MENU5),MSG('Windows Help'),#ORDINAL(48)
+              ITEM('&Contents'),USE(?Helpindex),MSG('View the contents of the help file'), |
+                STD(STD:HelpIndex),#ORDINAL(49)
+              ITEM('&Search for Help On...'),USE(?HelpSearch),MSG('Search for help on a subject'), |
+                STD(STD:HelpSearch),#ORDINAL(50)
+              ITEM('&How to Use Help'),USE(?HelpOnHelp),MSG('How to use Windows Help'),STD(STD:HelpOnHelp), |
+                #ORDINAL(51)
+              ITEM,USE(?SEPARATOR2),SEPARATOR,#ORDINAL(52)
+              ITEM('&About School...'),USE(?HelpAbout),#ORDINAL(53)
+            END
+            MENU('CarlWndPreview'),USE(?CarlWndPreviewMenu),#ORDINAL(54)
+              ITEM('Enable F1 Hook to show CB Window Preview on Any Window '),USE(?CbHlpHookEnableItem), |
+                #ORDINAL(55)
+              ITEM('(Hide the above item for non-developer users'),USE(?CbHlpHookEnableItem2), |
+                #ORDINAL(56)
+            END
+          END
+          TOOLBAR,AT(0,0,671,16),USE(?TOOLBAR1),#ORDINAL(57)
+            BUTTON,AT(2,1,16,14),USE(?TBarBrwTop, TBarBrwTop),ICON('VCRFIRST.ICO'),DISABLE, |
+              TIP('Go to the First Page'),#ORIG(?TBarBrwTop),#SEQ(3),#ORDINAL(58)
+            BUTTON,AT(18,1,16,14),USE(?TBarBrwPageUp, TBarBrwPageUp),ICON('VCRPRIOR.ICO'), |
+              DISABLE,TIP('Go to the Prior Page'),#ORIG(?TBarBrwPageUp),#SEQ(3),#ORDINAL(59)
+            BUTTON,AT(34,1,16,14),USE(?TBarBrwUp, TBarBrwUp),ICON('VCRUP.ICO'),DISABLE,TIP('Go to the ' & |
+              'Prior Record'),#ORIG(?TBarBrwUp),#SEQ(3),#ORDINAL(60)
+            BUTTON,AT(50,1,16,14),USE(?TBarBrwLocate, TBarBrwLocate),ICON('FIND.ICO'),DISABLE, |
+              TIP('Locate record'),#ORIG(?TBarBrwLocate),#SEQ(3),#ORDINAL(61)
+            BUTTON,AT(66,1,16,14),USE(?TBarBrwDown, TBarBrwDown),ICON('VCRDOWN.ICO'),DISABLE, |
+              TIP('Go to the Next Record'),#ORIG(?TBarBrwDown),#SEQ(3),#ORDINAL(62)
+            BUTTON,AT(82,1,16,14),USE(?TBarBrwPageDown, TBarBrwPageDown),ICON('VCRNEXT.ICO'), |
+              DISABLE,TIP('Go to the Next Page'),#ORIG(?TBarBrwPageDown),#SEQ(3),#ORDINAL(63)
+            BUTTON,AT(98,1,16,14),USE(?TBarBrwBottom, TBarBrwBottom),ICON('VCRLAST.ICO'),DISABLE, |
+              TIP('Go to the Last Page'),#ORIG(?TBarBrwBottom),#SEQ(3),#ORDINAL(64)
+            BUTTON,AT(118,1,16,14),USE(?TBarBrwSelect, TBarBrwSelect),ICON('MARK.ICO'),DISABLE, |
+              TIP('Select This Record'),#ORIG(?TBarBrwSelect),#SEQ(3),#ORDINAL(65)
+            BUTTON,AT(134,1,16,14),USE(?TBarBrwInsert, TBarBrwInsert),ICON('INSERT.ICO'),DISABLE, |
+              TIP('Insert a New Record'),#ORIG(?TBarBrwInsert),#SEQ(3),#ORDINAL(66)
+            BUTTON,AT(150,1,16,14),USE(?TBarBrwChange, TBarBrwChange),ICON('EDIT.ICO'),DISABLE, |
+              TIP('Edit This Record'),#ORIG(?TBarBrwChange),#SEQ(3),#ORDINAL(67)
+            BUTTON,AT(166,1,16,14),USE(?TBarBrwDelete, TBarBrwDelete),ICON('DELETE.ICO'),DISABLE, |
+              TIP('Delete This Record'),#ORIG(?TBarBrwDelete),#SEQ(3),#ORDINAL(68)
+            BUTTON,AT(186,1,16,14),USE(?TbarBrwHistory, TBarBrwHistory),ICON('DITTO.ICO'), |
+              DISABLE,TIP('Previous value'),#ORIG(?TbarBrwHistory),#SEQ(3),#ORDINAL(69)
+            BUTTON,AT(202,1,16,14),USE(?TbarBrwHelp, TBarBrwHelp),ICON('HELP.ICO'),DISABLE, |
+              TIP('Get Help'),#ORIG(?TbarBrwHelp),#SEQ(3),#ORDINAL(70)
+          END
+        END
+
+[PROCEDURE]
+NAME SplashIt
+NOEXPORT
+[COMMON]
+FROM Clarion Splash
+MODIFIED '2021/03/15' '20:34:31'
+[DATA]
+LocalRequest             LONG
+!!> GUID('435c41d9-0255-4529-b1da-a613569a0abb')
+OriginalRequest          LONG
+!!> GUID('17d4626b-4e5b-49a0-9acb-6cef3731a472')
+LocalResponse            LONG
+!!> GUID('a989803b-f851-4a39-963c-75b8f5e43904')
+FilesOpened              LONG
+!!> GUID('f3c88aa3-6ac5-4ca8-8ea6-348021d0c23c')
+WindowOpened             LONG
+!!> GUID('9445dd8c-0b48-43d2-88d6-bae3d05f4c93')
+WindowInitialized        LONG
+!!> GUID('a544dacc-ae86-40eb-a5d2-7c8740f9ee53')
+ForceRefresh             LONG
+!!> GUID('30483d5b-dfca-4fe5-a32f-e2c6994de645')
+[PROMPTS]
+%DisplayTime DEFAULT  ('10')
+%WindowOperationMode DEFAULT  ('Use WINDOW setting')
+%INISaveWindow LONG  (1)
+%ReturnValue FIELD  ()
+%CloseOnClick LONG  (1)
+%ButtonAction DEPEND %Control DEFAULT TIMES 4
+WHEN  ('') ('No Special Action')
+WHEN  ('?Image1') ('No Special Action')
+WHEN  ('?Panel4') ('No Special Action')
+WHEN  ('?String2') ('No Special Action')
+
+%ButtonRunName DEPEND %Control DEFAULT TIMES 4
+WHEN  ('') ('')
+WHEN  ('?Image1') ('')
+WHEN  ('?Panel4') ('')
+WHEN  ('?String2') ('')
+
+%ButtonRunParameters DEPEND %Control DEFAULT TIMES 4
+WHEN  ('') ('')
+WHEN  ('?Image1') ('')
+WHEN  ('?Panel4') ('')
+WHEN  ('?String2') ('')
+
+%ButtonProcedure DEPEND %Control PROCEDURE TIMES 4
+WHEN  ('') ()
+WHEN  ('?Image1') ()
+WHEN  ('?Panel4') ()
+WHEN  ('?String2') ()
+
+%ButtonThread DEPEND %Control LONG TIMES 4
+WHEN  ('') (0)
+WHEN  ('?Image1') (0)
+WHEN  ('?Panel4') (0)
+WHEN  ('?String2') (0)
+
+%ButtonThreadStack DEPEND %Control DEFAULT TIMES 4
+WHEN  ('') ('25000')
+WHEN  ('?Image1') ('25000')
+WHEN  ('?Panel4') ('25000')
+WHEN  ('?String2') ('25000')
+
+%ButtonParameters DEPEND %Control DEFAULT TIMES 4
+WHEN  ('') ('')
+WHEN  ('?Image1') ('')
+WHEN  ('?Panel4') ('')
+WHEN  ('?String2') ('')
+
+%ButtonRequest DEPEND %Control DEFAULT TIMES 4
+WHEN  ('') ('None')
+WHEN  ('?Image1') ('None')
+WHEN  ('?Panel4') ('None')
+WHEN  ('?String2') ('None')
+
+%PreLookupKey DEPEND %Control KEY TIMES 4
+WHEN  ('') ()
+WHEN  ('?Image1') ()
+WHEN  ('?Panel4') ()
+WHEN  ('?String2') ()
+
+%PreLookupField DEPEND %Control COMPONENT TIMES 4
+WHEN  ('') ()
+WHEN  ('?Image1') ()
+WHEN  ('?Panel4') ()
+WHEN  ('?String2') ()
+
+%PreLookupProcedure DEPEND %Control PROCEDURE TIMES 4
+WHEN  ('') ()
+WHEN  ('?Image1') ()
+WHEN  ('?Panel4') ()
+WHEN  ('?String2') ()
+
+%PostLookupKey DEPEND %Control KEY TIMES 4
+WHEN  ('') ()
+WHEN  ('?Image1') ()
+WHEN  ('?Panel4') ()
+WHEN  ('?String2') ()
+
+%PostLookupField DEPEND %Control COMPONENT TIMES 4
+WHEN  ('') ()
+WHEN  ('?Image1') ()
+WHEN  ('?Panel4') ()
+WHEN  ('?String2') ()
+
+%PostLookupProcedure DEPEND %Control PROCEDURE TIMES 4
+WHEN  ('') ()
+WHEN  ('?Image1') ()
+WHEN  ('?Panel4') ()
+WHEN  ('?String2') ()
+
+%PostLookupDuringValidate DEPEND %Control LONG TIMES 4
+WHEN  ('') (1)
+WHEN  ('?Image1') (1)
+WHEN  ('?Panel4') (1)
+WHEN  ('?String2') (1)
+
+%ForceWindowRefresh DEPEND %Control LONG TIMES 4
+WHEN  ('') (0)
+WHEN  ('?Image1') (0)
+WHEN  ('?Panel4') (0)
+WHEN  ('?String2') (0)
+
+%CheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedAssignVariable DEPEND %CheckedAssigns FIELD TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?Panel4')TIMES 0
+WHEN  ('?String2')TIMES 0
+
+%CheckedAssignValue DEPEND %CheckedAssigns DEFAULT TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?Panel4')TIMES 0
+WHEN  ('?String2')TIMES 0
+
+%CheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl DEPEND %CheckedHides DEFAULT TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?Panel4')TIMES 0
+WHEN  ('?String2')TIMES 0
+
+%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?Panel4')TIMES 0
+WHEN  ('?String2')TIMES 0
+
+%UncheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%UncheckedAssignVariable DEPEND %UncheckedAssigns FIELD TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?Panel4')TIMES 0
+WHEN  ('?String2')TIMES 0
+
+%UncheckedAssignValue DEPEND %UncheckedAssigns DEFAULT TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?Panel4')TIMES 0
+WHEN  ('?String2')TIMES 0
+
+%UnCheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl DEPEND %UnCheckedHides DEFAULT TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?Panel4')TIMES 0
+WHEN  ('?String2')TIMES 0
+
+%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 4
+WHEN  ('')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?Panel4')TIMES 0
+WHEN  ('?String2')TIMES 0
+
+%ProcedureDisableEnhanceFocus LONG  (0)
+%ProcedureUseEnterInsteadTabOverride LONG  (0)
+%WindowUseEnterInsteadTab LONG  (1)
+%ProcedureUseEnterInsteadTabExcludeListCombo LONG  (0)
+%ProcedureUseEnterInsteadTabEnableNextTabStop LONG  (0)
+%ProcedureUseEnterInsteadTabExcludeG LONG  (1)
+%WindowUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%WindowStyles MULTI LONG  ()
+%WindowStyleFontName DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontSize DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontStyle DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontColor DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontCharSet DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStylePicture DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleOtherListboxes MULTI DEFAULT  ()
+%ProcedureAutoBindFields MULTI LONG  ()
+%ProcedureAutoBindField DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldTPL DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedures MULTI LONG  ()
+%ProcedureAutoBindProcedure DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedureTPL DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldsIgnored MULTI LONG  ()
+%ProcedureAutoBindFieldIgnored DEPEND %ProcedureAutoBindFieldsIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindProceduresIgnored MULTI LONG  ()
+%ProcedureAutoBindProcedureIgnored DEPEND %ProcedureAutoBindProceduresIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindValidToAddField LONG  (1)
+%ProcedureUserBindFields MULTI LONG  ()
+%ProcedureUserBindField DEPEND %ProcedureUserBindFields FIELD TIMES 0
+
+%ProcedureAutoBindFieldIgnore DEPEND %ProcedureAutoBindFields LONG TIMES 0
+
+%ProcedureUserBindProcedures MULTI LONG  ()
+%ProcedureUserBindProcedure DEPEND %ProcedureUserBindProcedures PROCEDURE TIMES 0
+
+%ProcedureAutoBindProcedureIgnore DEPEND %ProcedureAutoBindProcedures LONG TIMES 0
+
+%ProcedureUserBindExpressions MULTI LONG  ()
+%ProcedureUserBindExpressionName DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ProcedureUserBindExpression DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ButtonReturnValueAssignment DEPEND %Control FIELD TIMES 0
+
+%ButtonReturnValueReferenceAssign DEPEND %Control LONG TIMES 0
+
+%ButtonThreadParameters DEPEND %Control DEFAULT TIMES 0
+
+%ButtonThreadReturnValueAssignment DEPEND %Control FIELD TIMES 0
+
+%PreLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%LookupAssign DEPEND %Control MULTI LONG TIMES 0
+
+%MoreTarget DEPEND %LookupAssign FIELD TIMES 0
+
+%MoreField DEPEND %LookupAssign DEFAULT TIMES 0
+
+%CheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedDisableControl DEPEND %CheckedDisables DEFAULT TIMES 0
+
+%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%UnCheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedDisableControl DEPEND %UnCheckedDisables DEFAULT TIMES 0
+
+%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%ExtUITabIcon DEPEND %Control DEFAULT TIMES 0
+
+%ExtUITabStyleOverrideGlobal DEPEND %Control LONG TIMES 0
+
+%ExtUITabStyle DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('Default')
+
+%ActiveImageEnable DEPEND %Control LONG TIMES 0
+
+%AIObjectName DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('AIBtn0')
+WHEN  ('?Image1') ('AIBtn4')
+
+%AIEnableMimicControl DEPEND %Control LONG TIMES 2
+WHEN  ('') (1)
+WHEN  ('?Image1') (1)
+
+%AIMimicControl DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('')
+WHEN  ('?Image1') ('')
+
+%AIImgRound DEPEND %Control LONG TIMES 0
+
+%AIOverrideImg DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Image1') (0)
+
+%AIDisableImg DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Image1') (0)
+
+%AIHotImg DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Image1') (0)
+
+%AIPressedImg DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Image1') (0)
+
+%FieldGradientColorType DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('Off')
+WHEN  ('?Panel4') ('Off')
+
+%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('')
+WHEN  ('?Panel4') ('')
+
+%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Panel4') (0)
+
+%FieldGradientColorFrom DEPEND %Control LONG TIMES 2
+WHEN  ('') (-1)
+WHEN  ('?Panel4') (-1)
+
+%FieldGradientColorFromVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Panel4') (0)
+
+%FieldGradientColorTo DEPEND %Control LONG TIMES 2
+WHEN  ('') (-1)
+WHEN  ('?Panel4') (-1)
+
+%FieldGradientColorToVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Panel4') (0)
+
+[WINDOW]
+window  WINDOW,AT(,,209,189),FONT('MS Sans Serif',8,,FONT:regular),NOFRAME,CENTER,GRAY,MDI, |
+          PALETTE(256)
+          PANEL,AT(0,0,209,189),BEVEL(6),#ORDINAL(1)
+          PANEL,AT(7,6,195,175),BEVEL(-2,1),#ORDINAL(2)
+          STRING('TopSpeed University'),AT(11,12,185,20),USE(?String2),FONT('Arial',18,COLOR:Red, |
+            FONT:bold+FONT:italic),CENTER,#ORIG(?String2),#ORDINAL(3)
+          IMAGE('TPSPD-U.BMP'),AT(15,68,178,106),USE(?Image1),#ORIG(?Image1),#ORDINAL(4)
+          PANEL,AT(12,30,182,12),BEVEL(-1,1,9),#ORDINAL(5)
+          STRING('Written using Clarion for Windows 2.0'),AT(13,54,182,10),USE(?String1),CENTER, |
+            #ORIG(?String1),#ORDINAL(6)
+          PANEL,AT(12,66,185,111),USE(?Panel4),BEVEL(2),#ORIG(?Panel4),#ORDINAL(7)
+        END
+
+[PROCEDURE]
+NAME SplashIt2
+NOEXPORT
+[COMMON]
+FROM Clarion Splash
+MODIFIED '2021/03/15' '20:34:37'
+[DATA]
+LocalRequest             LONG
+!!> GUID('dc4c770f-3cd9-4dc7-a5ae-da906c1ea4d1')
+OriginalRequest          LONG
+!!> GUID('51c3a63a-17ac-48b3-baf5-82cad612164d')
+LocalResponse            LONG
+!!> GUID('39885e06-7047-4985-b889-711547115b2d')
+FilesOpened              LONG
+!!> GUID('60e328ec-cf9e-46c0-8eaa-db5100af5037')
+WindowOpened             LONG
+!!> GUID('48c2f630-8f2f-4ddd-98ec-f09db2d8a0c4')
+WindowInitialized        LONG
+!!> GUID('418127f6-34ea-4ec5-957f-7a9cd045b75b')
+ForceRefresh             LONG
+!!> GUID('eee3bd56-da71-4717-ba93-576a473598c2')
+[SCREENCONTROLS]
+! PROMPT('Bio Text:'),USE(?BioText:Prompt)
+! TEXT,USE(BioText)
+[REPORTCONTROLS]
+! TEXT,USE(BioText)
+BioText                  STRING(2000)
+!!> GUID('d1d8afd4-4d87-4a47-a1ad-f8008c3003e4'),PROMPT('Bio Text:'),HEADER('Bio Text'),PICTURE(@s255)
+[PROMPTS]
+%DisplayTime DEFAULT  ('0')
+%WindowOperationMode DEFAULT  ('Use WINDOW setting')
+%INISaveWindow LONG  (1)
+%ReturnValue FIELD  ()
+%CloseOnClick LONG  (1)
+%ButtonAction DEPEND %Control DEFAULT TIMES 6
+WHEN  ('') ('No Special Action')
+WHEN  ('?BioText') ('No Special Action')
+WHEN  ('?Image1') ('No Special Action')
+WHEN  ('?String1') ('No Special Action')
+WHEN  ('?String2') ('No Special Action')
+WHEN  ('?String2:2') ('No Special Action')
+
+%ButtonRunName DEPEND %Control DEFAULT TIMES 6
+WHEN  ('') ('')
+WHEN  ('?BioText') ('')
+WHEN  ('?Image1') ('')
+WHEN  ('?String1') ('')
+WHEN  ('?String2') ('')
+WHEN  ('?String2:2') ('')
+
+%ButtonRunParameters DEPEND %Control DEFAULT TIMES 6
+WHEN  ('') ('')
+WHEN  ('?BioText') ('')
+WHEN  ('?Image1') ('')
+WHEN  ('?String1') ('')
+WHEN  ('?String2') ('')
+WHEN  ('?String2:2') ('')
+
+%ButtonProcedure DEPEND %Control PROCEDURE TIMES 6
+WHEN  ('') ()
+WHEN  ('?BioText') ()
+WHEN  ('?Image1') ()
+WHEN  ('?String1') ()
+WHEN  ('?String2') ()
+WHEN  ('?String2:2') ()
+
+%ButtonThread DEPEND %Control LONG TIMES 6
+WHEN  ('') (0)
+WHEN  ('?BioText') (0)
+WHEN  ('?Image1') (0)
+WHEN  ('?String1') (0)
+WHEN  ('?String2') (0)
+WHEN  ('?String2:2') (0)
+
+%ButtonThreadStack DEPEND %Control DEFAULT TIMES 6
+WHEN  ('') ('25000')
+WHEN  ('?BioText') ('25000')
+WHEN  ('?Image1') ('25000')
+WHEN  ('?String1') ('25000')
+WHEN  ('?String2') ('25000')
+WHEN  ('?String2:2') ('25000')
+
+%ButtonParameters DEPEND %Control DEFAULT TIMES 6
+WHEN  ('') ('')
+WHEN  ('?BioText') ('')
+WHEN  ('?Image1') ('')
+WHEN  ('?String1') ('')
+WHEN  ('?String2') ('')
+WHEN  ('?String2:2') ('')
+
+%ButtonRequest DEPEND %Control DEFAULT TIMES 6
+WHEN  ('') ('None')
+WHEN  ('?BioText') ('None')
+WHEN  ('?Image1') ('None')
+WHEN  ('?String1') ('None')
+WHEN  ('?String2') ('None')
+WHEN  ('?String2:2') ('None')
+
+%PreLookupKey DEPEND %Control KEY TIMES 6
+WHEN  ('') ()
+WHEN  ('?BioText') ()
+WHEN  ('?Image1') ()
+WHEN  ('?String1') ()
+WHEN  ('?String2') ()
+WHEN  ('?String2:2') ()
+
+%PreLookupField DEPEND %Control COMPONENT TIMES 6
+WHEN  ('') ()
+WHEN  ('?BioText') ()
+WHEN  ('?Image1') ()
+WHEN  ('?String1') ()
+WHEN  ('?String2') ()
+WHEN  ('?String2:2') ()
+
+%PreLookupProcedure DEPEND %Control PROCEDURE TIMES 6
+WHEN  ('') ()
+WHEN  ('?BioText') ()
+WHEN  ('?Image1') ()
+WHEN  ('?String1') ()
+WHEN  ('?String2') ()
+WHEN  ('?String2:2') ()
+
+%PostLookupKey DEPEND %Control KEY TIMES 6
+WHEN  ('') ()
+WHEN  ('?BioText') ()
+WHEN  ('?Image1') ()
+WHEN  ('?String1') ()
+WHEN  ('?String2') ()
+WHEN  ('?String2:2') ()
+
+%PostLookupField DEPEND %Control COMPONENT TIMES 6
+WHEN  ('') ()
+WHEN  ('?BioText') ()
+WHEN  ('?Image1') ()
+WHEN  ('?String1') ()
+WHEN  ('?String2') ()
+WHEN  ('?String2:2') ()
+
+%PostLookupProcedure DEPEND %Control PROCEDURE TIMES 6
+WHEN  ('') ()
+WHEN  ('?BioText') ()
+WHEN  ('?Image1') ()
+WHEN  ('?String1') ()
+WHEN  ('?String2') ()
+WHEN  ('?String2:2') ()
+
+%PostLookupDuringValidate DEPEND %Control LONG TIMES 6
+WHEN  ('') (1)
+WHEN  ('?BioText') (1)
+WHEN  ('?Image1') (1)
+WHEN  ('?String1') (1)
+WHEN  ('?String2') (1)
+WHEN  ('?String2:2') (1)
+
+%ForceWindowRefresh DEPEND %Control LONG TIMES 6
+WHEN  ('') (0)
+WHEN  ('?BioText') (0)
+WHEN  ('?Image1') (0)
+WHEN  ('?String1') (0)
+WHEN  ('?String2') (0)
+WHEN  ('?String2:2') (0)
+
+%CheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedAssignVariable DEPEND %CheckedAssigns FIELD TIMES 6
+WHEN  ('')TIMES 0
+WHEN  ('?BioText')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?String1')TIMES 0
+WHEN  ('?String2')TIMES 0
+WHEN  ('?String2:2')TIMES 0
+
+%CheckedAssignValue DEPEND %CheckedAssigns DEFAULT TIMES 6
+WHEN  ('')TIMES 0
+WHEN  ('?BioText')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?String1')TIMES 0
+WHEN  ('?String2')TIMES 0
+WHEN  ('?String2:2')TIMES 0
+
+%CheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedControl DEPEND %CheckedHides DEFAULT TIMES 6
+WHEN  ('')TIMES 0
+WHEN  ('?BioText')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?String1')TIMES 0
+WHEN  ('?String2')TIMES 0
+WHEN  ('?String2:2')TIMES 0
+
+%CheckedControlAction DEPEND %CheckedHides DEFAULT TIMES 6
+WHEN  ('')TIMES 0
+WHEN  ('?BioText')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?String1')TIMES 0
+WHEN  ('?String2')TIMES 0
+WHEN  ('?String2:2')TIMES 0
+
+%UncheckedAssigns DEPEND %Control MULTI LONG TIMES 0
+
+%UncheckedAssignVariable DEPEND %UncheckedAssigns FIELD TIMES 6
+WHEN  ('')TIMES 0
+WHEN  ('?BioText')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?String1')TIMES 0
+WHEN  ('?String2')TIMES 0
+WHEN  ('?String2:2')TIMES 0
+
+%UncheckedAssignValue DEPEND %UncheckedAssigns DEFAULT TIMES 6
+WHEN  ('')TIMES 0
+WHEN  ('?BioText')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?String1')TIMES 0
+WHEN  ('?String2')TIMES 0
+WHEN  ('?String2:2')TIMES 0
+
+%UnCheckedHides DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedControl DEPEND %UnCheckedHides DEFAULT TIMES 6
+WHEN  ('')TIMES 0
+WHEN  ('?BioText')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?String1')TIMES 0
+WHEN  ('?String2')TIMES 0
+WHEN  ('?String2:2')TIMES 0
+
+%UnCheckedControlAction DEPEND %UnCheckedHides DEFAULT TIMES 6
+WHEN  ('')TIMES 0
+WHEN  ('?BioText')TIMES 0
+WHEN  ('?Image1')TIMES 0
+WHEN  ('?String1')TIMES 0
+WHEN  ('?String2')TIMES 0
+WHEN  ('?String2:2')TIMES 0
+
+%ProcedureDisableEnhanceFocus LONG  (0)
+%ProcedureUseEnterInsteadTabOverride LONG  (0)
+%WindowUseEnterInsteadTab LONG  (1)
+%ProcedureUseEnterInsteadTabExcludeListCombo LONG  (0)
+%ProcedureUseEnterInsteadTabEnableNextTabStop LONG  (0)
+%ProcedureUseEnterInsteadTabExcludeG LONG  (1)
+%WindowUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%WindowStyles MULTI LONG  ()
+%WindowStyleFontName DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontNameIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontSize DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontSizeIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontStyle DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontStyleIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleFontColor DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleFontCharSet DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormal DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundNormalVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundNormalIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleForegroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleForegroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelected DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleBackgroundSelectedVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStyleBackgroundSelectedIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStylePicture DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureVariable DEPEND %WindowStyles DEFAULT TIMES 0
+
+%WindowStylePictureIsVariable DEPEND %WindowStyles LONG TIMES 0
+
+%WindowStyleOtherListboxes MULTI DEFAULT  ()
+%ProcedureAutoBindFields MULTI LONG  ()
+%ProcedureAutoBindField DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldTPL DEPEND %ProcedureAutoBindFields DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedures MULTI LONG  ()
+%ProcedureAutoBindProcedure DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindProcedureTPL DEPEND %ProcedureAutoBindProcedures DEFAULT TIMES 0
+
+%ProcedureAutoBindFieldsIgnored MULTI LONG  ()
+%ProcedureAutoBindFieldIgnored DEPEND %ProcedureAutoBindFieldsIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindProceduresIgnored MULTI LONG  ()
+%ProcedureAutoBindProcedureIgnored DEPEND %ProcedureAutoBindProceduresIgnored DEFAULT TIMES 0
+
+%ProcedureAutoBindValidToAddField LONG  (1)
+%ProcedureUserBindFields MULTI LONG  ()
+%ProcedureUserBindField DEPEND %ProcedureUserBindFields FIELD TIMES 0
+
+%ProcedureAutoBindFieldIgnore DEPEND %ProcedureAutoBindFields LONG TIMES 0
+
+%ProcedureUserBindProcedures MULTI LONG  ()
+%ProcedureUserBindProcedure DEPEND %ProcedureUserBindProcedures PROCEDURE TIMES 0
+
+%ProcedureAutoBindProcedureIgnore DEPEND %ProcedureAutoBindProcedures LONG TIMES 0
+
+%ProcedureUserBindExpressions MULTI LONG  ()
+%ProcedureUserBindExpressionName DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ProcedureUserBindExpression DEPEND %ProcedureUserBindExpressions DEFAULT TIMES 0
+
+%ButtonReturnValueAssignment DEPEND %Control FIELD TIMES 0
+
+%ButtonReturnValueReferenceAssign DEPEND %Control LONG TIMES 0
+
+%ButtonThreadParameters DEPEND %Control DEFAULT TIMES 0
+
+%ButtonThreadReturnValueAssignment DEPEND %Control FIELD TIMES 0
+
+%PreLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%PostLookupProcedureParameters DEPEND %Control DEFAULT TIMES 0
+
+%LookupAssign DEPEND %Control MULTI LONG TIMES 0
+
+%MoreTarget DEPEND %LookupAssign FIELD TIMES 0
+
+%MoreField DEPEND %LookupAssign DEFAULT TIMES 0
+
+%CheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%CheckedDisableControl DEPEND %CheckedDisables DEFAULT TIMES 0
+
+%CheckedDisableControlAction DEPEND %CheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%UnCheckedDisables DEPEND %Control MULTI LONG TIMES 0
+
+%UnCheckedDisableControl DEPEND %UnCheckedDisables DEFAULT TIMES 0
+
+%UnCheckedDisableControlAction DEPEND %UnCheckedDisables DEFAULT TIMES 1
+WHEN  ('')TIMES 0
+
+%ExtUITabIcon DEPEND %Control DEFAULT TIMES 0
+
+%ExtUITabStyleOverrideGlobal DEPEND %Control LONG TIMES 0
+
+%ExtUITabStyle DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('Default')
+
+%ActiveImageEnable DEPEND %Control LONG TIMES 0
+
+%AIObjectName DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('AIBtn0')
+WHEN  ('?Image1') ('AIBtn3')
+
+%AIEnableMimicControl DEPEND %Control LONG TIMES 2
+WHEN  ('') (1)
+WHEN  ('?Image1') (1)
+
+%AIMimicControl DEPEND %Control DEFAULT TIMES 2
+WHEN  ('') ('')
+WHEN  ('?Image1') ('')
+
+%AIImgRound DEPEND %Control LONG TIMES 0
+
+%AIOverrideImg DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIOverrideImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Image1') (0)
+
+%AIDisableImg DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIDisableImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Image1') (0)
+
+%AIHotImg DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIHotImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Image1') (0)
+
+%AIPressedImg DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgVariable DEPEND %Control DEFAULT TIMES 0
+
+%AIPressedImgIsVariable DEPEND %Control LONG TIMES 2
+WHEN  ('') (0)
+WHEN  ('?Image1') (0)
+
+%FieldGradientColorType DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('Off')
+
+%FieldGradientColorTypeVariable DEPEND %Control DEFAULT TIMES 1
+WHEN  ('') ('')
+
+%FieldGradientColorTypeIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%FieldGradientColorFrom DEPEND %Control LONG TIMES 1
+WHEN  ('') (-1)
+
+%FieldGradientColorFromVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorFromIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+%FieldGradientColorTo DEPEND %Control LONG TIMES 1
+WHEN  ('') (-1)
+
+%FieldGradientColorToVariable DEPEND %Control DEFAULT TIMES 0
+
+%FieldGradientColorToIsVariable DEPEND %Control LONG TIMES 1
+WHEN  ('') (0)
+
+[EMBED]
+EMBED %ProcedureSetup
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+BioText = 'Richard''s background is, in a word, "eclectic." His Bachelors degree is in Computer Information Science, and he also holds a Masters degree in Counseling Psychology, and a PhD in Humanities. ' |
+    & 'His collegiate work all came after a successful career as a musician and actor. '  |
+    & '<13,10,13,10>Richard started at Clarion Software (now TopSpeed Corp.) in the Technical Support department, moved to in-house MIS programming, then transferred ' |
+    & 'to the Education Department, where he taught advanced Clarion language classes.'  |
+    & '<13,10,13,10>During his stint in MIS and Education he wrote his first book: "Tips, Tricks, and Techniques for Clarion Professional Developer" (version 2.1) published by PC Information Group, and was subsequently asked to take over Clarion''s Documentation. ' |
+    & '<13,10,13,10>Since moving to Documentation, Richard has also found time to write "Mastering Clarion Database Developer: Understanding Clarion Templates" and co-author "Tips, Tricks, and Templates for CDD" -- both published by PCIG. ' |
+    & 'He was also the Technical Reviewer of "Clarion for Windows for Dummies" by Tom Moseley and Jim DeFabia, published by IDG Books.'
+[END]
+[END]
+[WINDOW]
+window  WINDOW,AT(,,353,226),FONT('MS Sans Serif',8,COLOR:Black,FONT:regular),NOFRAME,CENTER, |
+          GRAY,MDI,PALETTE(256)
+          PANEL,AT(0,-1,355,227),BEVEL(6),#ORDINAL(1)
+          PANEL,AT(7,5,147,214),BEVEL(4,3),#ORDINAL(2)
+          IMAGE('RICHARDT.BMP'),AT(12,9,137,206),USE(?Image1),#ORIG(?Image1),#ORDINAL(3)
+          STRING('TopSpeed University'),AT(165,4),USE(?String4),FONT(,18,COLOR:Red,FONT:bold+FONT:italic), |
+            #ORIG(?String4),#ORDINAL(4)
+          STRING('Written by'),AT(176,21,143,12),USE(?String2),FONT(,11,COLOR:Blue),CENTER, |
+            TRN,#ORIG(?String2),#ORDINAL(5)
+          STRING('Richard Taylor'),AT(176,31,143,16),USE(?String2:2),FONT(,14,COLOR:Blue), |
+            CENTER,TRN,#ORIG(?String2),#ORDINAL(6)
+          STRING('Director, Technical Communications'),AT(176,45,143,10),USE(?String1),FONT(, |
+            10,COLOR:Blue),CENTER,#ORIG(?String1),#ORDINAL(7)
+          TEXT,AT(159,62,185,156),USE(BioText),VSCROLL,COLOR(COLOR:BTNFACE),READONLY,SKIP, |
+            #ORIG(BioText),#ORDINAL(8)
+        END
+
+[END]
+[MODULE]
+[COMMON]
+FROM Clarion GENERATED
+[END]
+[MODULE]
+NAME 'ProcLegacy.lib'
+NOPOPULATE 
+[COMMON]
+FROM Clarion ExternalDLL
+MODIFIED '2021/03/15' '20:42:09'
+[PROCEDURE]
+NAME BrowseStudents
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:42:28'
+[PROCEDURE]
+NAME AttendanceSheets
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:42:53'
+[PROCEDURE]
+NAME BrowseClasses
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:43:02'
+[PROCEDURE]
+NAME UpdateGrades
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:43:09'
+[PROCEDURE]
+NAME BrowseCourses
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:43:15'
+[PROCEDURE]
+NAME BrowseEnrollment
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:43:23'
+[PROCEDURE]
+NAME BrowseTeachers
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:43:29'
+[PROCEDURE]
+NAME CourseEnrollment
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:43:40'
+[PROCEDURE]
+NAME BrowseMajors
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:43:53'
+[PROCEDURE]
+NAME ClassTree
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:44:03'
+[PROCEDURE]
+NAME FinalGrades
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:44:10'
+[PROCEDURE]
+NAME StudentTree
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:44:17'
+[PROCEDURE]
+NAME ClassSchedules1
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:44:26'
+[PROCEDURE]
+NAME ClassSchedules2
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:44:33'
+[PROCEDURE]
+NAME EnrollSummary
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:44:40'
+[PROCEDURE]
+NAME StudentIDs
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '20:44:48'
+[END]
+[MODULE]
+NAME 'AbcInitDLL.lib'
+NOPOPULATE 
+[COMMON]
+FROM Clarion ExternalDLL
+MODIFIED '2021/03/15' '22:16:52'
+[PROCEDURE]
+NAME Abc_Init_Kill
+PROTOTYPE '(BYTE KIllMe=0)'
+PARAMETERS '(BYTE KIllMe)'
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '22:17:19'
+[END]
+[MODULE]
+NAME 'ProcABC.lib'
+NOPOPULATE 
+[COMMON]
+FROM Clarion ExternalDLL
+MODIFIED '2021/03/15' '22:37:44'
+[PROCEDURE]
+NAME AbcBrowseStudents
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '22:38:01'
+[PROCEDURE]
+NAME ABCBrowseClasses
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '22:44:49'
+[PROCEDURE]
+NAME ABCBrowseTeachers
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '22:44:57'
+[PROCEDURE]
+NAME ABCBrowseCourses
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '22:59:26'
+[PROCEDURE]
+NAME ABCBrowseEnrollment
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '22:59:33'
+[PROCEDURE]
+NAME ABCBrowseMajors
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '22:59:39'
+[PROCEDURE]
+NAME ABCClassTree
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '23:10:20'
+[PROCEDURE]
+NAME AbcCourseEnrollment
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '23:10:28'
+[PROCEDURE]
+NAME ABCStudentTree
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/15' '23:10:34'
+[PROCEDURE]
+NAME ABCUpdateGrades
+NOEXPORT
+[COMMON]
+FROM Clarion External
+MODIFIED '2021/03/16' '19:37:31'
+[END]
+[MODULE]
+NAME 'DataABC.lib'
+NOPOPULATE 
+[COMMON]
+FROM Clarion ExternalDLL
+MODIFIED '2021/03/19' '15:54:20'
+[END]

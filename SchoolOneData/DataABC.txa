@@ -1,0 +1,881 @@
+[APPLICATION]
+VERSION 34
+TODO ABC ToDo
+DICTIONARY 'SCHOOL.DCT'
+PROCEDURE AppRoot
+[COMMON]
+FROM ABC
+MODIFIED '2021/03/19' '16:23:08'
+[PROMPTS]
+%GlobalUseABCClasess LONG  (1)
+%ClassItem UNIQUE DEFAULT  ('ErrorManager', 'ErrorStatusManager', 'FileManager:', |
+  'FileManager:Classes', 'FileManager:Courses', 'FileManager:Enrollment', 'FileManager:Majors', |
+  'FileManager:Students', 'FileManager:Teachers', 'FuzzyMatcher', 'INIManager', |
+  'RelationManager:', 'RelationManager:Classes', 'RelationManager:Courses', 'RelationManager:Enrollment', |
+  'RelationManager:Majors', 'RelationManager:Students', 'RelationManager:Teachers', |
+  'Translator')
+%DefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 17
+WHEN  ('ErrorManager') ('ErrorClass')
+WHEN  ('ErrorStatusManager') ('ErrorStatusClass')
+WHEN  ('FileManager:Classes') ('FileManager')
+WHEN  ('FileManager:Courses') ('FileManager')
+WHEN  ('FileManager:Enrollment') ('FileManager')
+WHEN  ('FileManager:Majors') ('FileManager')
+WHEN  ('FileManager:Students') ('FileManager')
+WHEN  ('FileManager:Teachers') ('FileManager')
+WHEN  ('FuzzyMatcher') ('FuzzyClass')
+WHEN  ('INIManager') ('INIClass')
+WHEN  ('RelationManager:Classes') ('RelationManager')
+WHEN  ('RelationManager:Courses') ('RelationManager')
+WHEN  ('RelationManager:Enrollment') ('RelationManager')
+WHEN  ('RelationManager:Majors') ('RelationManager')
+WHEN  ('RelationManager:Students') ('RelationManager')
+WHEN  ('RelationManager:Teachers') ('RelationManager')
+WHEN  ('Translator') ('TranslatorClass')
+
+%ActualDefaultBaseClassType DEPEND %ClassItem DEFAULT TIMES 17
+WHEN  ('ErrorManager') ('')
+WHEN  ('ErrorStatusManager') ('')
+WHEN  ('FileManager:Classes') ('')
+WHEN  ('FileManager:Courses') ('')
+WHEN  ('FileManager:Enrollment') ('')
+WHEN  ('FileManager:Majors') ('')
+WHEN  ('FileManager:Students') ('')
+WHEN  ('FileManager:Teachers') ('')
+WHEN  ('FuzzyMatcher') ('')
+WHEN  ('INIManager') ('')
+WHEN  ('RelationManager:Classes') ('')
+WHEN  ('RelationManager:Courses') ('')
+WHEN  ('RelationManager:Enrollment') ('')
+WHEN  ('RelationManager:Majors') ('')
+WHEN  ('RelationManager:Students') ('')
+WHEN  ('RelationManager:Teachers') ('')
+WHEN  ('Translator') ('')
+
+%ClassLines DEPEND %ClassItem MULTI DEFAULT TIMES 12
+WHEN  ('FileManager:Classes') ('Init {19}PROCEDURE(),DERIVED', 'Kill {19}PROCEDURE(),DERIVED', |
+  'UseFile {16}PROCEDURE(BYTE UseType = UseType:Uses),BYTE,PROC,DERIVED', 'ValidateFieldServer    PROCEDURE(UNSIGNED Id,BYTE HandleErrors),BYTE,PROC,DERIVED')
+WHEN  ('FileManager:Courses') ('BindFields {13}PROCEDURE(),DERIVED', 'Init {19}PROCEDURE(),DERIVED', |
+  'Kill {19}PROCEDURE(),DERIVED', 'UseFile {16}PROCEDURE(BYTE UseType = UseType:Uses),BYTE,PROC,DERIVED')
+WHEN  ('FileManager:Enrollment') ('Init {19}PROCEDURE(),DERIVED', 'Kill {19}PROCEDURE(),DERIVED', |
+  'UseFile {16}PROCEDURE(BYTE UseType = UseType:Uses),BYTE,PROC,DERIVED', 'ValidateFieldServer    PROCEDURE(UNSIGNED Id,BYTE HandleErrors),BYTE,PROC,DERIVED')
+WHEN  ('FileManager:Majors') ('Init {19}PROCEDURE(),DERIVED', 'Kill {19}PROCEDURE(),DERIVED', |
+  'UseFile {16}PROCEDURE(BYTE UseType = UseType:Uses),BYTE,PROC,DERIVED')
+WHEN  ('FileManager:Students') ('Init {19}PROCEDURE(),DERIVED', 'Kill {19}PROCEDURE(),DERIVED', |
+  'UseFile {16}PROCEDURE(BYTE UseType = UseType:Uses),BYTE,PROC,DERIVED', 'ValidateFieldServer    PROCEDURE(UNSIGNED Id,BYTE HandleErrors),BYTE,PROC,DERIVED')
+WHEN  ('FileManager:Teachers') ('Init {19}PROCEDURE(),DERIVED', 'Kill {19}PROCEDURE(),DERIVED', |
+  'UseFile {16}PROCEDURE(BYTE UseType = UseType:Uses),BYTE,PROC,DERIVED', 'ValidateFieldServer    PROCEDURE(UNSIGNED Id,BYTE HandleErrors),BYTE,PROC,DERIVED')
+WHEN  ('RelationManager:Classes') ('Init {19}PROCEDURE', 'DeferedAddRelations    PROCEDURE(),DERIVED', |
+  'Kill {19}PROCEDURE(),DERIVED')
+WHEN  ('RelationManager:Courses') ('Init {19}PROCEDURE', 'DeferedAddRelations    PROCEDURE(),DERIVED', |
+  'Kill {19}PROCEDURE(),DERIVED')
+WHEN  ('RelationManager:Enrollment') ('Init {19}PROCEDURE', 'DeferedAddRelations    PROCEDURE(),DERIVED', |
+  'Kill {19}PROCEDURE(),DERIVED')
+WHEN  ('RelationManager:Majors') ('Init {19}PROCEDURE', 'DeferedAddRelations    PROCEDURE(),DERIVED', |
+  'Kill {19}PROCEDURE(),DERIVED')
+WHEN  ('RelationManager:Students') ('Init {19}PROCEDURE', 'DeferedAddRelations    PROCEDURE(),DERIVED', |
+  'Kill {19}PROCEDURE(),DERIVED')
+WHEN  ('RelationManager:Teachers') ('Init {19}PROCEDURE', 'DeferedAddRelations    PROCEDURE(),DERIVED', |
+  'Kill {19}PROCEDURE(),DERIVED')
+
+%ExternalSource DEFAULT  ('Statically Linked Library (LIB)')
+%ProgramAuthor DEFAULT  ('')
+%ProgramIcon DEFAULT  ('')
+%MessageDescription LONG  (0)
+%GlobalExternal LONG  (0)
+%GenerateEmbedComments LONG  (0)
+%INIActive LONG  (0)
+%INIFile DEFAULT  ('Program Name.INI')
+%ININame DEFAULT  ('')
+%INIProgramIniLocation DEFAULT  ('APPDIR')
+%INICSIDLDirectory DEFAULT  ('SV:CSIDL_PERSONAL')
+%CSIDLCompanyDir DEFAULT  ('')
+%CSIDLProductDir DEFAULT  ('')
+%CSIDLCreate LONG  (0)
+%INIInAppDirectory LONG  (1)
+%ButtonMarginsCompatibility LONG  (0)
+%UseDefaultXPManifest LONG  (0)
+%GenerateXPManifest LONG  (0)
+%LinkGenerateXPManifest LONG  (0)
+%AddVistaXPManifest LONG  (0)
+%VistaManifestExecutionLevel DEFAULT  ('asInvoker')
+%VistaManifestUIAccess LONG  (0)
+%NoThemedControlsDependency LONG  (0)
+%VistaManifestdpiAware LONG  (1)
+%VistaManifestDependentAssembly MULTI LONG  ()
+%VistaManifestDependentAssemblyName DEPEND %VistaManifestDependentAssembly DEFAULT TIMES 0
+
+%VistaManifestDependentAssemblyVersion DEPEND %VistaManifestDependentAssembly DEFAULT TIMES 0
+
+%VistaManifestDependentAssemblyType DEPEND %VistaManifestDependentAssembly DEFAULT TIMES 0
+
+%VistaManifestDependentAssemblyPublicKeyToken DEPEND %VistaManifestDependentAssembly DEFAULT TIMES 0
+
+%VistaManifestDependentAssemblyLanguage DEPEND %VistaManifestDependentAssembly DEFAULT TIMES 0
+
+%VistaManifestDependentAssemblyProcessorArchitecture DEPEND %VistaManifestDependentAssembly LONG TIMES 0
+
+%W7ManifestVista LONG  (1)
+%W7ManifestW7 LONG  (1)
+%W7ManifestW8 LONG  (1)
+%W7ManifestW81 LONG  (1)
+%W7ManifestW10 LONG  (1)
+%ForceMakeTransparentXPManifest LONG  (0)
+%ForceMakeColorXPManifest LONG  (0)
+%ForceSHEETNoTheme LONG  (0)
+%ExtUIXPMenuEnableGlobal LONG  (0)
+%ExtUIXPMenuColorTypeGlobal DEFAULT  ('OFF')
+%ExtUIXPMenuDisableImageBar LONG  (1)
+%ExtUIXPMenuEnableRuntime LONG  (0)
+%ExtUIXPMenuRuntimeVar DEFAULT  ('')
+%ExtUIXPMenuColorLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorRightGlobal LONG  (12560039)
+%ExtUIXPMenuColorSelectionBarLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorSelectionBarRightGlobal LONG  (15920364)
+%ExtUIXPMenuSelVertical LONG  (1)
+%ExtUIXPMenuColorSelectionBorderGlobal LONG  (15920364)
+%ExtUIXPMenuColorHotLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorHotRightGlobal LONG  (15920364)
+%ExtUIXPMenuColorSelectedLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorSelectedRightGlobal LONG  (15920364)
+%ExtUIXPMenuColorNormalBarLeftGlobal LONG  (15920364)
+%ExtUIXPMenuColorNormalBarRightGlobal LONG  (15920364)
+%ExtUIXPMenuColorItemBackgroundGlobal LONG  (-2147483644)
+%ExtUIXPMenuColorNormalText LONG  (0)
+%ExtUIXPMenuColorSelectedText LONG  (0)
+%ExtUIXPMenuColorHotText LONG  (0)
+%ExtUIXPMenuFlat LONG  (1)
+%ExtUIXPMenuShowImageBar LONG  (0)
+%ExtUIXPMenuSeparator3D LONG  (1)
+%ExtUIXPMenuSeparatorFull LONG  (0)
+%ExtUIXPMenuVerticalLine LONG  (1)
+%ExtUIMDITabGlobal DEFAULT  ('DISABLE')
+%ExtUIMDITabStyleGlobal DEFAULT  ('Default')
+%ExtUITabStyleGlobal DEFAULT  ('Default')
+%WindowEnableEnhanceFocus LONG  (0)
+%SelectedText LONG  (1)
+%SelectedRadio LONG  (1)
+%SelectedSpin LONG  (1)
+%SelectedCheck LONG  (1)
+%SelectedDropList LONG  (1)
+%SelectedList LONG  (1)
+%SelectedDisplayChangeColor LONG  (1)
+%SelectedColor LONG  (65535)
+%SelectedStyle LONG  (1)
+%SelectedRequired LONG  (0)
+%SelectedRequiredColor LONG  (65535)
+%SelectedDisplayBox LONG  (1)
+%SelectedDisplayBoxFillColor LONG  (65535)
+%SelectedDisplayBoxBorderColor LONG  (0)
+%SelectedDisplayBoxBorderSize DEFAULT  ('2')
+%SelectedRequiredBox LONG  (0)
+%SelectedRequiredDisplayBoxFillColor LONG  (255)
+%SelectedRequiredDisplayBoxBorderColor LONG  (0)
+%SelectedCaret LONG  (1)
+%SelectedCaretColor LONG  (8421504)
+%SelectedCaretCharacter DEFAULT  ('»')
+%SelectedCaretCharacterSeparation DEFAULT  ('8')
+%ExcludeSelectedDropList LONG  (0)
+%EnableOSK DEFAULT  ('OFF')
+%GlobalUseEnterInsteadTab LONG  (0)
+%GlobalUseEnterInsteadTabExclude MULTI DEFAULT  ()
+%GlobalUseEnterInsteadTabEnable DEFAULT  ('Enable')
+%GlobalUseEnterInsteadTabEnableValue DEFAULT  ('True')
+%GlobalReportPreviewMode DEFAULT  ('Procedure')
+%GlobalReportPreview DEFAULT  ('ReportPreview')
+%GlobalInterLine DEFAULT  ('0')
+%GlobalEnableAutoSizeColumn LONG  (0)
+%GlobalEnableListFormatManager LONG  (0)
+%GlobalUserFieldListFormatManager DEFAULT  ('1')
+%TableOrigin DEFAULT  ('Application')
+%FileEquate DEFAULT  ('LFM_CFile')
+%ConfigFilePRE DEFAULT  ('CFG')
+%ConfigFileOEM LONG  (0)
+%ConfigFileTHREAD LONG  (1)
+%ConfigFileENCRYPT LONG  (0)
+%ConfigFilePASSWORD DEFAULT  ('')
+%FormatNameSize DEFAULT  ('30')
+%FormatBufferSize DEFAULT  ('5120')
+%VariableBufferSize DEFAULT  ('2048')
+%ConfigFilePath DEFAULT  ('')
+%UseConfigFileName DEFAULT  ('Default')
+%ConfigFileNAME DEFAULT  ('Formats.FDB')
+%ColonCounter DEFAULT  ('')
+%WrongSymbol DEFAULT  ('')
+%DictionaryTableOrigin FILE  ()
+%GlobalLFMSortOrderMenuText DEFAULT  ('SortOrder')
+%GlobalBrowseActiveInvisible LONG  (1)
+%GlobalEnableRebase LONG  (0)
+%RBDMethod DEFAULT  ('Specify manually')
+%RBDImageBase DEFAULT  ('10000000')
+%DefaultGenerate LONG  (1)
+%DefaultCloseFile DEFAULT  ('Close the File')
+%DefaultRILogout LONG  (1)
+%WarnOnLogoutError LONG  (1)
+%LockRecoverTime DEFAULT  ('10')
+%DefaultThreaded DEFAULT  ('Use File Setting')
+%DefaultCreate DEFAULT  ('Use File Setting')
+%DefaultExternal DEFAULT  ('None External')
+%DefaultLocalExternal LONG  (0)
+%DefaultExternalSource DEFAULT  ('')
+%DefaultExternalAPP LONG  (0)
+%DefaultExport LONG  (1)
+%TriggersSupportEnableGlobal LONG  (0)
+%TriggersManagerType DEFAULT  ('TriggerManager')
+%GlobalObject DEPEND %ClassItem DEFAULT TIMES 17
+WHEN  ('ErrorManager') ('YES')
+WHEN  ('ErrorStatusManager') ('YES')
+WHEN  ('FileManager:Classes') ('YES')
+WHEN  ('FileManager:Courses') ('YES')
+WHEN  ('FileManager:Enrollment') ('YES')
+WHEN  ('FileManager:Majors') ('YES')
+WHEN  ('FileManager:Students') ('YES')
+WHEN  ('FileManager:Teachers') ('YES')
+WHEN  ('FuzzyMatcher') ('YES')
+WHEN  ('INIManager') ('YES')
+WHEN  ('RelationManager:Classes') ('YES')
+WHEN  ('RelationManager:Courses') ('YES')
+WHEN  ('RelationManager:Enrollment') ('YES')
+WHEN  ('RelationManager:Majors') ('YES')
+WHEN  ('RelationManager:Students') ('YES')
+WHEN  ('RelationManager:Teachers') ('YES')
+WHEN  ('Translator') ('YES')
+
+%ThisObjectName DEPEND %ClassItem DEFAULT TIMES 17
+WHEN  ('ErrorManager') ('GlobalErrors')
+WHEN  ('ErrorStatusManager') ('GlobalErrorsStatus')
+WHEN  ('FileManager:Classes') ('Hide:Access:Classes')
+WHEN  ('FileManager:Courses') ('Hide:Access:Courses')
+WHEN  ('FileManager:Enrollment') ('Hide:Access:Enrollment')
+WHEN  ('FileManager:Majors') ('Hide:Access:Majors')
+WHEN  ('FileManager:Students') ('Hide:Access:Students')
+WHEN  ('FileManager:Teachers') ('Hide:Access:Teachers')
+WHEN  ('FuzzyMatcher') ('FuzzyMatcher')
+WHEN  ('INIManager') ('INIMgr')
+WHEN  ('RelationManager:Classes') ('Hide:Relate:Classes')
+WHEN  ('RelationManager:Courses') ('Hide:Relate:Courses')
+WHEN  ('RelationManager:Enrollment') ('Hide:Relate:Enrollment')
+WHEN  ('RelationManager:Majors') ('Hide:Relate:Majors')
+WHEN  ('RelationManager:Students') ('Hide:Relate:Students')
+WHEN  ('RelationManager:Teachers') ('Hide:Relate:Teachers')
+WHEN  ('Translator') ('Translator')
+
+%UseDefaultABCBaseClass DEPEND %ClassItem LONG TIMES 17
+WHEN  ('ErrorManager') (1)
+WHEN  ('ErrorStatusManager') (1)
+WHEN  ('FileManager:Classes') (1)
+WHEN  ('FileManager:Courses') (1)
+WHEN  ('FileManager:Enrollment') (1)
+WHEN  ('FileManager:Majors') (1)
+WHEN  ('FileManager:Students') (1)
+WHEN  ('FileManager:Teachers') (1)
+WHEN  ('FuzzyMatcher') (1)
+WHEN  ('INIManager') (1)
+WHEN  ('RelationManager:Classes') (1)
+WHEN  ('RelationManager:Courses') (1)
+WHEN  ('RelationManager:Enrollment') (1)
+WHEN  ('RelationManager:Majors') (1)
+WHEN  ('RelationManager:Students') (1)
+WHEN  ('RelationManager:Teachers') (1)
+WHEN  ('Translator') (1)
+
+%UseABCBaseClass DEPEND %ClassItem LONG TIMES 17
+WHEN  ('ErrorManager') (1)
+WHEN  ('ErrorStatusManager') (1)
+WHEN  ('FileManager:Classes') (1)
+WHEN  ('FileManager:Courses') (1)
+WHEN  ('FileManager:Enrollment') (1)
+WHEN  ('FileManager:Majors') (1)
+WHEN  ('FileManager:Students') (1)
+WHEN  ('FileManager:Teachers') (1)
+WHEN  ('FuzzyMatcher') (1)
+WHEN  ('INIManager') (1)
+WHEN  ('RelationManager:Classes') (1)
+WHEN  ('RelationManager:Courses') (1)
+WHEN  ('RelationManager:Enrollment') (1)
+WHEN  ('RelationManager:Majors') (1)
+WHEN  ('RelationManager:Students') (1)
+WHEN  ('RelationManager:Teachers') (1)
+WHEN  ('Translator') (1)
+
+%ABCBaseClass DEPEND %ClassItem DEFAULT TIMES 17
+WHEN  ('ErrorManager') ('')
+WHEN  ('ErrorStatusManager') ('')
+WHEN  ('FileManager:Classes') ('')
+WHEN  ('FileManager:Courses') ('')
+WHEN  ('FileManager:Enrollment') ('')
+WHEN  ('FileManager:Majors') ('')
+WHEN  ('FileManager:Students') ('')
+WHEN  ('FileManager:Teachers') ('')
+WHEN  ('FuzzyMatcher') ('')
+WHEN  ('INIManager') ('')
+WHEN  ('RelationManager:Classes') ('')
+WHEN  ('RelationManager:Courses') ('')
+WHEN  ('RelationManager:Enrollment') ('')
+WHEN  ('RelationManager:Majors') ('')
+WHEN  ('RelationManager:Students') ('')
+WHEN  ('RelationManager:Teachers') ('')
+WHEN  ('Translator') ('')
+
+%ExtBaseClass DEPEND %ClassItem DEFAULT TIMES 0
+
+%BaseClassIncludeFile DEPEND %ClassItem DEFAULT TIMES 0
+
+%DeriveFromBaseClass DEPEND %ClassItem LONG TIMES 17
+WHEN  ('ErrorManager') (0)
+WHEN  ('ErrorStatusManager') (0)
+WHEN  ('FileManager:Classes') (0)
+WHEN  ('FileManager:Courses') (0)
+WHEN  ('FileManager:Enrollment') (0)
+WHEN  ('FileManager:Majors') (0)
+WHEN  ('FileManager:Students') (0)
+WHEN  ('FileManager:Teachers') (0)
+WHEN  ('FuzzyMatcher') (0)
+WHEN  ('INIManager') (0)
+WHEN  ('RelationManager:Classes') (0)
+WHEN  ('RelationManager:Courses') (0)
+WHEN  ('RelationManager:Enrollment') (0)
+WHEN  ('RelationManager:Majors') (0)
+WHEN  ('RelationManager:Students') (0)
+WHEN  ('RelationManager:Teachers') (0)
+WHEN  ('Translator') (0)
+
+%NewMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewMethodName DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewMethodPrototype DEPEND %NewMethods DEFAULT TIMES 0
+
+%NewClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%NewClassProperty DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataType DEPEND %NewClassPropertyItems DEFAULT TIMES 3
+WHEN  ('FuzzyMatcher')TIMES 0
+WHEN  ('INIManager')TIMES 0
+WHEN  ('RelationManager:Majors')TIMES 0
+
+%NewClassOtherType DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataIsRef DEPEND %NewClassPropertyItems LONG TIMES 0
+
+%NewClassDataSize DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim1 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim2 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim3 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%NewClassDataDim4 DEPEND %NewClassPropertyItems DEFAULT TIMES 0
+
+%ClassMethods DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassMethodName DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassMethodPrototype DEPEND %ClassMethods DEFAULT TIMES 0
+
+%ClassPropertyItems DEPEND %ClassItem MULTI LONG TIMES 0
+
+%ClassProperty DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataType DEPEND %ClassPropertyItems DEFAULT TIMES 3
+WHEN  ('FuzzyMatcher')TIMES 0
+WHEN  ('INIManager')TIMES 0
+WHEN  ('RelationManager:Majors')TIMES 0
+
+%ClassOtherType DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataIsRef DEPEND %ClassPropertyItems LONG TIMES 0
+
+%ClassDataSize DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim1 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim2 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim3 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%ClassDataDim4 DEPEND %ClassPropertyItems DEFAULT TIMES 0
+
+%DefaultOpenMode DEFAULT  ('Share')
+%DefaultUserAccess DEFAULT  ('Read/Write')
+%DefaultOtherAccess DEFAULT  ('Deny None')
+%GeneratePropDataPath LONG  (0)
+%PropDataPathLocation DEFAULT  ('CSIDLLIKEINI')
+%DataPathCSIDLDirectory DEFAULT  ('SV:CSIDL_PERSONAL')
+%DataPathCSIDLCompanyDir DEFAULT  ('')
+%DataPathCSIDLProductDir DEFAULT  ('')
+%DataPathCSIDLCreate LONG  (0)
+%DataPathOtherDirectory DEFAULT  ('')
+%DataPathOtherDirectoryCreate LONG  (0)
+%OverrideGenerate DEPEND %File LONG TIMES 0
+
+%OverrideCloseFile DEPEND %File DEFAULT TIMES 0
+
+%OverrideRILogout DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('Use Default')
+WHEN  ('Courses') ('Use Default')
+WHEN  ('Enrollment') ('Use Default')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('Use Default')
+WHEN  ('Teachers') ('Use Default')
+
+%OverrideThreaded DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('Use Default')
+WHEN  ('Courses') ('Use Default')
+WHEN  ('Enrollment') ('Use Default')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('Use Default')
+WHEN  ('Teachers') ('Use Default')
+
+%OverrideCreate DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('Use Default')
+WHEN  ('Courses') ('Use Default')
+WHEN  ('Enrollment') ('Use Default')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('Use Default')
+WHEN  ('Teachers') ('Use Default')
+
+%OverrideExternal DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('Use Default')
+WHEN  ('Courses') ('Use Default')
+WHEN  ('Enrollment') ('Use Default')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('Use Default')
+WHEN  ('Teachers') ('Use Default')
+
+%OverrideLocalExternal DEPEND %File LONG TIMES 0
+
+%OverrideExternalSource DEPEND %File DEFAULT TIMES 0
+
+%OverrideExternalAPP DEPEND %File LONG TIMES 0
+
+%OverrideExport DEPEND %File LONG TIMES 0
+
+%OverrideOpenMode DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('Use Default')
+WHEN  ('Courses') ('Use Default')
+WHEN  ('Enrollment') ('Use Default')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('Use Default')
+WHEN  ('Teachers') ('Use Default')
+
+%OverrideUserAccess DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('Use Default')
+WHEN  ('Courses') ('Use Default')
+WHEN  ('Enrollment') ('Use Default')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('Use Default')
+WHEN  ('Teachers') ('Use Default')
+
+%OverrideOtherAccess DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('Use Default')
+WHEN  ('Courses') ('Use Default')
+WHEN  ('Enrollment') ('Use Default')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('Use Default')
+WHEN  ('Teachers') ('Use Default')
+
+%OverrideAbcSettings LONG  (0)
+%AbcSourceLocation DEFAULT  ('LINK')
+%AbcLibraryName DEFAULT  ('')
+%CWBrowseEIPManagerType DEFAULT  ('CWEIPManager')
+%EditInPlaceEntryType DEFAULT  ('EditEntryClass')
+%EditInPlaceTextType DEFAULT  ('EditTextClass')
+%EditInPlaceCheckType DEFAULT  ('EditCheckClass')
+%EditInPlaceSpinType DEFAULT  ('EditSpinClass')
+%EditInPlaceDropListType DEFAULT  ('EditDropListClass')
+%EditInPlaceDropComboType DEFAULT  ('EditDropComboClass')
+%EditInPlaceColorType DEFAULT  ('EditColorClass')
+%EditInPlaceFileType DEFAULT  ('EditFileClass')
+%EditInPlaceFontType DEFAULT  ('EditFontClass')
+%EditInPlaceMultiSelectType DEFAULT  ('EditMultiSelectClass')
+%EditInPlaceCalendarType DEFAULT  ('EditCalendarClass')
+%EditInPlaceLookupType DEFAULT  ('EditLookupClass')
+%EditInPlaceOtherType DEFAULT  ('EditEntryClass')
+%PrintPreviewType DEFAULT  ('PrintPreviewClass')
+%ReportTargetSelectorManagerType DEFAULT  ('ReportTargetSelectorClass')
+%CalendarManagerType DEFAULT  ('CalendarClass')
+%GlobalChangeColor LONG  (0)
+%GlobalColorSunday LONG  (255)
+%GlobalColorSaturday LONG  (255)
+%GlobalColorHoliday LONG  (32768)
+%GlobalColorOther LONG  (0)
+%GlobalSelectOnClose DEFAULT  ('Select and Close')
+%AppTemplateFamily DEFAULT  ('ABC')
+%CWTemplateVersion DEFAULT  ('v10.0')
+%INIType DEFAULT  ('NVD_INI')
+%REGRoot DEFAULT  ('REG_CLASSES_ROOT')
+%DisableINISaveWindow LONG  (0)
+%PreserveVars MULTI LONG  ()
+%PreserveVar DEPEND %PreserveVars DEFAULT TIMES 0
+
+%EnableRunTimeTranslator LONG  (0)
+%FuzzyMatchingEnabled LONG  (1)
+%IgnoreCase LONG  (1)
+%WordOnly LONG  (0)
+%DefaultLazyOpen LONG  (0)
+%FileDeclarationMode DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use User Options')
+WHEN  ('Classes') ('Use User Options')
+WHEN  ('Courses') ('Use User Options')
+WHEN  ('Enrollment') ('Use User Options')
+WHEN  ('Majors') ('Use User Options')
+WHEN  ('Students') ('Use User Options')
+WHEN  ('Teachers') ('Use User Options')
+
+%FileDeclarationType DEPEND %File LONG TIMES 7
+WHEN  ('') (0)
+WHEN  ('Classes') (0)
+WHEN  ('Courses') (0)
+WHEN  ('Enrollment') (0)
+WHEN  ('Majors') (0)
+WHEN  ('Students') (0)
+WHEN  ('Teachers') (0)
+
+%FileDeclarationThread DEPEND %File LONG TIMES 7
+WHEN  ('') (0)
+WHEN  ('Classes') (1)
+WHEN  ('Courses') (1)
+WHEN  ('Enrollment') (1)
+WHEN  ('Majors') (1)
+WHEN  ('Students') (1)
+WHEN  ('Teachers') (1)
+
+%FileDeclarationBindable DEPEND %File LONG TIMES 7
+WHEN  ('') (1)
+WHEN  ('Classes') (1)
+WHEN  ('Courses') (1)
+WHEN  ('Enrollment') (1)
+WHEN  ('Majors') (1)
+WHEN  ('Students') (1)
+WHEN  ('Teachers') (1)
+
+%FileDeclarationName DEPEND %File DEFAULT TIMES 0
+
+%FileDeclarationOver DEPEND %File DEFAULT TIMES 0
+
+%OverrideLazyOpen DEPEND %File DEFAULT TIMES 7
+WHEN  ('') ('Use Default')
+WHEN  ('Classes') ('Use Default')
+WHEN  ('Courses') ('Use Default')
+WHEN  ('Enrollment') ('Use Default')
+WHEN  ('Majors') ('Use Default')
+WHEN  ('Students') ('Use Default')
+WHEN  ('Teachers') ('Use Default')
+
+%OverrideDoNotAssertOnCloseMisuse DEPEND %File LONG TIMES 7
+WHEN  ('') (0)
+WHEN  ('Classes') (0)
+WHEN  ('Courses') (0)
+WHEN  ('Enrollment') (0)
+WHEN  ('Majors') (0)
+WHEN  ('Students') (0)
+WHEN  ('Teachers') (0)
+
+%StandardExternalModule DEPEND %Module LONG TIMES 3
+WHEN  ('') (1)
+WHEN  ('DataABC.clw') (1)
+WHEN  ('DataABC001.clw') (1)
+
+%NoGenerateGlobals LONG  (0)
+%WindowManagerType DEFAULT  ('WindowManager')
+%ResetOnGainFocus LONG  (0)
+%AutoToolbar LONG  (1)
+%AutoRefresh LONG  (1)
+%ImageClass DEFAULT  ('ImageManager')
+%ErrorStatusManagerType DEFAULT  ('ErrorStatusClass')
+%ErrorManagerType DEFAULT  ('ErrorClass')
+%DefaultErrorCategory DEFAULT  ('ABC')
+%AllowSelectCopy LONG  (0)
+%StoreErrorHistory LONG  (0)
+%LimitStoredHistory LONG  (0)
+%ErrorHistoryThreshold DEFAULT  ('300')
+%HistoryViewTrigger DEFAULT  ('Level:Fatal')
+%PopupClass DEFAULT  ('PopupClass')
+%SelectFileClass DEFAULT  ('SelectFileClass')
+%ResizerType DEFAULT  ('WindowResizeClass')
+%ResizerDeFaultFindParents LONG  (1)
+%ResizerDefaultOptimizeMoves LONG  (1)
+%ResizerDefaultOptimizeRedraws LONG  (1)
+%INIClass DEFAULT  ('INIClass')
+%RunTimeTranslatorType DEFAULT  ('TranslatorClass')
+%ExtractionFilename DEFAULT  ('')
+%TranslationGroups MULTI LONG  ()
+%TranslationFile DEPEND %TranslationGroups DEFAULT TIMES 0
+
+%TranslationGroup DEPEND %TranslationGroups DEFAULT TIMES 0
+
+%FileManagerType DEFAULT  ('FileManager')
+%ViewManagerType DEFAULT  ('ViewManager')
+%RelationManagerType DEFAULT  ('RelationManager')
+%BrowserType DEFAULT  ('BrowseClass')
+%ActiveInvisible LONG  (0)
+%AllowUnfilled LONG  (0)
+%RetainRow LONG  (1)
+%FileDropManagerType DEFAULT  ('FileDropClass')
+%FileDropComboManagerType DEFAULT  ('FileDropComboClass')
+%FormVCRManagerType DEFAULT  ('FormVCRClass')
+%BrowseEIPManagerType DEFAULT  ('BrowseEIPManager')
+%EditInPlaceInterface DEFAULT  ('Detailed')
+%EditInPlaceType DEFAULT  ('EditEntryClass')
+%QBEFormType DEFAULT  ('QueryFormClass')
+%QBEFormVisualType DEFAULT  ('QueryFormVisual')
+%QBEListType DEFAULT  ('QueryListClass')
+%QBEListVisualType DEFAULT  ('QueryListVisual')
+%StepManagerType DEFAULT  ('StepClass')
+%StepManagerLongType DEFAULT  ('StepLongClass')
+%StepManagerRealType DEFAULT  ('StepRealClass')
+%StepManagerStringType DEFAULT  ('StepStringClass')
+%StepManagerCustomType DEFAULT  ('StepCustomClass')
+%StepLocatorType DEFAULT  ('StepLocatorClass')
+%EntryLocatorType DEFAULT  ('EntryLocatorClass')
+%IncrementalLocatorType DEFAULT  ('IncrementalLocatorClass')
+%FilteredLocatorType DEFAULT  ('FilterLocatorClass')
+%FuzzyMatcherClass DEFAULT  ('FuzzyClass')
+%GridClass DEFAULT  ('GridClass')
+%SidebarClass DEFAULT  ('SidebarClass')
+%ProcessType DEFAULT  ('ProcessClass')
+%ReportManagerType DEFAULT  ('ReportManager')
+%BreakManagerType DEFAULT  ('BreakManagerClass')
+%AsciiViewerClass DEFAULT  ('AsciiViewerClass')
+%AsciiSearchClass DEFAULT  ('AsciiSearchClass')
+%AsciiPrintClass DEFAULT  ('AsciiPrintClass')
+%AsciiFileManagerType DEFAULT  ('AsciiFileClass')
+%ToolbarClass DEFAULT  ('ToolbarClass')
+%ToolbarListBoxType DEFAULT  ('ToolbarListboxClass')
+%ToolbarRelTreeType DEFAULT  ('ToolbarReltreeClass')
+%ToolbarUpdateClassType DEFAULT  ('ToolbarUpdateClass')
+%ToolbarFormVCRType DEFAULT  ('ToolbarFormVCRClass')
+%ABCVersion DEFAULT  ('10000')
+[PERSIST]
+%SaveCreateLocalMap DEFAULT  ('')
+%GenerationCompleted DEPEND %Module DEFAULT TIMES 2
+WHEN  ('DataABC.clw') ('1')
+WHEN  ('DataABC001.clw') ('1')
+
+%LastTarget32 DEFAULT  ('1')
+%LastProgramExtension DEFAULT  ('DLL')
+%LastApplicationDebug DEFAULT  ('1')
+%LastApplicationLocalLibrary DEFAULT  ('')
+[PROJECT]
+-- NAMESPACE DataABC
+#system win32 dll
+#model clarion dll
+#pragma debug(vid=>full)
+#pragma define(_ABCDllMode_=>0) -- GENERATED
+#pragma define(_ABCLinkMode_=>1) -- GENERATED
+#compile "DataABC.clw" -- GENERATED
+#compile "DataABC001.clw" -- GENERATED
+#compile "CWUtil.CLW" -- GENERATED
+#compile "DataABC_BC0.CLW" -- GENERATED
+#compile "DATAABC_BC.CLW" -- GENERATED
+#pragma link("C%V%asc%X%%L%.lib") -- GENERATED
+#pragma link("C%V%tps%X%%L%.lib") -- GENERATED
+#link "DataABC.DLL"
+[PROGRAM]
+[COMMON]
+FROM ABC ABC
+MODIFIED '2021/03/19' '15:42:55'
+[DATA]
+[SCREENCONTROLS]
+! PROMPT('Students :: Used:'),USE(?Used:Prompt)
+! ENTRY(@n-14),USE(Used),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(Used),RIGHT(1)
+Students::Used           LONG,THREAD
+!!> GUID('44a1bc34-0d20-4533-a09e-bd8095299ed0'),PROMPT('Students :: Used:'),HEADER('Students :: Used'),PICTURE(@n-14),TYPEMODE(INS),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Teachers :: Used:'),USE(?Used:Prompt)
+! ENTRY(@n-14),USE(Used),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(Used),RIGHT(1)
+Teachers::Used           LONG,THREAD
+!!> GUID('ec600d97-e17d-4f17-8cc1-249077a599cc'),PROMPT('Teachers :: Used:'),HEADER('Teachers :: Used'),PICTURE(@n-14),TYPEMODE(INS),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Classes :: Used:'),USE(?Used:Prompt)
+! ENTRY(@n-14),USE(Used),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(Used),RIGHT(1)
+Classes::Used            LONG,THREAD
+!!> GUID('62e2042a-c08f-46f4-b6a6-fa47aa070565'),PROMPT('Classes :: Used:'),HEADER('Classes :: Used'),PICTURE(@n-14),TYPEMODE(INS),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Enrollment :: Used:'),USE(?Used:Prompt)
+! ENTRY(@n-14),USE(Used),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(Used),RIGHT(1)
+Enrollment::Used         LONG,THREAD
+!!> GUID('210f5926-c5d5-4e12-9f3e-78a588f9a0d4'),PROMPT('Enrollment :: Used:'),HEADER('Enrollment :: Used'),PICTURE(@n-14),TYPEMODE(INS),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Courses :: Used:'),USE(?Used:Prompt)
+! ENTRY(@n-14),USE(Used),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(Used),RIGHT(1)
+Courses::Used            LONG,THREAD
+!!> GUID('b4fd4f2a-b4d9-4add-be5c-040c56c16c7a'),PROMPT('Courses :: Used:'),HEADER('Courses :: Used'),PICTURE(@n-14),TYPEMODE(INS),JUSTIFY(RIGHT,1)
+[SCREENCONTROLS]
+! PROMPT('Majors :: Used:'),USE(?Used:Prompt)
+! ENTRY(@n-14),USE(Used),RIGHT(1)
+[REPORTCONTROLS]
+! STRING(@n-14),USE(Used),RIGHT(1)
+Majors::Used             LONG,THREAD
+!!> GUID('6bd0b702-d318-448f-a7cc-1af931368628'),PROMPT('Majors :: Used:'),HEADER('Majors :: Used'),PICTURE(@n-14),TYPEMODE(INS),JUSTIFY(RIGHT,1)
+[EMBED]
+EMBED %GlobalMap
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+    module('w')
+OutputDebugString (*CSTRING),RAW,PASCAL,DLL(1),NAME('OutputDebugStringA')    
+    end
+[END]
+EMBED %FileManagerCodeSection
+[INSTANCES]
+WHEN 'Majors'
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '()'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 5001
+PROPERTY:END
+  SELF.Opened &= Majors::Used
+  cmsg='Hide:Access:Majors.INIT Thread=' & Thread() &'  Address Majors=' & Address(Majors) &'  Opened=' & Address(Majors::Used)
+  OutputDebugString(cmsg) 
+[END]
+[END]
+[END]
+WHEN 'Classes'
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '()'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4501
+PROPERTY:END
+  SELF.Opened &= Classes::Used
+
+[END]
+[END]
+[END]
+WHEN 'Courses'
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '()'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4501
+PROPERTY:END
+  SELF.Opened &= Courses::Used
+
+[END]
+[END]
+[END]
+WHEN 'Enrollment'
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '()'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4501
+PROPERTY:END
+  SELF.Opened &= Enrollment::Used
+
+[END]
+[END]
+[END]
+WHEN 'Students'
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '()'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4501
+PROPERTY:END
+  SELF.Opened &= Students::Used
+
+[END]
+[END]
+[END]
+WHEN 'Teachers'
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '()'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4501
+PROPERTY:END
+  SELF.Opened &= Teachers::Used
+
+[END]
+[END]
+[END]
+[END]
+EMBED %FileManagerDataSection
+[INSTANCES]
+WHEN 'Majors'
+[INSTANCES]
+WHEN 'Init'
+[INSTANCES]
+WHEN '()'
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+cMsg CSTRING(500)
+[END]
+[END]
+[END]
+[END]
+[END]
+[END]
+[MODULE]
+[COMMON]
+FROM ABC GENERATED
+[PROCEDURE]
+NAME AppRoot
+NOEXPORT
+[COMMON]
+DESCRIPTION 'ddd'
+FROM ABC Source
+MODIFIED '2021/03/15' '21:53:44'
+[FILES]
+[OTHERS]
+Enrollment
+[PROMPTS]
+%GenerateOpenClose LONG  (0)
+%GenerateSaveRestore LONG  (0)
+[EMBED]
+EMBED %DataSection
+[DEFINITION]
+[SOURCE]
+PROPERTY:BEGIN
+PRIORITY 4000
+PROPERTY:END
+x byte
+[END]
+[END]
+[END]

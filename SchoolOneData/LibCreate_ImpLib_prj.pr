@@ -1,0 +1,22 @@
+#noedit    
+
+-- AdvancedTopicsReferenceGuide.pdf shows EXP then LIB --> #implib <expfilename> <libfilename> which is WRONG
+-- docs say this -- #implib ALLFILES.EXP ALLFILES.LIB 
+
+--- But examples show LIB then EXP and that works ---
+
+#implib AbcInitDLL.LIB AbcInitDLL.exp 
+#implib DATAABC.LIB DATAABC.exp 
+-- #implib DATALEGACY.LIB DATALEGACY.exp 
+-- #implib Global.LIB Global.exp not used
+#implib PROCABC.LIB PROCABC.exp 
+#implib PROCLEGACY.LIB PROCLEGACY.exp 
+#implib RPTLEGACY.LIB RPTLEGACY.exp 
+
+-- EXE no need to make it would be Zero
+
+-- Below does not work because it runs this project before it builds the target LIB file
+-- #file delete LibCreate_ImpLib.LIB        
+-- What works is a Post Build command: DEL LibCreate_ImpLib.LIB
+-- Possibly the CWproj could be manually edited to not build a target 
+-- or to move the included PR to be After the build
