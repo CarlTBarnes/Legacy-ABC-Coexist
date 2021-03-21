@@ -22,3 +22,9 @@ Conversion should not be viewed as an All or Nothing process.
  Parts can remain Legacy while parts are converted to ABC. Or only new work can be done in ABC.
 
 Simon converts the CW 2.0 Club Manager in Legacy. I'll upload that in this Repo.
+
+###ClubMgrLegacy.zip
+
+Included in this folder is ClubMgrLegacy.zip. That was from the CW 2.0 Legacy Example APP.
+ I opened it in Clarion 10 and fixed all the problems so it builds clean. 
+ You could use this to try conversion as Simnon did.
