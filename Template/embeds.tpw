@@ -1,0 +1,33 @@
+#!
+#!TEMPLATE(ABC_EmbedDefs,'Embed definitions'),FAMILY('ABC')
+#!-----------------------------------------------------------------------------
+#CODE(Embed_Info,'Embed definition and info')
+#!-----------------------------------------------------------------------------
+#DECLARE(%TwoParams,LONG)
+#DECLARE(%ThirdParams,LONG)
+#DECLARE(%ParamString,STRING)
+#IF(%EmbedParameters)
+  #CLEAR(%TwoParams)
+  #SET(%TwoParams,INSTRING(',',%EmbedParameters,1,1))
+  #IF(%TwoParams)
+    #IF(SUB(%EmbedParameters,(%TwoParams+2),1) <> '(') 
+        #SET(%ThirdParams,INSTRING(',',%EmbedParameters,1,%TwoParams+2))
+        #SET(%ParamString,'''' & SUB(%EmbedParameters,1,(%TwoParams-1)) & ''',''' & SUB(%EmbedParameters,(%TwoParams+2),((%ThirdParams) - (%TwoParams+2))) & ''',''' & SUB(%EmbedParameters,(%ThirdParams+2),LEN(%EmbedParameters)) & '''')
+    #ELSE
+        #SET(%ParamString,'''' & SUB(%EmbedParameters,1,(%TwoParams-1)) & ''',''' & SUB(%EmbedParameters,(%TwoParams+2),LEN(%EmbedParameters)) & '''')
+    #END
+!>> #AT(%EmbedID,%ParamString),PRIORITY( ???? )
+  #ELSE
+!>> #AT(%EmbedID,'%EmbedParameters'),PRIORITY( ???? )
+  #ENDIF
+#ELSE
+!>> #AT(%EmbedID),PRIORITY( ???? )
+#ENDIF
+!>> !! What follows is debugging info
+!>> EmbedID........... = %EmbedID
+!>> EmbedParameters... = %EmbedParameters
+!>> Description....... = %EmbedDescription
+!>> Process........... = %ProcessType
+!>> Object............ = %ThisObjectName
+!>> TwoParams ........ = %TwoParams
+!>> ThreeParams....... = %ThirdParams
