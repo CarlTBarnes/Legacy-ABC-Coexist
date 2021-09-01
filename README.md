@@ -17,3 +17,9 @@ The School Example from CW 2.0 was used to create the Legacy Frame EXE and split
 ![diagram](images/readme1.png)
 
 ![cap](images/readme2.png)
+
+Shown during the ClarionLive Open Webinar:
+
+  * [ClarionLive Open Webinar March 17, 2021 at time 33:00](https://www.youtube.com/watch?v=SX3OJWlGoxs&t=33m00s)
+  
+  * [ClarionLive Open Webinar March 31, 2021 at time 56:10](https://www.youtube.com/watch?v=l5933Tuq4UI&t=56m10s)
